@@ -56,6 +56,11 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="Document\Documentview.aspx" />
+    <Content Include="Document\MainDocumentList.aspx" />
+    <Content Include="Document\DocumentRevision.aspx" />
+    <Content Include="Document\DocumentUpload.aspx" />
+    <Content Include="Document\ShareDocument.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -69,6 +74,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="Document\DocumentSearchResults.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About.aspx.cs">
@@ -113,8 +119,43 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Document\Documentview.aspx.cs">
+      <DependentUpon>Documentview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\Documentview.aspx.designer.cs">
+      <DependentUpon>Documentview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Document\DocumentRevision.aspx.cs">
+      <DependentUpon>DocumentRevision.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\DocumentRevision.aspx.designer.cs">
+      <DependentUpon>DocumentRevision.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Document\DocumentUpload.aspx.cs">
+      <DependentUpon>DocumentUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\DocumentUpload.aspx.designer.cs">
+      <DependentUpon>DocumentUpload.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Document\ShareDocument.aspx.cs">
+      <DependentUpon>ShareDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\ShareDocument.aspx.designer.cs">
+      <DependentUpon>ShareDocument.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Document\MainDocumentList.aspx.cs">
+      <DependentUpon>MainDocumentList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\MainDocumentList.aspx.designer.cs">
+      <DependentUpon>MainDocumentList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
@@ -123,6 +164,13 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Document\DocumentSearchResults.aspx.cs">
+      <DependentUpon>DocumentSearchResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\DocumentSearchResults.aspx.designer.cs">
+      <DependentUpon>DocumentSearchResults.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
