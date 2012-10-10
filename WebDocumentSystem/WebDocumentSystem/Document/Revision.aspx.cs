@@ -13,5 +13,15 @@ namespace WebDocumentSystem.Document
         {
 
         }
+
+        protected void btn_cancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("DocumentView.aspx");
+        }
+
+        protected void btn_update_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

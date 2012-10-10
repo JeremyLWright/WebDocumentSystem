@@ -11,7 +11,14 @@ namespace WebDocumentSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Page.PreviousPage != null)
+            {
+                TextBox SourceTextBox = (TextBox)Page.PreviousPage.FindControl("textbox_search");
+                if (SourceTextBox != null)
+                {
+                    textbox_search.Text = SourceTextBox.Text;
+                }
+            }
         }
     }
 }

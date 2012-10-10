@@ -13,5 +13,11 @@ namespace WebDocumentSystem
         {
 
         }
+
+        protected void btn_search_Click(object sender, EventArgs e)
+        {
+            //textbox_search.Text;
+            Response.Redirect("Search.aspx");
+        }
     }
 }
