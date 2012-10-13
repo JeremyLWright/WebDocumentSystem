@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebDocumentSystem.Models;
 
 namespace WebDocumentSystem
 {
@@ -11,7 +12,6 @@ namespace WebDocumentSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         protected void btn_search_Click(object sender, EventArgs e)
@@ -19,5 +19,11 @@ namespace WebDocumentSystem
             //textbox_search.Text;
             Response.Redirect("Search.aspx");
         }
+        protected IEnumerable<Models.Document> GetDocumentList()
+        {
+            WebDocDBEntities ctx  = new WebDocDBEntities();
+            return from c in ctx.Documents select c;
+        }
+        
     }
 }

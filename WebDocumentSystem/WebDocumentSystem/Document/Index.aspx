@@ -12,17 +12,48 @@
             </ul>
 </asp:Content>
 
+<asp:Content ID="ContentNav" ContentPlaceHolderID="MainNav" runat="server">
+<form id="SearchBox" action="Search.aspx" class="navbar-search pull-left" method="post">
+  <input type="text" class="search-query" placeholder="Search"/>
+</form>
+
+<div class="btn-group">
+  <button id="btn-upload" class="btn">Upload</button>
+  <button id="btn-download" class="btn">Download</button>
+  <button id="btn-delete" class="btn">Delete</button>
+  <button id="btn-share" class="btn">Share</button>
+</div>
+   
+</asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:TextBox ID="textbox_search" runat="server"></asp:TextBox>
-    <asp:Button ID="btn_search" runat="server" Text="Search" 
-        onclick="btn_search_Click"></asp:Button>
-    <br />
-    <asp:Button ID="btn_upload" runat="server" Text="Upload"></asp:Button>
-    <asp:Button ID="btn_download" runat="server" Text="Download"></asp:Button>
-    <asp:Button ID="btn_delete" runat="server" Text="Delete"></asp:Button>
-    <asp:Button ID="btn_share" runat="server" Text="Share"></asp:Button>
-    <br />
-    <asp:ListBox ID="listbox_documents" runat="server"></asp:ListBox>
-    <asp:ListBox ID="listbox_auditlog" runat="server"></asp:ListBox>
+    <table class="table table-hover table-condensed">
+        <thead>
+            <th></th>
+            <th>Title</th>
+            <th>Owner</th>
+            <th>Last Modified</th>
+            <th>Status</th>
+        </thead>
+        <tbody>
+        <% var data = GetDocumentList(); %>
+        <% foreach (var document in data) %>
+        <% { %>
+            <tr>
+                <td><input type="checkbox" /></td>
+                <td><a href="View.aspx?Id=<%=document.Id%>"><%= document.Name %></a></td>
+                <td>Bucky</td>
+                <td><%= DateTime.Now %></td>
+                <% if ((bool)document.IsLocked)
+                   { %>
+                    <td><img alt="Locked" src="../Images/glyphicons_203_lock.png" /></td>
+                <% }
+                   else
+                   { %>
+                    <td><img alt="" src="../Images/glyphicons_204_unlock.png" /></td>
+                <% }%>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
 </asp:Content>
