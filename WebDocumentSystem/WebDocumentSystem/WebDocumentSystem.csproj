@@ -72,10 +72,12 @@
     <Content Include="Document\Revision.aspx" />
     <Content Include="Document\Upload.aspx" />
     <Content Include="Document\Share.aspx" />
+    <Content Include="Document\_DocumentMetaData.aspx" />
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\DocumentHelper.js" />
     <Content Include="Styles\bootstrap-responsive.css" />
     <Content Include="Styles\bootstrap-responsive.min.css" />
     <Content Include="Styles\bootstrap.css" />
@@ -165,6 +167,13 @@
     </Compile>
     <Compile Include="Document\Share.aspx.designer.cs">
       <DependentUpon>Share.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Document\_DocumentMetaData.aspx.cs">
+      <DependentUpon>_DocumentMetaData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\_DocumentMetaData.aspx.designer.cs">
+      <DependentUpon>_DocumentMetaData.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
