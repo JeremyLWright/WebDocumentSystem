@@ -4,7 +4,7 @@
 
 
 function document_row_click(event) {
-    $('#DocumentNotes').load('/Document/_DocumentMetaData.aspx');
+    $('#DocumentNotes').load('/Document/_DocumentMetaData.aspx?DocumentId='+encodeURIComponent(getDocumentListRowId(event)));
 
     //alert('Processing Document: '+getDocumentListRowId(event));
 }
