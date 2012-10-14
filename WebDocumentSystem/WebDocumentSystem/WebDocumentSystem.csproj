@@ -67,11 +67,14 @@
     <Content Include="App_Data\WebDocDB_log.ldf">
       <DependentUpon>WebDocDB.mdf</DependentUpon>
     </Content>
+    <Content Include="Document\SuperSecretDeleteMeFile.aspx" />
     <Content Include="Document\View.aspx" />
     <Content Include="Document\Index.aspx" />
     <Content Include="Document\Revision.aspx" />
     <Content Include="Document\Upload.aspx" />
     <Content Include="Document\Share.aspx" />
+    <Content Include="Document\_DocumentDownloader.aspx" />
+    <Content Include="Document\_DocumentLock.aspx" />
     <Content Include="Document\_DocumentMetaData.aspx" />
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
@@ -140,6 +143,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Document\SuperSecretDeleteMeFile.aspx.cs">
+      <DependentUpon>SuperSecretDeleteMeFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\SuperSecretDeleteMeFile.aspx.designer.cs">
+      <DependentUpon>SuperSecretDeleteMeFile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Document\View.aspx.cs">
       <DependentUpon>View.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -167,6 +177,20 @@
     </Compile>
     <Compile Include="Document\Share.aspx.designer.cs">
       <DependentUpon>Share.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Document\_DocumentDownloader.aspx.cs">
+      <DependentUpon>_DocumentDownloader.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\_DocumentDownloader.aspx.designer.cs">
+      <DependentUpon>_DocumentDownloader.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Document\_DocumentLock.aspx.cs">
+      <DependentUpon>_DocumentLock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\_DocumentLock.aspx.designer.cs">
+      <DependentUpon>_DocumentLock.aspx</DependentUpon>
     </Compile>
     <Compile Include="Document\_DocumentMetaData.aspx.cs">
       <DependentUpon>_DocumentMetaData.aspx</DependentUpon>

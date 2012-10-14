@@ -22,7 +22,7 @@ namespace WebDocumentSystem
         protected IEnumerable<Models.Document> GetDocumentList()
         {
             WebDocDBEntities ctx  = new WebDocDBEntities();
-            return from c in ctx.Documents select c;
+            return from c in ctx.Documents orderby c.LastModified descending select c;
         }
         
     }

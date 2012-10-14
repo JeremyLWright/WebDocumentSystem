@@ -16,6 +16,11 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
+#region EDM Relationship Metadata
+
+[assembly: EdmRelationshipAttribute("WebDocDBModel", "FK_DocumentNotes_Document", "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.Document), "DocumentNote", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.DocumentNote), true)]
+
+#endregion
 
 namespace WebDocumentSystem.Models
 {
@@ -80,6 +85,22 @@ namespace WebDocumentSystem.Models
             }
         }
         private ObjectSet<Document> _Documents;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DocumentNote> DocumentNotes
+        {
+            get
+            {
+                if ((_DocumentNotes == null))
+                {
+                    _DocumentNotes = base.CreateObjectSet<DocumentNote>("DocumentNotes");
+                }
+                return _DocumentNotes;
+            }
+        }
+        private ObjectSet<DocumentNote> _DocumentNotes;
 
         #endregion
         #region AddTo Methods
@@ -90,6 +111,14 @@ namespace WebDocumentSystem.Models
         public void AddToDocuments(Document document)
         {
             base.AddObject("Documents", document);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DocumentNotes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDocumentNotes(DocumentNote documentNote)
+        {
+            base.AddObject("DocumentNotes", documentNote);
         }
 
         #endregion
@@ -114,10 +143,12 @@ namespace WebDocumentSystem.Models
         /// Create a new Document object.
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
-        public static Document CreateDocument(global::System.Int32 id)
+        /// <param name="isLocked">Initial value of the IsLocked property.</param>
+        public static Document CreateDocument(global::System.Int32 id, global::System.Boolean isLocked)
         {
             Document document = new Document();
             document.Id = id;
+            document.IsLocked = isLocked;
             return document;
         }
 
@@ -178,9 +209,9 @@ namespace WebDocumentSystem.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> IsLocked
+        public global::System.Boolean IsLocked
         {
             get
             {
@@ -195,8 +226,8 @@ namespace WebDocumentSystem.Models
                 OnIsLockedChanged();
             }
         }
-        private Nullable<global::System.Boolean> _IsLocked;
-        partial void OnIsLockedChanging(Nullable<global::System.Boolean> value);
+        private global::System.Boolean _IsLocked;
+        partial void OnIsLockedChanging(global::System.Boolean value);
         partial void OnIsLockedChanged();
     
         /// <summary>
@@ -246,9 +277,206 @@ namespace WebDocumentSystem.Models
         private global::System.Byte[] _DocContent;
         partial void OnDocContentChanging(global::System.Byte[] value);
         partial void OnDocContentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastModified
+        {
+            get
+            {
+                return _LastModified;
+            }
+            set
+            {
+                OnLastModifiedChanging(value);
+                ReportPropertyChanging("LastModified");
+                _LastModified = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastModified");
+                OnLastModifiedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastModified;
+        partial void OnLastModifiedChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastModifiedChanged();
 
         #endregion
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocDBModel", "FK_DocumentNotes_Document", "DocumentNote")]
+        public EntityCollection<DocumentNote> DocumentNotes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DocumentNote>("WebDocDBModel.FK_DocumentNotes_Document", "DocumentNote");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DocumentNote>("WebDocDBModel.FK_DocumentNotes_Document", "DocumentNote", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocDBModel", Name="DocumentNote")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DocumentNote : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DocumentNote object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="documentId">Initial value of the DocumentId property.</param>
+        /// <param name="note">Initial value of the Note property.</param>
+        public static DocumentNote CreateDocumentNote(global::System.Int32 id, global::System.Int32 documentId, global::System.String note)
+        {
+            DocumentNote documentNote = new DocumentNote();
+            documentNote.Id = id;
+            documentNote.DocumentId = documentId;
+            documentNote.Note = note;
+            return documentNote;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DocumentId
+        {
+            get
+            {
+                return _DocumentId;
+            }
+            set
+            {
+                OnDocumentIdChanging(value);
+                ReportPropertyChanging("DocumentId");
+                _DocumentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DocumentId");
+                OnDocumentIdChanged();
+            }
+        }
+        private global::System.Int32 _DocumentId;
+        partial void OnDocumentIdChanging(global::System.Int32 value);
+        partial void OnDocumentIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Note
+        {
+            get
+            {
+                return _Note;
+            }
+            set
+            {
+                OnNoteChanging(value);
+                ReportPropertyChanging("Note");
+                _Note = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Note");
+                OnNoteChanged();
+            }
+        }
+        private global::System.String _Note;
+        partial void OnNoteChanging(global::System.String value);
+        partial void OnNoteChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocDBModel", "FK_DocumentNotes_Document", "Document")]
+        public Document Document
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocDBModel.FK_DocumentNotes_Document", "Document").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocDBModel.FK_DocumentNotes_Document", "Document").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Document> DocumentReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocDBModel.FK_DocumentNotes_Document", "Document");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Document>("WebDocDBModel.FK_DocumentNotes_Document", "Document", value);
+                }
+            }
+        }
+
+        #endregion
     }
 
     #endregion

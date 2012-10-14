@@ -7,9 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WebDocumentSystem {
+namespace WebDocumentSystem.Document {
     
     
-    public partial class SearchResults {
+    public partial class _DocumentDownloader {
     }
 }

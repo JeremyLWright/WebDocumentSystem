@@ -5,28 +5,22 @@
 
 <asp:Content ID="DocumentNotes" ContentPlaceHolderID="SideBarContent" runat="server">
     <ul id="DocumentNotes" class="nav nav-list">
-              <li class="nav-header">Revision Histroy</li>
-              <li class="active"><a href="#">Revison 10</a></li>
-              <% for (int i = 9; i > 0; i--) %>
-			  <% { %>
-			        <li><a href="#">Revision <%= i %> </a></li>
-			  <% } %>  
-            </ul>
+        <li class="nav-header">Document Notes</li>
+    </ul>
 </asp:Content>
 
 <asp:Content ID="ContentNav" ContentPlaceHolderID="MainNav" runat="server">
-<form id="SearchBox" action="Search.aspx" class="navbar-search pull-left" method="post">
-  <input type="text" class="search-query" placeholder="Search"/> 
-  <button type="submit" class="btn">Search</button>
-</form>
+    <form id="SearchBox" action="Search.aspx" class="form-search" method="post">
+      <input type="text" name="search_term" class="input-medium search-query" placeholder="Search"/> 
+      <button id="btn-search" type="submit" class="btn">Search</button>
+    </form>
 
-<div class="btn-group">
-  <button id="btn-upload" class="btn">Upload</button>
-  <button id="btn-download" class="btn">Download</button>
-  <button id="btn-delete" class="btn">Delete</button>
-  <button id="btn-share" class="btn">Share</button>
-</div>
-   
+    <div class="btn-group">
+      <button id="btn-upload" class="btn">Upload</button>
+      <button id="btn-download" class="btn">Download</button>
+      <button id="btn-delete" class="btn">Delete</button>
+      <button id="btn-share" class="btn">Share</button>
+    </div>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -42,11 +36,11 @@
         <% var data = GetDocumentList(); %>
         <% foreach (var document in data) %>
         <% { %>
-            <tr onclick="document_row_click(this)">
-                <td><input type="checkbox" /><i style="visibility: hidden"><%=document.Id %></i></td>
-                <td><a href="View.aspx?Id=<%=document.Id%>"><%= document.Name %></a></td>
+            <tr data-documentId="<%=document.Id %>" onclick="document_row_click(this)">
+                <td><input type="checkbox" /></td>
+                <td ><a href="View.aspx?DocumentId=<%=document.Id%>"><%= document.Name %></a></td>
                 <td>Bucky</td>
-                <td><%= DateTime.Now %></td>
+                <td><%= document.LastModified %></td>
                 <% if ((bool)document.IsLocked)
                    { %>
                     <td onclick="document_lock_click(this)" data-lock="true"><img alt="Locked" src="../Images/glyphicons_203_lock.png" /></td>
