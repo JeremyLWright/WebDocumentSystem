@@ -16,7 +16,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <dl>
     <% foreach ( var note in releventNotes) {%>
-        <dt><%= GetRelatedDocumentName(note) %></dt>
+        <% var relatedDocument = GetRelatedDocument(note); %>
+        <dt><a href="View.aspx?DocumentId=<%=relatedDocument.Id%>"><%= relatedDocument.Name%></a></dt>
         <dd><%= note.Note.Replace(search_term, "<b class=\"text-info\">"+search_term+"</b>") %></dd>
     <% } %>
     </dl>

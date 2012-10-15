@@ -20,12 +20,12 @@ namespace WebDocumentSystem
                          select d;
         }
 
-        protected string GetRelatedDocumentName(DocumentNote note)
+        protected Models.Document GetRelatedDocument(DocumentNote note)
         {
             var relatedDocument = (from d in ctx.Documents
                                    where d.Id == note.DocumentId
                                    select d).First();
-            return relatedDocument.Name;
+            return relatedDocument;
         }
 
         protected WebDocDBEntities ctx;

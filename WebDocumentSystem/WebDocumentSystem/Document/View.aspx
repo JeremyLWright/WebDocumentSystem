@@ -11,9 +11,9 @@
 <asp:Content ID="ContentNav" ContentPlaceHolderID="MainNav" runat="server">
 <asp:CheckBox ID="checkbox_lock" runat="server" Text="Lock"/>
 <br />
-<asp:Button ID="btn_download" runat="server" Text="Download" />
-<asp:Button ID="btn_revisions" runat="server" Text="Revisions" />
-<asp:Button ID="btn_update" runat="server" Text="Update" />
+<a class="btn" id="btn_download" href="_DocumentDownloader.aspx?DocumentId=<%=Request.QueryString["DocumentId"] %>">Download</a>
+<a class="btn" id="btn_revisions" href="Revision.aspx?DocumentId=<%=Request.QueryString["DocumentId"] %>">Revision</a>
+<a class="btn" id="btn_update" href="Upload.aspx?DocumentId=<%=Request.QueryString["DocumentId"] %>">Update</a>
 </asp:Content>
 
 <asp:Content ID="DocumentNotes" ContentPlaceHolderID="SideBarContent" runat="server">
