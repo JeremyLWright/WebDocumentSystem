@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="WebDocumentSystem.MainDocumentList" %>
+
 <asp:Content ID="ContentJS" ContentPlaceHolderID="HeadContent" runat="server">
 <script type="text/javascript" src="../Scripts/DocumentHelper.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#documentListContainer').load('/Document/_DocumentList.aspx?page=<%=pageNumber %>');
+    });
+</script>
 </asp:Content>
 
 <asp:Content ID="DocumentNotes" ContentPlaceHolderID="SideBarContent" runat="server">
@@ -24,33 +30,16 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <table class="table table-hover table-condensed">
-        <thead>
-            <th></th>
-            <th>Title</th>
-            <th>Owner</th>
-            <th>Last Modified</th>
-            <th>Status</th>
-        </thead>
-        <tbody>
-        <% var data = GetDocumentList(); %>
-        <% foreach (var document in data) %>
-        <% { %>
-            <tr data-documentId="<%=document.Id %>" onclick="document_row_click(this)">
-                <td><input type="checkbox" /></td>
-                <td ><a href="View.aspx?DocumentId=<%=document.Id%>"><%= document.Name %></a></td>
-                <td>Bucky</td>
-                <td><%= document.LastModified %></td>
-                <% if ((bool)document.IsLocked)
-                   { %>
-                    <td onclick="document_lock_click(this)" data-lock="true"><img alt="Locked" src="../Images/glyphicons_203_lock.png" /></td>
-                <% }
-                   else
-                   { %>
-                    <td onclick="document_lock_click(this)" data-lock="false"><img alt="" src="../Images/glyphicons_204_unlock.png" /></td>
-                <% }%>
-            </tr>
-        <% } %>
-        </tbody>
-    </table>
+    <div id="documentListContainer">
+        <!-- Loaded Via AJAX -->
+    </div>
+
+    <ul data-page="<%=pageNumber %>" class="pager">
+        <li class="previous">
+            <a onclick="document_list_page(this, 'prev')" href="#">&larr; Prev</a>
+        </li>
+        <li class="next">
+            <a onclick="document_list_page(this, 'next')" href="#">Next &rarr;</a>
+        </li>
+    </ul>
 </asp:Content>

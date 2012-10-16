@@ -74,6 +74,7 @@
     <Content Include="Document\Upload.aspx" />
     <Content Include="Document\Share.aspx" />
     <Content Include="Document\_DocumentDownloader.aspx" />
+    <Content Include="Document\_DocumentList.aspx" />
     <Content Include="Document\_DocumentLock.aspx" />
     <Content Include="Document\_DocumentMetaData.aspx" />
     <Content Include="Images\glyphicons-halflings-white.png" />
@@ -143,6 +144,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Document\PagingExtensions.cs" />
     <Compile Include="Document\SuperSecretDeleteMeFile.aspx.cs">
       <DependentUpon>SuperSecretDeleteMeFile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -184,6 +186,13 @@
     </Compile>
     <Compile Include="Document\_DocumentDownloader.aspx.designer.cs">
       <DependentUpon>_DocumentDownloader.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Document\_DocumentList.aspx.cs">
+      <DependentUpon>_DocumentList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\_DocumentList.aspx.designer.cs">
+      <DependentUpon>_DocumentList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Document\_DocumentLock.aspx.cs">
       <DependentUpon>_DocumentLock.aspx</DependentUpon>

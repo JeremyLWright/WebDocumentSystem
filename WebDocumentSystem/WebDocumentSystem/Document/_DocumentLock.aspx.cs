@@ -21,7 +21,7 @@ namespace WebDocumentSystem.Document
             var document = (from d in ctx.Documents
                             where d.Id == DocumentId
                             select d).First();
-            document.LastModified = DateTime.Now;
+            //document..CreatedDate = DateTime.Now;
 
             if(document.IsLocked == true)
                 document.IsLocked = false;

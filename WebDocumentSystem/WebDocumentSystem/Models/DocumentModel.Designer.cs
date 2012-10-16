@@ -18,6 +18,8 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
+[assembly: EdmRelationshipAttribute("WebDocDBModel", "FK_Audit_Log_Document", "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.Document), "Audit_Log", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.Audit_Log), true)]
+[assembly: EdmRelationshipAttribute("WebDocDBModel", "FK_DocumentData_Document", "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.Document), "DocumentData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.DocumentData), true)]
 [assembly: EdmRelationshipAttribute("WebDocDBModel", "FK_DocumentNotes_Document", "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.Document), "DocumentNote", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.DocumentNote), true)]
 
 #endregion
@@ -73,6 +75,22 @@ namespace WebDocumentSystem.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<Audit_Log> Audit_Log
+        {
+            get
+            {
+                if ((_Audit_Log == null))
+                {
+                    _Audit_Log = base.CreateObjectSet<Audit_Log>("Audit_Log");
+                }
+                return _Audit_Log;
+            }
+        }
+        private ObjectSet<Audit_Log> _Audit_Log;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<Document> Documents
         {
             get
@@ -85,6 +103,22 @@ namespace WebDocumentSystem.Models
             }
         }
         private ObjectSet<Document> _Documents;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DocumentData> DocumentDatas
+        {
+            get
+            {
+                if ((_DocumentDatas == null))
+                {
+                    _DocumentDatas = base.CreateObjectSet<DocumentData>("DocumentDatas");
+                }
+                return _DocumentDatas;
+            }
+        }
+        private ObjectSet<DocumentData> _DocumentDatas;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -106,11 +140,27 @@ namespace WebDocumentSystem.Models
         #region AddTo Methods
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the Audit_Log EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAudit_Log(Audit_Log audit_Log)
+        {
+            base.AddObject("Audit_Log", audit_Log);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the Documents EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToDocuments(Document document)
         {
             base.AddObject("Documents", document);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DocumentDatas EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDocumentDatas(DocumentData documentData)
+        {
+            base.AddObject("DocumentDatas", documentData);
         }
     
         /// <summary>
@@ -132,6 +182,189 @@ namespace WebDocumentSystem.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocDBModel", Name="Audit_Log")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Audit_Log : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Audit_Log object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="document">Initial value of the Document property.</param>
+        /// <param name="message">Initial value of the Message property.</param>
+        /// <param name="date">Initial value of the Date property.</param>
+        public static Audit_Log CreateAudit_Log(global::System.Int32 id, global::System.Int32 document, global::System.String message, global::System.DateTime date)
+        {
+            Audit_Log audit_Log = new Audit_Log();
+            audit_Log.Id = id;
+            audit_Log.Document = document;
+            audit_Log.Message = message;
+            audit_Log.Date = date;
+            return audit_Log;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Document
+        {
+            get
+            {
+                return _Document;
+            }
+            set
+            {
+                if (_Document != value)
+                {
+                    OnDocumentChanging(value);
+                    ReportPropertyChanging("Document");
+                    _Document = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Document");
+                    OnDocumentChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Document;
+        partial void OnDocumentChanging(global::System.Int32 value);
+        partial void OnDocumentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Message
+        {
+            get
+            {
+                return _Message;
+            }
+            set
+            {
+                if (_Message != value)
+                {
+                    OnMessageChanging(value);
+                    ReportPropertyChanging("Message");
+                    _Message = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("Message");
+                    OnMessageChanged();
+                }
+            }
+        }
+        private global::System.String _Message;
+        partial void OnMessageChanging(global::System.String value);
+        partial void OnMessageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                if (_Date != value)
+                {
+                    OnDateChanging(value);
+                    ReportPropertyChanging("Date");
+                    _Date = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Date");
+                    OnDateChanged();
+                }
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocDBModel", "FK_Audit_Log_Document", "Document")]
+        public Document Document1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocDBModel.FK_Audit_Log_Document", "Document").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocDBModel.FK_Audit_Log_Document", "Document").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Document> Document1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocDBModel.FK_Audit_Log_Document", "Document");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Document>("WebDocDBModel.FK_Audit_Log_Document", "Document", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="WebDocDBModel", Name="Document")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -144,11 +377,13 @@ namespace WebDocumentSystem.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="isLocked">Initial value of the IsLocked property.</param>
-        public static Document CreateDocument(global::System.Int32 id, global::System.Boolean isLocked)
+        /// <param name="lastModified">Initial value of the LastModified property.</param>
+        public static Document CreateDocument(global::System.Int32 id, global::System.Boolean isLocked, global::System.DateTime lastModified)
         {
             Document document = new Document();
             document.Id = id;
             document.IsLocked = isLocked;
+            document.LastModified = lastModified;
             return document;
         }
 
@@ -259,6 +494,182 @@ namespace WebDocumentSystem.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Revision
+        {
+            get
+            {
+                return _Revision;
+            }
+            set
+            {
+                OnRevisionChanging(value);
+                ReportPropertyChanging("Revision");
+                _Revision = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Revision");
+                OnRevisionChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Revision;
+        partial void OnRevisionChanging(Nullable<global::System.Int32> value);
+        partial void OnRevisionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime LastModified
+        {
+            get
+            {
+                return _LastModified;
+            }
+            set
+            {
+                OnLastModifiedChanging(value);
+                ReportPropertyChanging("LastModified");
+                _LastModified = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastModified");
+                OnLastModifiedChanged();
+            }
+        }
+        private global::System.DateTime _LastModified;
+        partial void OnLastModifiedChanging(global::System.DateTime value);
+        partial void OnLastModifiedChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocDBModel", "FK_Audit_Log_Document", "Audit_Log")]
+        public EntityCollection<Audit_Log> Audit_Log
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Audit_Log>("WebDocDBModel.FK_Audit_Log_Document", "Audit_Log");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Audit_Log>("WebDocDBModel.FK_Audit_Log_Document", "Audit_Log", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocDBModel", "FK_DocumentData_Document", "DocumentData")]
+        public EntityCollection<DocumentData> DocumentDatas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DocumentData>("WebDocDBModel.FK_DocumentData_Document", "DocumentData");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DocumentData>("WebDocDBModel.FK_DocumentData_Document", "DocumentData", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocDBModel", "FK_DocumentNotes_Document", "DocumentNote")]
+        public EntityCollection<DocumentNote> DocumentNotes
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DocumentNote>("WebDocDBModel.FK_DocumentNotes_Document", "DocumentNote");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DocumentNote>("WebDocDBModel.FK_DocumentNotes_Document", "DocumentNote", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocDBModel", Name="DocumentData")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DocumentData : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DocumentData object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="createdDate">Initial value of the CreatedDate property.</param>
+        /// <param name="document">Initial value of the Document property.</param>
+        public static DocumentData CreateDocumentData(global::System.Int32 id, global::System.DateTime createdDate, global::System.Int32 document)
+        {
+            DocumentData documentData = new DocumentData();
+            documentData.Id = id;
+            documentData.CreatedDate = createdDate;
+            documentData.Document = document;
+            return documentData;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
         public global::System.Byte[] DocContent
         {
             get
@@ -281,26 +692,50 @@ namespace WebDocumentSystem.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> LastModified
+        public global::System.DateTime CreatedDate
         {
             get
             {
-                return _LastModified;
+                return _CreatedDate;
             }
             set
             {
-                OnLastModifiedChanging(value);
-                ReportPropertyChanging("LastModified");
-                _LastModified = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("LastModified");
-                OnLastModifiedChanged();
+                OnCreatedDateChanging(value);
+                ReportPropertyChanging("CreatedDate");
+                _CreatedDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedDate");
+                OnCreatedDateChanged();
             }
         }
-        private Nullable<global::System.DateTime> _LastModified;
-        partial void OnLastModifiedChanging(Nullable<global::System.DateTime> value);
-        partial void OnLastModifiedChanged();
+        private global::System.DateTime _CreatedDate;
+        partial void OnCreatedDateChanging(global::System.DateTime value);
+        partial void OnCreatedDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Document
+        {
+            get
+            {
+                return _Document;
+            }
+            set
+            {
+                OnDocumentChanging(value);
+                ReportPropertyChanging("Document");
+                _Document = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Document");
+                OnDocumentChanged();
+            }
+        }
+        private global::System.Int32 _Document;
+        partial void OnDocumentChanging(global::System.Int32 value);
+        partial void OnDocumentChanged();
 
         #endregion
     
@@ -312,18 +747,34 @@ namespace WebDocumentSystem.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WebDocDBModel", "FK_DocumentNotes_Document", "DocumentNote")]
-        public EntityCollection<DocumentNote> DocumentNotes
+        [EdmRelationshipNavigationPropertyAttribute("WebDocDBModel", "FK_DocumentData_Document", "Document")]
+        public Document Document1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DocumentNote>("WebDocDBModel.FK_DocumentNotes_Document", "DocumentNote");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocDBModel.FK_DocumentData_Document", "Document").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocDBModel.FK_DocumentData_Document", "Document").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Document> Document1Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocDBModel.FK_DocumentData_Document", "Document");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DocumentNote>("WebDocDBModel.FK_DocumentNotes_Document", "DocumentNote", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Document>("WebDocDBModel.FK_DocumentData_Document", "Document", value);
                 }
             }
         }

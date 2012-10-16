@@ -23,3 +23,15 @@ function document_lock_click(event) {
         event.childNodes[0].attributes["src"].value = "../Images/glyphicons_203_lock.png";
     }
 }
+
+function document_list_page(element, direction) {
+    var pagerNode = element.parentNode.parentNode;
+    var currentPage = parseInt(pagerNode.attributes["data-page"].value);
+    if (direction == "next")
+        currentPage = currentPage + 1;
+    else if (direction == "prev" && currentPage > 1)
+        currentPage = currentPage - 1;
+    pagerNode.attributes["data-page"].value = currentPage;
+
+    $('#documentListContainer').load('/Document/_DocumentList.aspx?page='+currentPage);
+}

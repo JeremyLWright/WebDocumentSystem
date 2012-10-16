@@ -22,7 +22,11 @@ namespace WebDocumentSystem.Document
                       where d.Id == requestedId
                       select d).First();
 
-            using (Stream st = new MemoryStream(doc.DocContent))
+            var data = (from d in ctx.DocumentDatas
+                        where d.Id == doc.Revision
+                        select d).First();
+
+            using (Stream st = new MemoryStream(data.DocContent))
             {
                 byte[] buffer = new byte[blockSize];
 

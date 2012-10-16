@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebDocumentSystem.Models;
+using WebDocumentSystem.Document;
 
 namespace WebDocumentSystem
 {
@@ -12,18 +13,15 @@ namespace WebDocumentSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            pageNumber = 1;
+            var pageQuery = Request.QueryString["page"];
+            if (pageQuery != null)
+                pageNumber = Int32.Parse(pageQuery); 
         }
 
-        protected void btn_search_Click(object sender, EventArgs e)
-        {
-            //textbox_search.Text;
-            Response.Redirect("Search.aspx");
-        }
-        protected IEnumerable<Models.Document> GetDocumentList()
-        {
-            WebDocDBEntities ctx  = new WebDocDBEntities();
-            return from c in ctx.Documents orderby c.LastModified descending select c;
-        }
-        
+        protected int pageNumber;
+
     }
+
+    
 }

@@ -21,5 +21,6 @@
         <dd><%= note.Note.Replace(search_term, "<b class=\"text-info\">"+search_term+"</b>") %></dd>
     <% } %>
     </dl>
+
     <a id="btn-done" class="btn" href="Index.aspx">Done</a>
 </asp:Content>
