@@ -5,8 +5,9 @@ function getDocumentListRowId(row) {
 
 
 function document_row_click(event) {
-    $('#DocumentNotes').load('/Document/_DocumentMetaData.aspx?DocumentId='+event.attributes["data-documentId"].value);
-
+    selectedRow = event.attributes["data-documentId"].value;
+    $("#DocumentNotes").attr("data-selected-document", selectedRow);
+    $('#DocumentNotes').load('/Document/_DocumentMetaData.aspx?DocumentId=' + selectedRow);
     //alert('Processing Document: '+getDocumentListRowId(event));
 }
 
@@ -33,5 +34,5 @@ function document_list_page(element, direction) {
         currentPage = currentPage - 1;
     pagerNode.attributes["data-page"].value = currentPage;
 
-    $('#documentListContainer').load('/Document/_DocumentList.aspx?page='+currentPage);
+    $('#documentListContainer').load('/Document/_DocumentList.aspx?page=' + currentPage);
 }

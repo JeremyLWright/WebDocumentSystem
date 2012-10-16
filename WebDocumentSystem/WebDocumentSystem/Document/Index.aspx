@@ -3,14 +3,22 @@
 <asp:Content ID="ContentJS" ContentPlaceHolderID="HeadContent" runat="server">
 <script type="text/javascript" src="../Scripts/DocumentHelper.js"></script>
 <script type="text/javascript">
+    var lastSelectedRow = null;
     $(document).ready(function () {
-        $('#documentListContainer').load('/Document/_DocumentList.aspx?page=<%=pageNumber %>');
+        $('#documentListContainer').load('/Document/_DocumentList.aspx?page=<%=pageNumber %>').hide().fadeIn('slow');
+        $("#btn-revert").bind("click", function (evt) {
+            selectedRow = $("#DocumentNotes").attr("data-selected-document");
+
+            //Process the Revison buttion click
+            window.location.href = "/Document/Revision.aspx?DocumentId=" + selectedRow;
+        });
+
     });
 </script>
 </asp:Content>
 
 <asp:Content ID="DocumentNotes" ContentPlaceHolderID="SideBarContent" runat="server">
-    <ul id="DocumentNotes" class="nav nav-list">
+    <ul id="DocumentNotes" data-selected-document="0" class="nav nav-list">
         <li class="nav-header">Document Notes</li>
     </ul>
 </asp:Content>
@@ -26,12 +34,16 @@
       <button id="btn-download" class="btn">Download</button>
       <button id="btn-delete" class="btn">Delete</button>
       <button id="btn-share" class="btn">Share</button>
+      <button id="btn-revert" class="btn">Versions</button>
     </div>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    
     <div id="documentListContainer">
         <!-- Loaded Via AJAX -->
+        <center><img alt="Loading Documents" src="../Images/spinner.gif"/></center>
+        
     </div>
 
     <ul data-page="<%=pageNumber %>" class="pager">

@@ -21,13 +21,17 @@ namespace WebDocumentSystem.Document
                 {
                     var document = new Models.Document();
                     document.Name = "Document_" + i;
-                    rnd.NextBytes(b);
                     
-                    var documentData = new Models.DocumentData();
-                    
-                    document.DocumentDatas.Add(documentData);
-                    document.Revision = documentData.Id;
-                    documentData.DocContent = b;
+                    for (int j = 0; j < 15; ++j)
+                    {
+                        var documentData = new Models.DocumentData();
+
+                        document.DocumentDatas.Add(documentData);
+                        document.Revision = documentData.Id;
+                        rnd.NextBytes(b);
+                        documentData.DocContent = b;
+
+                    }
                     ctx.Documents.AddObject(document);
                     
                 }
