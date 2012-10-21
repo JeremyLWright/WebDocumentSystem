@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Test {
+namespace WebDocumentSystem.Document {
     
     
-    public partial class _Default {
+    public partial class DocumentUpload {
         
         /// <summary>
-        /// tb_userid control.
+        /// UploadDocument control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tb_userid;
+        protected global::System.Web.UI.HtmlControls.HtmlForm UploadDocument;
         
         /// <summary>
         /// FileUpload_doc control.
@@ -38,15 +38,6 @@ namespace Test {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tb_name;
-        
-        /// <summary>
-        /// RequiredFieldValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
         /// btn_upload control.

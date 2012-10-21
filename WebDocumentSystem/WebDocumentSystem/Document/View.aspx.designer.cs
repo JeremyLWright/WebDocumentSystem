@@ -11,14 +11,5 @@ namespace WebDocumentSystem.Document {
     
     
     public partial class Documentview {
-        
-        /// <summary>
-        /// checkbox_lock control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox checkbox_lock;
     }
 }

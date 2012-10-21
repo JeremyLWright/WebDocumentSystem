@@ -12,7 +12,7 @@ namespace WebDocumentSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ctx = new WebDocDBEntities();
+            ctx = new WebDocEntities();
             search_term = Request.Form["search_term"];
             
             releventNotes = from d in ctx.DocumentNotes
@@ -28,7 +28,7 @@ namespace WebDocumentSystem
             return relatedDocument;
         }
 
-        protected WebDocDBEntities ctx;
+        protected WebDocEntities ctx;
         protected string search_term;
         protected IEnumerable<Models.DocumentNote> releventNotes;
     }

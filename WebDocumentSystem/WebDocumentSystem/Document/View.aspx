@@ -9,7 +9,7 @@
 </asp:Content>
 
 <asp:Content ID="ContentNav" ContentPlaceHolderID="MainNav" runat="server">
-<asp:CheckBox ID="checkbox_lock" runat="server" Text="Lock"/>
+<input type=checkbox ID="checkbox_lock" text="Lock"/>
 <br />
 <a class="btn" id="btn_download" href="_DocumentDownloader.aspx?DocumentId=<%=Request.QueryString["DocumentId"] %>">Download</a>
 <a class="btn" id="btn_revisions" href="Revision.aspx?DocumentId=<%=Request.QueryString["DocumentId"] %>">Revision</a>

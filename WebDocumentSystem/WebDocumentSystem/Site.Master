@@ -65,7 +65,7 @@
       <div class="row-fluid">
         <div class="span3">
           <div class="well sidebar-nav">
-                <!--<form id="Form1" runat="server">-->
+                
                 <asp:ContentPlaceHolder ID="SideBarContent" runat="server" />
             
           </div><!--/.well -->
@@ -78,7 +78,7 @@
                 <asp:ContentPlaceHolder ID="MainContent" runat="server"/>   
             </div>
 
-            <!--</form>-->
+            
         </div>
     </div>
     <hr />

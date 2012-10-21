@@ -6,62 +6,56 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.SqlClient;
-using System.Configuration;
+using WebDocumentSystem.Models;
 
-namespace Test
+namespace WebDocumentSystem.Document
 {
-    public partial class _Default : System.Web.UI.Page
+    public partial class DocumentUpload : System.Web.UI.Page
     {
 
-        SqlConnection con = new SqlConnection();
         protected void Page_Load(object sender, EventArgs e)
         {
-            con.ConnectionString = ConfigurationManager.ConnectionStrings["cn"].ConnectionString;
+            ctx = new WebDocEntities();
+            var upload = Request.Form["FileUpload_doc"];
+            this.btn_upload.Click  += new System.EventHandler(this.btn_upload_Click);
+            this.Load += new System.EventHandler(this.Page_Load);
+            base.OnInit(e);
+            if (upload != null)
+            {
+
+            }
+
         }
 
         protected void btn_upload_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (FileUpload_doc.HasFile)
+                
+                if (FileUpload_doc.PostedFile != null)
                 {
                     byte[] doc = new byte[FileUpload_doc.PostedFile.ContentLength];
                     HttpPostedFile mydoc = FileUpload_doc.PostedFile;
                     mydoc.InputStream.Read(doc, 0, FileUpload_doc.PostedFile.ContentLength);
 
-                    SqlCommand cmd = new SqlCommand("Insert into docs (document_name, user_id, is_locked, locked_by, document_content) values (@doc_name, @u_id, 1, 0, @doc_content)", con);
-                    SqlParameter doc_name = new SqlParameter("@doc_name", SqlDbType.NVarChar);
-                    doc_name.Value = tb_name.Text;
-                    cmd.Parameters.Add(doc_name);
+                    var document = new Models.Document();
+                    document.Name = tb_name.Text;
 
-                    SqlParameter u_id = new SqlParameter("@u_id", SqlDbType.Int);
-                    u_id.Value = Convert.ToInt32(tb_userid.Text);
-                    cmd.Parameters.Add(u_id);
+                    var documentData = new Models.DocumentData();
 
-                    SqlParameter doc_content = new SqlParameter("@doc_content", SqlDbType.VarBinary);
-                    doc_content.Value = doc;
-                    cmd.Parameters.Add(doc_content);
+                    document.DocumentDatas.Add(documentData);
+                    document.Revision = documentData.Id;
+                    documentData.DocContent = doc;
 
-                    con.Open();
-                    lbl_msg.Text = "Document Uploaded";
-                    cmd.ExecuteNonQuery();
-                    cmd.Dispose();
+                    ctx.Documents.AddObject(document);
+                    ctx.SaveChanges();
+                    Response.Redirect("Index.aspx");
+
                 }
                 else
                     lbl_msg.Text = "Cannot Upload Document";
-            }
-
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                con.Close();
-            }
+                 
 
         }
+        protected WebDocEntities ctx;
     }
 }
 

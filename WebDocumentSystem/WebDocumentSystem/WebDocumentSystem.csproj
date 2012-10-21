@@ -219,6 +219,7 @@
     <Compile Include="Document\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ModelPartials.cs" />
     <Compile Include="Models\DocumentModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -17,7 +17,7 @@ namespace WebDocumentSystem.Document
 
         protected IQueryable<Models.Document> GetDocumentList()
         {
-            WebDocDBEntities ctx = new WebDocDBEntities();
+            WebDocEntities ctx = new WebDocEntities();
             return from c in ctx.Documents orderby c.LastModified descending select c;
         }
     }

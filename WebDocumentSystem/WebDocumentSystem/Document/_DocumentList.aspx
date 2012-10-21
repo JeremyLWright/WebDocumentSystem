@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="_DocumentList.aspx.cs" Inherits="WebDocumentSystem.Document._DocumentList" %>
+
 <table class="table table-hover table-condensed">
         <thead>
             <th></th>
@@ -21,7 +22,7 @@
         <% foreach (var document in page_data) %>
         <% { %>
             <tr data-documentId="<%=document.Id %>" onclick="document_row_click(this)">
-                <td><input type="checkbox" /></td>
+                <td><input type="checkbox"/></td>
                 <td ><a href="View.aspx?DocumentId=<%=document.Id%>"><%= document.Name %></a></td>
                 <td>Bucky</td>
                 <td><%= document.LastModified %></td>
@@ -37,3 +38,4 @@
         <% } %>
         </tbody>
     </table>
+    

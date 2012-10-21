@@ -30,7 +30,7 @@
     </form>
 
     <div class="btn-group">
-      <button id="btn-upload" class="btn">Upload</button>
+      <a href="DocumentUpload.aspx" id="btn-upload" class="btn">Upload</a>
       <button id="btn-download" class="btn">Download</button>
       <button id="btn-delete" class="btn">Delete</button>
       <button id="btn-share" class="btn">Share</button>
@@ -40,11 +40,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     
-    <div id="documentListContainer">
+    
+    <div id="documentListContainer">    
         <!-- Loaded Via AJAX -->
         <center><img alt="Loading Documents" src="../Images/spinner.gif"/></center>
-        
     </div>
+    
 
     <ul data-page="<%=pageNumber %>" class="pager">
         <li class="previous">

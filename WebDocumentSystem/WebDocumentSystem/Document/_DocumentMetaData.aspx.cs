@@ -18,7 +18,7 @@ namespace WebDocumentSystem.Document
 
         protected string GetDocumentName(int DocumentId)
         {
-            WebDocDBEntities ctx = new WebDocDBEntities();
+            WebDocEntities ctx = new WebDocEntities();
             var document = (from d in ctx.Documents
                             where d.Id == DocumentId
                             select d).First();
@@ -27,7 +27,7 @@ namespace WebDocumentSystem.Document
 
         protected IEnumerable<Models.DocumentNote> GetDocumentNotesList(int DocumentId)
         {
-            WebDocDBEntities ctx = new WebDocDBEntities();
+            WebDocEntities ctx = new WebDocEntities();
             //Get the Document
             var document = (from d in ctx.Documents 
                             where d.Id == DocumentId 

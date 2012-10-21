@@ -21,7 +21,7 @@ namespace WebDocumentSystem.Document
             {
                 //Process the form and return to the document list
                 int.TryParse(Request.Form["DocumentId"], out documentId);
-                WebDocDBEntities ctx = new WebDocDBEntities();
+                WebDocEntities ctx = new WebDocEntities();
 
                 Models.Document doc = (from c in ctx.Documents
                                        where c.Id == documentId
@@ -37,7 +37,7 @@ namespace WebDocumentSystem.Document
 
         protected IQueryable<Models.DocumentData> GetVersions()
         {
-            WebDocDBEntities ctx = new WebDocDBEntities();
+            WebDocEntities ctx = new WebDocEntities();
             return from c in ctx.DocumentDatas
                    where c.Document == documentId
                    orderby c.CreatedDate descending 

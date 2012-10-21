@@ -17,7 +17,7 @@ namespace WebDocumentSystem.Document
 
         protected bool AttemptLock(int DocumentId)
         {
-            WebDocDBEntities ctx = new WebDocDBEntities();
+            WebDocEntities ctx = new WebDocEntities();
             var document = (from d in ctx.Documents
                             where d.Id == DocumentId
                             select d).First();

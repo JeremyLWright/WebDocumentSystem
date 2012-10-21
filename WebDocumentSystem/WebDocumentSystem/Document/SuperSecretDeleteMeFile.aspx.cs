@@ -12,11 +12,11 @@ namespace WebDocumentSystem.Document
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            using ( WebDocDBEntities ctx = new WebDocDBEntities())
+            using ( WebDocEntities ctx = new WebDocEntities())
             {
                 Random rnd = new Random();
                 byte[] b = new byte[4096];
-                
+               
                 for (var i = 0; i < 1000; ++i)
                 {
                     var document = new Models.Document();
@@ -35,7 +35,8 @@ namespace WebDocumentSystem.Document
                     ctx.Documents.AddObject(document);
                     
                 }
-                
+                ctx.SaveChanges();
+
                 foreach(var document in ctx.Documents)
                 {
                     for(int i = 0; i < 5; i++)

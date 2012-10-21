@@ -15,7 +15,7 @@ namespace WebDocumentSystem.Document
         protected void Page_Load(object sender, EventArgs e)
         {
             const int blockSize = 4096;
-            ctx = new WebDocDBEntities();
+            ctx = new WebDocEntities();
             requestedId = Int32.Parse(Request.QueryString["DocumentId"]);
 
             var doc = (from d in ctx.Documents
@@ -47,7 +47,7 @@ namespace WebDocumentSystem.Document
         }
 
 
-        protected WebDocDBEntities ctx;
+        protected WebDocEntities ctx;
         protected int requestedId;
     }
 }
