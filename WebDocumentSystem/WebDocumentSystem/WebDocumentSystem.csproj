@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="Document\DocumentUpload.aspx.cs">
       <DependentUpon>DocumentUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Document\DocumentUpload.aspx.designer.cs">
       <DependentUpon>DocumentUpload.aspx</DependentUpon>
