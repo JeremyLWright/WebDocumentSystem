@@ -40,13 +40,13 @@ namespace WebDocumentSystem.Document {
         protected global::System.Web.UI.WebControls.TextBox tb_name;
         
         /// <summary>
-        /// btn_upload control.
+        /// txt_encrypt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_upload;
+        protected global::System.Web.UI.WebControls.TextBox txt_encrypt;
         
         /// <summary>
         /// lbl_msg control.
@@ -56,5 +56,14 @@ namespace WebDocumentSystem.Document {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbl_msg;
+        
+        /// <summary>
+        /// btn_upload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_upload;
     }
 }

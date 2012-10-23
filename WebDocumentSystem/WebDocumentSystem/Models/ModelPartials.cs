@@ -18,6 +18,7 @@ namespace WebDocumentSystem.Models
         public DocumentData()
         {
             CreatedDate = DateTime.Now;
+            Encrypted = false;
         }
     }
 

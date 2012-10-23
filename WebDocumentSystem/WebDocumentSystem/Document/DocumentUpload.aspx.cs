@@ -32,20 +32,27 @@ namespace WebDocumentSystem.Document
                 
                 if (FileUpload_doc.PostedFile != null)
                 {
-                    byte[] doc = new byte[FileUpload_doc.PostedFile.ContentLength];
-                    HttpPostedFile mydoc = FileUpload_doc.PostedFile;
-                    mydoc.InputStream.Read(doc, 0, FileUpload_doc.PostedFile.ContentLength);
+                    if (txt_encrypt.Text == "")
+                    {
+                        byte[] doc = new byte[FileUpload_doc.PostedFile.ContentLength];
+                        HttpPostedFile mydoc = FileUpload_doc.PostedFile;
+                        mydoc.InputStream.Read(doc, 0, FileUpload_doc.PostedFile.ContentLength);
 
-                    var document = new Models.Document();
-                    document.Name = tb_name.Text;
+                        var document = new Models.Document();
+                        document.Name = tb_name.Text;
 
-                    var documentData = new Models.DocumentData();
+                        var documentData = new Models.DocumentData();
 
-                    document.DocumentDatas.Add(documentData);
-                    document.Revision = documentData.Id;
-                    documentData.DocContent = doc;
+                        document.DocumentDatas.Add(documentData);
+                        document.Revision = documentData.Id;
+                        documentData.DocContent = doc;
 
-                    ctx.Documents.AddObject(document);
+                        ctx.Documents.AddObject(document);
+                    }
+                    else
+                    {
+                        //Perform Encryption
+                    }
                     ctx.SaveChanges();
                     Response.Redirect("Index.aspx");
 

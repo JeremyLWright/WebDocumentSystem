@@ -650,12 +650,14 @@ namespace WebDocumentSystem.Models
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="createdDate">Initial value of the CreatedDate property.</param>
         /// <param name="document">Initial value of the Document property.</param>
-        public static DocumentData CreateDocumentData(global::System.Int32 id, global::System.DateTime createdDate, global::System.Int32 document)
+        /// <param name="encrypted">Initial value of the Encrypted property.</param>
+        public static DocumentData CreateDocumentData(global::System.Int32 id, global::System.DateTime createdDate, global::System.Int32 document, global::System.Boolean encrypted)
         {
             DocumentData documentData = new DocumentData();
             documentData.Id = id;
             documentData.CreatedDate = createdDate;
             documentData.Document = document;
+            documentData.Encrypted = encrypted;
             return documentData;
         }
 
@@ -760,6 +762,30 @@ namespace WebDocumentSystem.Models
         private global::System.Int32 _Document;
         partial void OnDocumentChanging(global::System.Int32 value);
         partial void OnDocumentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Encrypted
+        {
+            get
+            {
+                return _Encrypted;
+            }
+            set
+            {
+                OnEncryptedChanging(value);
+                ReportPropertyChanging("Encrypted");
+                _Encrypted = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Encrypted");
+                OnEncryptedChanged();
+            }
+        }
+        private global::System.Boolean _Encrypted;
+        partial void OnEncryptedChanging(global::System.Boolean value);
+        partial void OnEncryptedChanged();
 
         #endregion
     

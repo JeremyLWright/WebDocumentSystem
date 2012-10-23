@@ -29,10 +29,19 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Button class="btn" ID="btn_upload" runat="server" Text="Upload" />
+                    Enter Encryption Key: 
                 </td>
                 <td>
+                <asp:TextBox ID="txt_encrypt" name="txt_encrypt" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                
                 <asp:Label ID="lbl_msg" runat="server"></asp:Label>
+                </td>
+                <td>
+                <asp:Button class="btn" ID="btn_upload" runat="server" Text="Upload" />
                 </td>
             </tr>
             </table>
