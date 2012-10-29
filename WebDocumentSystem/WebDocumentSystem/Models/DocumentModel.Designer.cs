@@ -151,6 +151,102 @@ namespace WebDocumentSystem.Models
             }
         }
         private ObjectSet<sysdiagram> _sysdiagrams;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<access_table> access_table
+        {
+            get
+            {
+                if ((_access_table == null))
+                {
+                    _access_table = base.CreateObjectSet<access_table>("access_table");
+                }
+                return _access_table;
+            }
+        }
+        private ObjectSet<access_table> _access_table;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<override_access> override_access
+        {
+            get
+            {
+                if ((_override_access == null))
+                {
+                    _override_access = base.CreateObjectSet<override_access>("override_access");
+                }
+                return _override_access;
+            }
+        }
+        private ObjectSet<override_access> _override_access;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<user_accounts2> user_accounts2
+        {
+            get
+            {
+                if ((_user_accounts2 == null))
+                {
+                    _user_accounts2 = base.CreateObjectSet<user_accounts2>("user_accounts2");
+                }
+                return _user_accounts2;
+            }
+        }
+        private ObjectSet<user_accounts2> _user_accounts2;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<user_reporting> user_reporting
+        {
+            get
+            {
+                if ((_user_reporting == null))
+                {
+                    _user_reporting = base.CreateObjectSet<user_reporting>("user_reporting");
+                }
+                return _user_reporting;
+            }
+        }
+        private ObjectSet<user_reporting> _user_reporting;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<user_requests> user_requests
+        {
+            get
+            {
+                if ((_user_requests == null))
+                {
+                    _user_requests = base.CreateObjectSet<user_requests>("user_requests");
+                }
+                return _user_requests;
+            }
+        }
+        private ObjectSet<user_requests> _user_requests;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<user_types> user_types
+        {
+            get
+            {
+                if ((_user_types == null))
+                {
+                    _user_types = base.CreateObjectSet<user_types>("user_types");
+                }
+                return _user_types;
+            }
+        }
+        private ObjectSet<user_types> _user_types;
 
         #endregion
         #region AddTo Methods
@@ -194,6 +290,54 @@ namespace WebDocumentSystem.Models
         {
             base.AddObject("sysdiagrams", sysdiagram);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the access_table EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToaccess_table(access_table access_table)
+        {
+            base.AddObject("access_table", access_table);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the override_access EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTooverride_access(override_access override_access)
+        {
+            base.AddObject("override_access", override_access);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the user_accounts2 EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTouser_accounts2(user_accounts2 user_accounts2)
+        {
+            base.AddObject("user_accounts2", user_accounts2);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the user_reporting EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTouser_reporting(user_reporting user_reporting)
+        {
+            base.AddObject("user_reporting", user_reporting);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the user_requests EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTouser_requests(user_requests user_requests)
+        {
+            base.AddObject("user_requests", user_requests);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the user_types EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddTouser_types(user_types user_types)
+        {
+            base.AddObject("user_types", user_types);
+        }
 
         #endregion
     }
@@ -202,6 +346,87 @@ namespace WebDocumentSystem.Models
     #endregion
     
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="access_table")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class access_table : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new access_table object.
+        /// </summary>
+        /// <param name="access_id">Initial value of the access_id property.</param>
+        /// <param name="access_type">Initial value of the access_type property.</param>
+        public static access_table Createaccess_table(global::System.Int32 access_id, global::System.String access_type)
+        {
+            access_table access_table = new access_table();
+            access_table.access_id = access_id;
+            access_table.access_type = access_type;
+            return access_table;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 access_id
+        {
+            get
+            {
+                return _access_id;
+            }
+            set
+            {
+                if (_access_id != value)
+                {
+                    Onaccess_idChanging(value);
+                    ReportPropertyChanging("access_id");
+                    _access_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("access_id");
+                    Onaccess_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _access_id;
+        partial void Onaccess_idChanging(global::System.Int32 value);
+        partial void Onaccess_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String access_type
+        {
+            get
+            {
+                return _access_type;
+            }
+            set
+            {
+                Onaccess_typeChanging(value);
+                ReportPropertyChanging("access_type");
+                _access_type = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("access_type");
+                Onaccess_typeChanged();
+            }
+        }
+        private global::System.String _access_type;
+        partial void Onaccess_typeChanging(global::System.String value);
+        partial void Onaccess_typeChanged();
+
+        #endregion
+    
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -1007,6 +1232,142 @@ namespace WebDocumentSystem.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="override_access")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class override_access : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new override_access object.
+        /// </summary>
+        /// <param name="document_id">Initial value of the document_id property.</param>
+        /// <param name="user_id">Initial value of the user_id property.</param>
+        /// <param name="authorized_by">Initial value of the authorized_by property.</param>
+        /// <param name="access_privikege">Initial value of the access_privikege property.</param>
+        public static override_access Createoverride_access(global::System.String document_id, global::System.String user_id, global::System.String authorized_by, global::System.Int32 access_privikege)
+        {
+            override_access override_access = new override_access();
+            override_access.document_id = document_id;
+            override_access.user_id = user_id;
+            override_access.authorized_by = authorized_by;
+            override_access.access_privikege = access_privikege;
+            return override_access;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String document_id
+        {
+            get
+            {
+                return _document_id;
+            }
+            set
+            {
+                if (_document_id != value)
+                {
+                    Ondocument_idChanging(value);
+                    ReportPropertyChanging("document_id");
+                    _document_id = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("document_id");
+                    Ondocument_idChanged();
+                }
+            }
+        }
+        private global::System.String _document_id;
+        partial void Ondocument_idChanging(global::System.String value);
+        partial void Ondocument_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                if (_user_id != value)
+                {
+                    Onuser_idChanging(value);
+                    ReportPropertyChanging("user_id");
+                    _user_id = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("user_id");
+                    Onuser_idChanged();
+                }
+            }
+        }
+        private global::System.String _user_id;
+        partial void Onuser_idChanging(global::System.String value);
+        partial void Onuser_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String authorized_by
+        {
+            get
+            {
+                return _authorized_by;
+            }
+            set
+            {
+                Onauthorized_byChanging(value);
+                ReportPropertyChanging("authorized_by");
+                _authorized_by = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("authorized_by");
+                Onauthorized_byChanged();
+            }
+        }
+        private global::System.String _authorized_by;
+        partial void Onauthorized_byChanging(global::System.String value);
+        partial void Onauthorized_byChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 access_privikege
+        {
+            get
+            {
+                return _access_privikege;
+            }
+            set
+            {
+                Onaccess_privikegeChanging(value);
+                ReportPropertyChanging("access_privikege");
+                _access_privikege = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("access_privikege");
+                Onaccess_privikegeChanged();
+            }
+        }
+        private global::System.Int32 _access_privikege;
+        partial void Onaccess_privikegeChanging(global::System.Int32 value);
+        partial void Onaccess_privikegeChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="sysdiagram")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1154,6 +1515,595 @@ namespace WebDocumentSystem.Models
         private global::System.Byte[] _definition;
         partial void OndefinitionChanging(global::System.Byte[] value);
         partial void OndefinitionChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="user_accounts2")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class user_accounts2 : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new user_accounts2 object.
+        /// </summary>
+        /// <param name="user_id">Initial value of the user_id property.</param>
+        /// <param name="password">Initial value of the password property.</param>
+        /// <param name="user_type">Initial value of the user_type property.</param>
+        /// <param name="name">Initial value of the name property.</param>
+        public static user_accounts2 Createuser_accounts2(global::System.String user_id, global::System.String password, global::System.Int32 user_type, global::System.String name)
+        {
+            user_accounts2 user_accounts2 = new user_accounts2();
+            user_accounts2.user_id = user_id;
+            user_accounts2.password = password;
+            user_accounts2.user_type = user_type;
+            user_accounts2.name = name;
+            return user_accounts2;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                if (_user_id != value)
+                {
+                    Onuser_idChanging(value);
+                    ReportPropertyChanging("user_id");
+                    _user_id = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("user_id");
+                    Onuser_idChanged();
+                }
+            }
+        }
+        private global::System.String _user_id;
+        partial void Onuser_idChanging(global::System.String value);
+        partial void Onuser_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String password
+        {
+            get
+            {
+                return _password;
+            }
+            set
+            {
+                if (_password != value)
+                {
+                    OnpasswordChanging(value);
+                    ReportPropertyChanging("password");
+                    _password = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("password");
+                    OnpasswordChanged();
+                }
+            }
+        }
+        private global::System.String _password;
+        partial void OnpasswordChanging(global::System.String value);
+        partial void OnpasswordChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 user_type
+        {
+            get
+            {
+                return _user_type;
+            }
+            set
+            {
+                if (_user_type != value)
+                {
+                    Onuser_typeChanging(value);
+                    ReportPropertyChanging("user_type");
+                    _user_type = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("user_type");
+                    Onuser_typeChanged();
+                }
+            }
+        }
+        private global::System.Int32 _user_type;
+        partial void Onuser_typeChanging(global::System.Int32 value);
+        partial void Onuser_typeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (_name != value)
+                {
+                    OnnameChanging(value);
+                    ReportPropertyChanging("name");
+                    _name = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("name");
+                    OnnameChanged();
+                }
+            }
+        }
+        private global::System.String _name;
+        partial void OnnameChanging(global::System.String value);
+        partial void OnnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String email_id
+        {
+            get
+            {
+                return _email_id;
+            }
+            set
+            {
+                Onemail_idChanging(value);
+                ReportPropertyChanging("email_id");
+                _email_id = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("email_id");
+                Onemail_idChanged();
+            }
+        }
+        private global::System.String _email_id;
+        partial void Onemail_idChanging(global::System.String value);
+        partial void Onemail_idChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="user_reporting")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class user_reporting : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new user_reporting object.
+        /// </summary>
+        /// <param name="user_id">Initial value of the user_id property.</param>
+        /// <param name="super_user">Initial value of the super_user property.</param>
+        public static user_reporting Createuser_reporting(global::System.String user_id, global::System.String super_user)
+        {
+            user_reporting user_reporting = new user_reporting();
+            user_reporting.user_id = user_id;
+            user_reporting.super_user = super_user;
+            return user_reporting;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                if (_user_id != value)
+                {
+                    Onuser_idChanging(value);
+                    ReportPropertyChanging("user_id");
+                    _user_id = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("user_id");
+                    Onuser_idChanged();
+                }
+            }
+        }
+        private global::System.String _user_id;
+        partial void Onuser_idChanging(global::System.String value);
+        partial void Onuser_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String super_user
+        {
+            get
+            {
+                return _super_user;
+            }
+            set
+            {
+                Onsuper_userChanging(value);
+                ReportPropertyChanging("super_user");
+                _super_user = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("super_user");
+                Onsuper_userChanged();
+            }
+        }
+        private global::System.String _super_user;
+        partial void Onsuper_userChanging(global::System.String value);
+        partial void Onsuper_userChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="user_requests")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class user_requests : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new user_requests object.
+        /// </summary>
+        /// <param name="request_id">Initial value of the request_id property.</param>
+        /// <param name="user_id">Initial value of the user_id property.</param>
+        /// <param name="password">Initial value of the password property.</param>
+        /// <param name="user_type">Initial value of the user_type property.</param>
+        /// <param name="name">Initial value of the name property.</param>
+        /// <param name="email">Initial value of the email property.</param>
+        /// <param name="password_streangth">Initial value of the password_streangth property.</param>
+        /// <param name="request_type_id">Initial value of the request_type_id property.</param>
+        public static user_requests Createuser_requests(global::System.Int32 request_id, global::System.String user_id, global::System.String password, global::System.Int32 user_type, global::System.String name, global::System.String email, global::System.Int32 password_streangth, global::System.Int32 request_type_id)
+        {
+            user_requests user_requests = new user_requests();
+            user_requests.request_id = request_id;
+            user_requests.user_id = user_id;
+            user_requests.password = password;
+            user_requests.user_type = user_type;
+            user_requests.name = name;
+            user_requests.email = email;
+            user_requests.password_streangth = password_streangth;
+            user_requests.request_type_id = request_type_id;
+            return user_requests;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 request_id
+        {
+            get
+            {
+                return _request_id;
+            }
+            set
+            {
+                if (_request_id != value)
+                {
+                    Onrequest_idChanging(value);
+                    ReportPropertyChanging("request_id");
+                    _request_id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("request_id");
+                    Onrequest_idChanged();
+                }
+            }
+        }
+        private global::System.Int32 _request_id;
+        partial void Onrequest_idChanging(global::System.Int32 value);
+        partial void Onrequest_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String user_id
+        {
+            get
+            {
+                return _user_id;
+            }
+            set
+            {
+                Onuser_idChanging(value);
+                ReportPropertyChanging("user_id");
+                _user_id = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("user_id");
+                Onuser_idChanged();
+            }
+        }
+        private global::System.String _user_id;
+        partial void Onuser_idChanging(global::System.String value);
+        partial void Onuser_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String password
+        {
+            get
+            {
+                return _password;
+            }
+            set
+            {
+                OnpasswordChanging(value);
+                ReportPropertyChanging("password");
+                _password = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("password");
+                OnpasswordChanged();
+            }
+        }
+        private global::System.String _password;
+        partial void OnpasswordChanging(global::System.String value);
+        partial void OnpasswordChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 user_type
+        {
+            get
+            {
+                return _user_type;
+            }
+            set
+            {
+                Onuser_typeChanging(value);
+                ReportPropertyChanging("user_type");
+                _user_type = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("user_type");
+                Onuser_typeChanged();
+            }
+        }
+        private global::System.Int32 _user_type;
+        partial void Onuser_typeChanging(global::System.Int32 value);
+        partial void Onuser_typeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                OnnameChanging(value);
+                ReportPropertyChanging("name");
+                _name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("name");
+                OnnameChanged();
+            }
+        }
+        private global::System.String _name;
+        partial void OnnameChanging(global::System.String value);
+        partial void OnnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String email
+        {
+            get
+            {
+                return _email;
+            }
+            set
+            {
+                OnemailChanging(value);
+                ReportPropertyChanging("email");
+                _email = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("email");
+                OnemailChanged();
+            }
+        }
+        private global::System.String _email;
+        partial void OnemailChanging(global::System.String value);
+        partial void OnemailChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 password_streangth
+        {
+            get
+            {
+                return _password_streangth;
+            }
+            set
+            {
+                Onpassword_streangthChanging(value);
+                ReportPropertyChanging("password_streangth");
+                _password_streangth = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("password_streangth");
+                Onpassword_streangthChanged();
+            }
+        }
+        private global::System.Int32 _password_streangth;
+        partial void Onpassword_streangthChanging(global::System.Int32 value);
+        partial void Onpassword_streangthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 request_type_id
+        {
+            get
+            {
+                return _request_type_id;
+            }
+            set
+            {
+                Onrequest_type_idChanging(value);
+                ReportPropertyChanging("request_type_id");
+                _request_type_id = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("request_type_id");
+                Onrequest_type_idChanged();
+            }
+        }
+        private global::System.Int32 _request_type_id;
+        partial void Onrequest_type_idChanging(global::System.Int32 value);
+        partial void Onrequest_type_idChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> timestamp
+        {
+            get
+            {
+                return _timestamp;
+            }
+            set
+            {
+                OntimestampChanging(value);
+                ReportPropertyChanging("timestamp");
+                _timestamp = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("timestamp");
+                OntimestampChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _timestamp;
+        partial void OntimestampChanging(Nullable<global::System.DateTime> value);
+        partial void OntimestampChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="user_types")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class user_types : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new user_types object.
+        /// </summary>
+        /// <param name="user_type">Initial value of the user_type property.</param>
+        /// <param name="type_name">Initial value of the type_name property.</param>
+        public static user_types Createuser_types(global::System.Int32 user_type, global::System.String type_name)
+        {
+            user_types user_types = new user_types();
+            user_types.user_type = user_type;
+            user_types.type_name = type_name;
+            return user_types;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 user_type
+        {
+            get
+            {
+                return _user_type;
+            }
+            set
+            {
+                if (_user_type != value)
+                {
+                    Onuser_typeChanging(value);
+                    ReportPropertyChanging("user_type");
+                    _user_type = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("user_type");
+                    Onuser_typeChanged();
+                }
+            }
+        }
+        private global::System.Int32 _user_type;
+        partial void Onuser_typeChanging(global::System.Int32 value);
+        partial void Onuser_typeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String type_name
+        {
+            get
+            {
+                return _type_name;
+            }
+            set
+            {
+                Ontype_nameChanging(value);
+                ReportPropertyChanging("type_name");
+                _type_name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("type_name");
+                Ontype_nameChanged();
+            }
+        }
+        private global::System.String _type_name;
+        partial void Ontype_nameChanging(global::System.String value);
+        partial void Ontype_nameChanged();
 
         #endregion
     

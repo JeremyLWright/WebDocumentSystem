@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" Runat="Server">
 </asp:Content>
-<%@ Register TagPrefix="tp_login" TagName="tn_login" Src="~/Account/USR_login1.ascx" %>
+<%@ Register TagPrefix="tp_login" TagName="tn_login" Src="~/Account/USR_sysadmin.ascx" %>
 
 <asp:Content ID="Content" ContentPlaceHolderID="MainContent" Runat="Server">
 <form runat="server">

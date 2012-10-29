@@ -63,6 +63,11 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="Account\SysAdmin.aspx" />
+    <Content Include="Account\USR_docspage.ascx" />
+    <Content Include="Account\USR_login1.ascx" />
+    <Content Include="Account\USR_register1.ascx" />
+    <Content Include="Account\USR_sysadmin.ascx" />
     <Content Include="App_Data\WebDocDB.mdf" />
     <Content Include="App_Data\WebDocDB_log.ldf">
       <DependentUpon>WebDocDB.mdf</DependentUpon>
@@ -138,6 +143,37 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Account\SysAdmin.cs" />
+    <Compile Include="Account\User.cs" />
+    <Compile Include="Account\USR_docspage.ascx.cs">
+      <DependentUpon>USR_docspage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\USR_docspage.ascx.designer.cs">
+      <DependentUpon>USR_docspage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\USR_login1.ascx.cs">
+      <DependentUpon>USR_login1.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\USR_login1.ascx.designer.cs">
+      <DependentUpon>USR_login1.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\USR_register1.ascx.cs">
+      <DependentUpon>USR_register1.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\USR_register1.ascx.designer.cs">
+      <DependentUpon>USR_register1.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\USR_sysadmin.ascx.cs">
+      <DependentUpon>USR_sysadmin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\USR_sysadmin.ascx.designer.cs">
+      <DependentUpon>USR_sysadmin.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccessor.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

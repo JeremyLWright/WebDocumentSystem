@@ -4,6 +4,7 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+<form runat="server">
     <h2>
         Change Password
     </h2>
@@ -57,4 +58,5 @@
             </div>
         </ChangePasswordTemplate>
     </asp:ChangePassword>
+    </form>
 </asp:Content>
