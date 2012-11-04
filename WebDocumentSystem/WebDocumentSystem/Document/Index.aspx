@@ -9,6 +9,7 @@
         $("#btn-revert").bind("click", function (evt) {
             selectedRow = $("#DocumentNotes").attr("data-selected-document");
 
+
             //Process the Revison buttion click
             window.location.href = "/Document/Revision.aspx?DocumentId=" + selectedRow;
         });
