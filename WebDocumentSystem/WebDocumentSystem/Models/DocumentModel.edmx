@@ -5,206 +5,233 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="WebDocModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="WebDocModelStoreContainer">
-          <EntitySet Name="access_table" EntityType="WebDocModel.Store.access_table" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Audit_Log" EntityType="WebDocModel.Store.Audit_Log" store:Type="Tables" store:Schema="dbo" store:Name="Audit_Log">
-            <DefiningQuery>SELECT 
-      [Audit_Log].[Id] AS [Id], 
-      [Audit_Log].[Document] AS [Document], 
-      [Audit_Log].[Message] AS [Message], 
-      [Audit_Log].[Date] AS [Date]
-      FROM [dbo].[Audit_Log] AS [Audit_Log]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Document" EntityType="WebDocModel.Store.Document" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DocumentData" EntityType="WebDocModel.Store.DocumentData" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="DocumentNotes" EntityType="WebDocModel.Store.DocumentNotes" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="override_access" EntityType="WebDocModel.Store.override_access" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="user_accounts2" EntityType="WebDocModel.Store.user_accounts2" store:Type="Tables" store:Schema="dbo" store:Name="user_accounts2">
-            <DefiningQuery>SELECT 
-      [user_accounts2].[user_id] AS [user_id], 
-      [user_accounts2].[password] AS [password], 
-      [user_accounts2].[user_type] AS [user_type], 
-      [user_accounts2].[name] AS [name], 
-      [user_accounts2].[email_id] AS [email_id]
-      FROM [dbo].[user_accounts2] AS [user_accounts2]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="user_reporting" EntityType="WebDocModel.Store.user_reporting" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="user_requests" EntityType="WebDocModel.Store.user_requests" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="user_types" EntityType="WebDocModel.Store.user_types" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Audit_Log_Document" Association="WebDocModel.Store.FK_Audit_Log_Document">
-            <End Role="Document" EntitySet="Document" />
-            <End Role="Audit_Log" EntitySet="Audit_Log" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DocumentData_Document" Association="WebDocModel.Store.FK_DocumentData_Document">
-            <End Role="Document" EntitySet="Document" />
-            <End Role="DocumentData" EntitySet="DocumentData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DocumentNotes_Document" Association="WebDocModel.Store.FK_DocumentNotes_Document">
-            <End Role="Document" EntitySet="Document" />
-            <End Role="DocumentNotes" EntitySet="DocumentNotes" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="access_table">
-          <Key>
-            <PropertyRef Name="access_id" />
-          </Key>
-          <Property Name="access_id" Type="int" Nullable="false" />
-          <Property Name="access_type" Type="nvarchar" Nullable="false" MaxLength="50" />
-        </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'C:\USERS\JEREMY\WORKSPACES\545_PROJ\WEBDOCUMENTSYSTEM\WEBDOCUMENTSYSTEM\APP_DATA\WEBDOCDB.MDF.dbo.Audit_Log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <EntityType Name="Audit_Log">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="Document" />
-            <PropertyRef Name="Message" />
-            <PropertyRef Name="Date" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Document" Type="int" Nullable="false" />
-          <Property Name="Message" Type="text" Nullable="false" />
-          <Property Name="Date" Type="datetime2" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Document">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="text" />
-          <Property Name="IsLocked" Type="bit" Nullable="false" />
-          <Property Name="LockHolder" Type="int" />
-          <Property Name="Revision" Type="int" />
-          <Property Name="LastModified" Type="datetime2" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DocumentData">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="DocContent" Type="varbinary(max)" />
-          <Property Name="CreatedDate" Type="datetime2" Nullable="false" />
-          <Property Name="Document" Type="int" Nullable="false" />
-          <Property Name="Encrypted" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DocumentNotes">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="DocumentId" Type="int" Nullable="false" />
-          <Property Name="Note" Type="text" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime2" />
-        </EntityType>
-        <EntityType Name="override_access">
-          <Key>
-            <PropertyRef Name="document_id" />
-            <PropertyRef Name="user_id" />
-          </Key>
-          <Property Name="document_id" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="user_id" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="authorized_by" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="access_privikege" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'C:\USERS\JEREMY\WORKSPACES\545_PROJ\WEBDOCUMENTSYSTEM\WEBDOCUMENTSYSTEM\APP_DATA\WEBDOCDB.MDF.dbo.user_accounts2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
-        <EntityType Name="user_accounts2">
-          <Key>
-            <PropertyRef Name="user_id" />
-            <PropertyRef Name="password" />
-            <PropertyRef Name="user_type" />
-            <PropertyRef Name="name" />
-          </Key>
-          <Property Name="user_id" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="user_type" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="email_id" Type="nvarchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="user_reporting">
-          <Key>
-            <PropertyRef Name="user_id" />
-          </Key>
-          <Property Name="user_id" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="super_user" Type="nvarchar" Nullable="false" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="user_requests">
-          <Key>
-            <PropertyRef Name="request_id" />
-          </Key>
-          <Property Name="request_id" Type="int" Nullable="false" />
-          <Property Name="user_id" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="user_type" Type="int" Nullable="false" />
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="password_streangth" Type="int" Nullable="false" />
-          <Property Name="request_type_id" Type="int" Nullable="false" />
-          <Property Name="timestamp" Type="datetime" />
-        </EntityType>
-        <EntityType Name="user_types">
-          <Key>
-            <PropertyRef Name="user_type" />
-          </Key>
-          <Property Name="user_type" Type="int" Nullable="false" />
-          <Property Name="type_name" Type="nvarchar" Nullable="false" MaxLength="50" />
-        </EntityType>
-        <Association Name="FK_Audit_Log_Document">
-          <End Role="Document" Type="WebDocModel.Store.Document" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Audit_Log" Type="WebDocModel.Store.Audit_Log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Document">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Audit_Log">
-              <PropertyRef Name="Document" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DocumentData_Document">
-          <End Role="Document" Type="WebDocModel.Store.Document" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="DocumentData" Type="WebDocModel.Store.DocumentData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Document">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DocumentData">
-              <PropertyRef Name="Document" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DocumentNotes_Document">
-          <End Role="Document" Type="WebDocModel.Store.Document" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="DocumentNotes" Type="WebDocModel.Store.DocumentNotes" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Document">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DocumentNotes">
-              <PropertyRef Name="DocumentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema></edmx:StorageModels>
+  <EntityContainer Name="WebDocModelStoreContainer">
+    <EntitySet Name="DocumentLogs" EntityType="WebDocModel.Store.DocumentLogs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents" EntityType="WebDocModel.Store.Documents" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DocumentDatas" EntityType="WebDocModel.Store.DocumentDatas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DocumentNotes" EntityType="WebDocModel.Store.DocumentNotes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="WebDocModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="access_table" EntityType="WebDocModel.Store.access_table" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="override_access" EntityType="WebDocModel.Store.override_access" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="user_accounts2" EntityType="WebDocModel.Store.user_accounts2" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="user_reporting" EntityType="WebDocModel.Store.user_reporting" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="user_requests" EntityType="WebDocModel.Store.user_requests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="user_types" EntityType="WebDocModel.Store.user_types" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserLogs" EntityType="WebDocModel.Store.UserLogs" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Audit_Log_Document" Association="WebDocModel.Store.FK_Audit_Log_Document">
+      <End Role="Document" EntitySet="Documents" />
+      <End Role="Audit_Log" EntitySet="DocumentLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DocumentData_Document" Association="WebDocModel.Store.FK_DocumentData_Document">
+      <End Role="Document" EntitySet="Documents" />
+      <End Role="DocumentData" EntitySet="DocumentDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DocumentNotes_Document" Association="WebDocModel.Store.FK_DocumentNotes_Document">
+      <End Role="Document" EntitySet="Documents" />
+      <End Role="DocumentNotes" EntitySet="DocumentNotes" />
+    </AssociationSet>
+    <AssociationSet Name="UserLoguser_accounts2" Association="WebDocModel.Store.UserLoguser_accounts2">
+      <End Role="UserLog" EntitySet="UserLogs" />
+      <End Role="user_accounts2" EntitySet="user_accounts2" />
+    </AssociationSet>
+    <AssociationSet Name="DocumentLoguser_accounts2" Association="WebDocModel.Store.DocumentLoguser_accounts2">
+      <End Role="DocumentLog" EntitySet="DocumentLogs" />
+      <End Role="user_accounts2" EntitySet="user_accounts2" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="DocumentLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Document" Type="int" Nullable="false" />
+    <Property Name="Message" Type="varchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="user_accounts2_user_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Documents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="true" />
+    <Property Name="IsLocked" Type="bit" Nullable="false" />
+    <Property Name="LockHolder" Type="int" Nullable="true" />
+    <Property Name="Revision" Type="int" Nullable="true" />
+    <Property Name="LastModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DocumentDatas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocContent" Type="varbinary(max)" Nullable="true" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Document" Type="int" Nullable="false" />
+    <Property Name="Encrypted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DocumentNotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Note" Type="varchar(max)" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" Nullable="true" />
+    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="access_table">
+    <Key>
+      <PropertyRef Name="access_id" />
+    </Key>
+    <Property Name="access_id" Type="int" Nullable="false" />
+    <Property Name="access_type" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="override_access">
+    <Key>
+      <PropertyRef Name="document_id" />
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="document_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="user_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="authorized_by" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="access_privikege" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_accounts2">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="user_type" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="email_id" Type="nvarchar" Nullable="true" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="user_reporting">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="super_user" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="user_requests">
+    <Key>
+      <PropertyRef Name="request_id" />
+    </Key>
+    <Property Name="request_id" Type="int" Nullable="false" />
+    <Property Name="user_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="user_type" Type="int" Nullable="false" />
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="email" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="password_streangth" Type="int" Nullable="false" />
+    <Property Name="request_type_id" Type="int" Nullable="false" />
+    <Property Name="timestamp" Type="datetime" Nullable="true" />
+  </EntityType>
+  <EntityType Name="user_types">
+    <Key>
+      <PropertyRef Name="user_type" />
+    </Key>
+    <Property Name="user_type" Type="int" Nullable="false" />
+    <Property Name="type_name" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="user_accounts2_user_id" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Audit_Log_Document">
+    <End Role="Document" Type="WebDocModel.Store.Documents" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Audit_Log" Type="WebDocModel.Store.DocumentLogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Audit_Log">
+        <PropertyRef Name="Document" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DocumentData_Document">
+    <End Role="Document" Type="WebDocModel.Store.Documents" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DocumentData" Type="WebDocModel.Store.DocumentDatas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DocumentData">
+        <PropertyRef Name="Document" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DocumentNotes_Document">
+    <End Role="Document" Type="WebDocModel.Store.Documents" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DocumentNotes" Type="WebDocModel.Store.DocumentNotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DocumentNotes">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserLoguser_accounts2">
+    <End Role="UserLog" Type="WebDocModel.Store.UserLogs" Multiplicity="*" />
+    <End Role="user_accounts2" Type="WebDocModel.Store.user_accounts2" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="user_accounts2">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="UserLog">
+        <PropertyRef Name="user_accounts2_user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocumentLoguser_accounts2">
+    <End Role="DocumentLog" Type="WebDocModel.Store.DocumentLogs" Multiplicity="*" />
+    <End Role="user_accounts2" Type="WebDocModel.Store.user_accounts2" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="user_accounts2">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="DocumentLog">
+        <PropertyRef Name="user_accounts2_user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WebDocModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="WebDocEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Audit_Log" EntityType="WebDocModel.Audit_Log" />
+          <EntitySet Name="DocumentLogs" EntityType="WebDocModel.DocumentLog" />
           <EntitySet Name="Documents" EntityType="WebDocModel.Document" />
           <EntitySet Name="DocumentDatas" EntityType="WebDocModel.DocumentData" />
           <EntitySet Name="DocumentNotes" EntityType="WebDocModel.DocumentNote" />
           <EntitySet Name="sysdiagrams" EntityType="WebDocModel.sysdiagram" />
           <AssociationSet Name="FK_Audit_Log_Document" Association="WebDocModel.FK_Audit_Log_Document">
             <End Role="Document" EntitySet="Documents" />
-            <End Role="Audit_Log" EntitySet="Audit_Log" />
+            <End Role="Audit_Log" EntitySet="DocumentLogs" />
           </AssociationSet>
           <AssociationSet Name="FK_DocumentData_Document" Association="WebDocModel.FK_DocumentData_Document">
             <End Role="Document" EntitySet="Documents" />
@@ -220,19 +247,27 @@
           <EntitySet Name="user_reporting" EntityType="WebDocModel.user_reporting" />
           <EntitySet Name="user_requests" EntityType="WebDocModel.user_requests" />
           <EntitySet Name="user_types" EntityType="WebDocModel.user_types" />
+          <EntitySet Name="UserLogs" EntityType="WebDocModel.UserLog" />
+          <AssociationSet Name="UserLoguser_accounts2" Association="WebDocModel.UserLoguser_accounts2">
+            <End Role="UserLog" EntitySet="UserLogs" />
+            <End Role="user_accounts2" EntitySet="user_accounts2" />
+          </AssociationSet>
+          <AssociationSet Name="DocumentLoguser_accounts2" Association="WebDocModel.DocumentLoguser_accounts2">
+            <End Role="DocumentLog" EntitySet="DocumentLogs" />
+            <End Role="user_accounts2" EntitySet="user_accounts2" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Audit_Log">
+        <EntityType Name="DocumentLog">
           <Key>
             <PropertyRef Name="Id" />
-            <PropertyRef Name="Document" />
-            <PropertyRef Name="Message" />
-            <PropertyRef Name="Date" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Document" Type="Int32" Nullable="false" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Document1" Relationship="WebDocModel.FK_Audit_Log_Document" FromRole="Audit_Log" ToRole="Document" />
+          <NavigationProperty Name="user_accounts2" Relationship="WebDocModel.DocumentLoguser_accounts2" FromRole="DocumentLog" ToRole="user_accounts2" />
+          <Property Type="String" Name="user_accounts2_user_id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -283,7 +318,7 @@
           <End Role="Document" Type="WebDocModel.Document" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Audit_Log" Type="WebDocModel.Audit_Log" Multiplicity="*" />
+          <End Role="Audit_Log" Type="WebDocModel.DocumentLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Document">
               <PropertyRef Name="Id" />
@@ -341,15 +376,14 @@
         <EntityType Name="user_accounts2">
           <Key>
             <PropertyRef Name="user_id" />
-            <PropertyRef Name="password" />
-            <PropertyRef Name="user_type" />
-            <PropertyRef Name="name" />
           </Key>
           <Property Type="String" Name="user_id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="password" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="user_type" Nullable="false" />
           <Property Type="String" Name="name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="email_id" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserLogs" Relationship="WebDocModel.UserLoguser_accounts2" FromRole="user_accounts2" ToRole="UserLog" />
+          <NavigationProperty Name="DocumentLogs" Relationship="WebDocModel.DocumentLoguser_accounts2" FromRole="user_accounts2" ToRole="DocumentLog" />
         </EntityType>
         <EntityType Name="user_reporting">
           <Key>
@@ -379,102 +413,173 @@
           <Property Type="Int32" Name="user_type" Nullable="false" />
           <Property Type="String" Name="type_name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="UserLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Message" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <NavigationProperty Name="user_accounts2" Relationship="WebDocModel.UserLoguser_accounts2" FromRole="UserLog" ToRole="user_accounts2" />
+          <Property Type="String" Name="user_accounts2_user_id" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="UserLoguser_accounts2">
+          <End Type="WebDocModel.UserLog" Role="UserLog" Multiplicity="*" />
+          <End Type="WebDocModel.user_accounts2" Role="user_accounts2" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="user_accounts2">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="UserLog">
+              <PropertyRef Name="user_accounts2_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DocumentLoguser_accounts2">
+          <End Type="WebDocModel.DocumentLog" Role="DocumentLog" Multiplicity="*" />
+          <End Type="WebDocModel.user_accounts2" Role="user_accounts2" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="user_accounts2">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="DocumentLog">
+              <PropertyRef Name="user_accounts2_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WebDocModelStoreContainer" CdmEntityContainer="WebDocEntities">
-          <EntitySetMapping Name="Audit_Log"><EntityTypeMapping TypeName="WebDocModel.Audit_Log"><MappingFragment StoreEntitySet="Audit_Log">
-            <ScalarProperty Name="Id" ColumnName="Id" />
-            <ScalarProperty Name="Document" ColumnName="Document" />
-            <ScalarProperty Name="Message" ColumnName="Message" />
-            <ScalarProperty Name="Date" ColumnName="Date" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Documents"><EntityTypeMapping TypeName="WebDocModel.Document"><MappingFragment StoreEntitySet="Document">
-            <ScalarProperty Name="Id" ColumnName="Id" />
-            <ScalarProperty Name="Name" ColumnName="Name" />
-            <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
-            <ScalarProperty Name="LockHolder" ColumnName="LockHolder" />
-            <ScalarProperty Name="Revision" ColumnName="Revision" />
-            <ScalarProperty Name="LastModified" ColumnName="LastModified" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="DocumentDatas"><EntityTypeMapping TypeName="WebDocModel.DocumentData"><MappingFragment StoreEntitySet="DocumentData">
-            <ScalarProperty Name="Encrypted" ColumnName="Encrypted" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-            <ScalarProperty Name="DocContent" ColumnName="DocContent" />
-            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-            <ScalarProperty Name="Document" ColumnName="Document" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="DocumentNotes"><EntityTypeMapping TypeName="WebDocModel.DocumentNote"><MappingFragment StoreEntitySet="DocumentNotes">
-            <ScalarProperty Name="Id" ColumnName="Id" />
-            <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
-            <ScalarProperty Name="Note" ColumnName="Note" />
-            <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="access_table">
-            <EntityTypeMapping TypeName="WebDocModel.access_table">
-              <MappingFragment StoreEntitySet="access_table">
-                <ScalarProperty Name="access_type" ColumnName="access_type" />
-                <ScalarProperty Name="access_id" ColumnName="access_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="override_access">
-            <EntityTypeMapping TypeName="WebDocModel.override_access">
-              <MappingFragment StoreEntitySet="override_access">
-                <ScalarProperty Name="access_privikege" ColumnName="access_privikege" />
-                <ScalarProperty Name="authorized_by" ColumnName="authorized_by" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="document_id" ColumnName="document_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="user_accounts2">
-            <EntityTypeMapping TypeName="WebDocModel.user_accounts2">
-              <MappingFragment StoreEntitySet="user_accounts2">
-                <ScalarProperty Name="email_id" ColumnName="email_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="user_type" ColumnName="user_type" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="user_reporting">
-            <EntityTypeMapping TypeName="WebDocModel.user_reporting">
-              <MappingFragment StoreEntitySet="user_reporting">
-                <ScalarProperty Name="super_user" ColumnName="super_user" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="user_requests">
-            <EntityTypeMapping TypeName="WebDocModel.user_requests">
-              <MappingFragment StoreEntitySet="user_requests">
-                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
-                <ScalarProperty Name="request_type_id" ColumnName="request_type_id" />
-                <ScalarProperty Name="password_streangth" ColumnName="password_streangth" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="user_type" ColumnName="user_type" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="request_id" ColumnName="request_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="user_types">
-            <EntityTypeMapping TypeName="WebDocModel.user_types">
-              <MappingFragment StoreEntitySet="user_types">
-                <ScalarProperty Name="type_name" ColumnName="type_name" />
-                <ScalarProperty Name="user_type" ColumnName="user_type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebDocModelStoreContainer" CdmEntityContainer="WebDocEntities">
+    <EntitySetMapping Name="DocumentLogs">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.DocumentLog)">
+        <MappingFragment StoreEntitySet="DocumentLogs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="user_accounts2_user_id" ColumnName="user_accounts2_user_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.Document)">
+        <MappingFragment StoreEntitySet="Documents">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+          <ScalarProperty Name="LockHolder" ColumnName="LockHolder" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
+          <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocumentDatas">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.DocumentData)">
+        <MappingFragment StoreEntitySet="DocumentDatas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DocContent" ColumnName="DocContent" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+          <ScalarProperty Name="Encrypted" ColumnName="Encrypted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocumentNotes">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.DocumentNote)">
+        <MappingFragment StoreEntitySet="DocumentNotes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.sysdiagram)">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="access_table">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.access_table)">
+        <MappingFragment StoreEntitySet="access_table">
+          <ScalarProperty Name="access_id" ColumnName="access_id" />
+          <ScalarProperty Name="access_type" ColumnName="access_type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="override_access">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.override_access)">
+        <MappingFragment StoreEntitySet="override_access">
+          <ScalarProperty Name="document_id" ColumnName="document_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="authorized_by" ColumnName="authorized_by" />
+          <ScalarProperty Name="access_privikege" ColumnName="access_privikege" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_accounts2">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.user_accounts2)">
+        <MappingFragment StoreEntitySet="user_accounts2">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="user_type" ColumnName="user_type" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email_id" ColumnName="email_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_reporting">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.user_reporting)">
+        <MappingFragment StoreEntitySet="user_reporting">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="super_user" ColumnName="super_user" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_requests">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.user_requests)">
+        <MappingFragment StoreEntitySet="user_requests">
+          <ScalarProperty Name="request_id" ColumnName="request_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="user_type" ColumnName="user_type" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password_streangth" ColumnName="password_streangth" />
+          <ScalarProperty Name="request_type_id" ColumnName="request_type_id" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_types">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.user_types)">
+        <MappingFragment StoreEntitySet="user_types">
+          <ScalarProperty Name="user_type" ColumnName="user_type" />
+          <ScalarProperty Name="type_name" ColumnName="type_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLogs">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.UserLog)">
+        <MappingFragment StoreEntitySet="UserLogs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="user_accounts2_user_id" ColumnName="user_accounts2_user_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
@@ -493,31 +598,43 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="DocumentModel">
-        <EntityTypeShape EntityType="WebDocModel.Audit_Log" Width="1.5" PointX="3" PointY="1.25" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.DocumentLog" Width="1.5" PointX="3.25" PointY="0.5" Height="2.3648893229166661" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDocModel.Document" Width="1.5" PointX="0.75" PointY="3.5" Height="2.7494921874999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDocModel.DocumentData" Width="1.5" PointX="3" PointY="3.875" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.DocumentData" Width="1.5" PointX="3.25" PointY="3.875" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDocModel.DocumentNote" Width="1.5" PointX="3" PointY="6.625" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDocModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.sysdiagram" Width="1.5" PointX="8" PointY="0.75" Height="1.9802864583333317" IsExpanded="true" />
         <AssociationConnector Association="WebDocModel.FK_Audit_Log_Document" ManuallyRouted="false">
           <ConnectorPoint PointX="1.5" PointY="3.5" />
-          <ConnectorPoint PointX="1.5" PointY="2.2401432291666667" />
-          <ConnectorPoint PointX="3" PointY="2.2401432291666667" />
+          <ConnectorPoint PointX="1.5" PointY="1.6824446614583328" />
+          <ConnectorPoint PointX="3.25" PointY="1.6824446614583328" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.FK_DocumentData_Document" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="4.8651432291666667" />
-          <ConnectorPoint PointX="3" PointY="4.8651432291666667" />
+          <ConnectorPoint PointX="2.25" PointY="4.9612939453125" />
+          <ConnectorPoint PointX="3.25" PointY="4.9612939453125" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.FK_DocumentNotes_Document" ManuallyRouted="false">
           <ConnectorPoint PointX="1.5" PointY="6.2494921875" />
           <ConnectorPoint PointX="1.5" PointY="7.6151432291666667" />
           <ConnectorPoint PointX="3" PointY="7.6151432291666667" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="WebDocModel.access_table" Width="1.5" PointX="5.75" PointY="3.75" Height="1.4033821614583322" />
+        <EntityTypeShape EntityType="WebDocModel.access_table" Width="1.5" PointX="8" PointY="3.875" Height="1.4033821614583322" />
         <EntityTypeShape EntityType="WebDocModel.override_access" Width="1.5" PointX="5.75" PointY="6.75" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="WebDocModel.user_accounts2" Width="1.5" PointX="7.75" PointY="3.75" Height="1.9802864583333317" />
+        <EntityTypeShape EntityType="WebDocModel.user_accounts2" Width="1.5" PointX="6" PointY="3.375" Height="2.3648893229166656" />
         <EntityTypeShape EntityType="WebDocModel.user_reporting" Width="1.5" PointX="7.75" PointY="6.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="WebDocModel.user_requests" Width="1.5" PointX="9.75" PointY="0.75" Height="2.7494921875000031" />
-        <EntityTypeShape EntityType="WebDocModel.user_types" Width="1.5" PointX="0.75" PointY="9.75" Height="1.4033821614583353" />
+        <EntityTypeShape EntityType="WebDocModel.user_types" Width="1.5" PointX="9.75" PointY="3.875" Height="1.4033821614583353" />
+        <EntityTypeShape EntityType="WebDocModel.UserLog" Width="2" PointX="5.875" PointY="0.5" Height="1.9802864583333335" />
+        <AssociationConnector Association="WebDocModel.UserLoguser_accounts2">
+          <ConnectorPoint PointX="6.75" PointY="2.4802864583333335" />
+          <ConnectorPoint PointX="6.75" PointY="3.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebDocModel.DocumentLoguser_accounts2">
+          <ConnectorPoint PointX="4.7500000000000009" PointY="2.8648893229166661" />
+          <ConnectorPoint PointX="5.125" PointY="3.0599723307291664" />
+          <ConnectorPoint PointX="5.125" PointY="3" />
+          <ConnectorPoint PointX="5.27915300478062" PointY="3" />
+          <ConnectorPoint PointX="6" PointY="3.375" />
+        </AssociationConnector>
       </Diagram>
     </Diagrams>
   </Designer>

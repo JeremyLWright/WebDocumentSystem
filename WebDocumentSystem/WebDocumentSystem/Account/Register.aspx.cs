@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebDocumentSystem.Models;
+using Microsoft.Security.Application;
 
 namespace WebDocumentSystem.Account
 {
@@ -18,6 +20,8 @@ namespace WebDocumentSystem.Account
 
         protected void RegisterUser_CreatedUser(object sender, EventArgs e)
         {
+            var safeUsername = Encoder.HtmlEncode(RegisterUser.UserName);
+
             FormsAuthentication.SetAuthCookie(RegisterUser.UserName, false /* createPersistentCookie */);
 
             string continueUrl = RegisterUser.ContinueDestinationPageUrl;
@@ -25,6 +29,20 @@ namespace WebDocumentSystem.Account
             {
                 continueUrl = "~/";
             }
+
+            using( var ctx = new WebDocEntities())
+            {
+                var userEvent = new Models.UserLog();
+                var user = (from c in ctx.user_accounts2 
+                           where c.name == RegisterUser.UserName
+                           select c).First();
+                userEvent.user_accounts2 = user;
+                userEvent.Message = "User Registered.";
+                ctx.UserLogs.AddObject(userEvent);
+                ctx.SaveChanges();
+            }
+
+
             Response.Redirect(continueUrl);
         }
 

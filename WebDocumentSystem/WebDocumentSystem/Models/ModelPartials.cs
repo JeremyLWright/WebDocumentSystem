@@ -30,9 +30,17 @@ namespace WebDocumentSystem.Models
         }
     }
 
-    public partial class Audit_Log
+    public partial class UserLog
     {
-        public Audit_Log()
+        public UserLog()
+        {
+            Date = DateTime.Now;
+        }
+    }
+
+    public partial class DocumentLog
+    {
+        public DocumentLog()
         {
             Date = DateTime.Now;
         }
