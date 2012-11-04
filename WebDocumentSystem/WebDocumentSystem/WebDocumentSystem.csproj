@@ -68,10 +68,12 @@
     <Content Include="Account\ChangePassword.aspx" />
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
+    <Content Include="Account\PasswordRecovery.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\SysAdmin.aspx" />
     <Content Include="Account\USR_docspage.ascx" />
     <Content Include="Account\USR_login1.ascx" />
+    <Content Include="Account\USR_password_recover.ascx" />
     <Content Include="Account\USR_register1.ascx" />
     <Content Include="Account\USR_sysadmin.ascx" />
     <Content Include="App_Data\WebDocDB.mdf" />
@@ -150,7 +152,6 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Account\SysAdmin.cs" />
     <Compile Include="Account\User.cs" />
     <Compile Include="Account\USR_docspage.ascx.cs">
       <DependentUpon>USR_docspage.ascx</DependentUpon>
@@ -165,6 +166,13 @@
     </Compile>
     <Compile Include="Account\USR_login1.ascx.designer.cs">
       <DependentUpon>USR_login1.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\USR_password_recover.ascx.cs">
+      <DependentUpon>USR_password_recover.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\USR_password_recover.ascx.designer.cs">
+      <DependentUpon>USR_password_recover.ascx</DependentUpon>
     </Compile>
     <Compile Include="Account\USR_register1.ascx.cs">
       <DependentUpon>USR_register1.ascx</DependentUpon>

@@ -206,7 +206,29 @@
                 </asp:DropDownList>
             </asp:TableCell>
         </asp:TableRow>
-        <asp:TableRow>
+      
+
+  
+    <asp:TableRow ID="TableRow1" runat="server">
+        <asp:TableCell ID="TableCell1" runat="server"><asp:Label runat="server" ID=lbl_quest Text="Security Question"></asp:Label></asp:TableCell>
+        <asp:TableCell ID="TableCell2" runat="server"><asp:DropDownList runat="server" ID=ddl_questions AppendDataBoundItems="true"></asp:DropDownList></asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow ID="TableRow2" runat="server">
+        <asp:TableCell ID="TableCell3" runat="server"><asp:Label runat="server" ID=lbl_ans1 Text="Answer"></asp:Label></asp:TableCell>
+        <asp:TableCell ID="TableCell4" runat="server"><asp:TextBox runat="server" ID=txb_ans1 ></asp:TextBox></asp:TableCell>
+        </asp:TableRow>
+
+
+
+    <asp:TableRow ID="TableRow3" runat="server">
+        <asp:TableCell ID="TableCell5" runat="server"><asp:Label runat="server" ID=lbl_quest2 Text="Your Own Question"></asp:Label></asp:TableCell>
+        <asp:TableCell ID="TableCell6" runat="server"><asp:TextBox runat="server" ID=txb_cust_quest ></asp:TextBox></asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow ID="TableRow4" runat="server">
+        <asp:TableCell ID="TableCell7" runat="server"><asp:Label runat="server" ID=lbl_cust_ans Text="Answer"></asp:Label></asp:TableCell>
+        <asp:TableCell ID="TableCell8" runat="server"><asp:TextBox runat="server" ID=txb_cust_ans ></asp:TextBox></asp:TableCell>
+        </asp:TableRow>
+          <asp:TableRow>
             <asp:TableCell>
                 <asp:Button ID="btn_submit" runat="server" Text="Submit" OnClientClick="javascript:formValidation();" OnClick="valid_registration" />
             </asp:TableCell>
@@ -215,4 +237,3 @@
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
-    </form>

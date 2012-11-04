@@ -247,7 +247,7 @@ namespace SSproject
                     if (val == "1")
                     {
                         string sql_insert = @"insert into user_accounts2
-                                                select user_id,password,user_type,name,email
+                                                select user_id,password,user_type,name,email,question,answer
                                                 from user_requests where request_id=" + key;
                         objDB.executeQuery(sql_insert);
                         objDB.executeQuery("delete from user_requests where request_id=" + key);

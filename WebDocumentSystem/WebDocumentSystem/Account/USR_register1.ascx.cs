@@ -29,7 +29,25 @@ namespace SSproject
             {
                 ddl_usrole.SelectedItem.Value = selectedVal;
             }
+            string selectedVal2 = "-1";
+            string selected_question = " ";
+            if (IsPostBack)
+            {
+                selectedVal2 = ddl_questions.SelectedItem.Value;
+                selected_question = ddl_questions.SelectedItem.Text;
+            }
 
+            ddl_questions.DataSource = objDB.executeQueryReturnDT("select * from security_questions");
+            ddl_questions.Items.Clear();
+            ddl_questions.Items.Add(new ListItem("<Select Option>", "-1"));
+            ddl_questions.DataTextField = "question";
+            ddl_questions.DataValueField = "question_id";
+            ddl_questions.DataBind();
+            if (IsPostBack)
+            {
+                ddl_questions.SelectedItem.Value = selectedVal2;
+                ddl_questions.SelectedItem.Text = selected_question;
+            }
 
         }
         //checks tha validtaion of user id and other details
@@ -68,15 +86,23 @@ namespace SSproject
             string user_name = txb_name.Text.ToString();
             string user_role = ddl_usrole.SelectedItem.Value;
             string email_id = txb_email.Text.ToString();
+            ddl_questions.SelectedValue = ddl_questions.SelectedItem.Value;
+            string question = ddl_questions.SelectedItem.Text;
+            string ans = txb_ans1.Text;
+            if (ddl_questions.SelectedItem.Value == "-1" || string.IsNullOrEmpty(ans) || string.IsNullOrWhiteSpace(ans))
+            {
+                question = txb_cust_quest.Text;
+                ans = txb_cust_ans.Text;
+            }
 
             int password_strength = getPaswordStrength(password);
 
             //request_id	user_id	password	user_type	name	email	password_streangth	request_type_id	timestamp
             //2	mgr_13	password1	2	Jimmy	Jimmy@gmail.com	6	1	2012-10-09 17:33:16.343
             //3	ceo_21	password1	1	Tommy	Tommy@gmail.com	7	1	2012-10-09 17:33:16.383
-            //string request_id =objDB.executeQueryReturnString(" select (max(request_id) +1) as val2 from user_requests");\
+            //string request_id =objDB.executeQueryReturnString(" select (max(request_id) +1) as val2 from user_requests");
             string sql = @"insert into user_requests values('"
-                + user_id + "','" + password + "'," + user_role + ",'" + user_name + "','" + email_id + "'," + password_strength + ",1,GETDATE() )";
+                + user_id + "','" + password + "'," + user_role + ",'" + user_name + "','" + email_id + "'," + password_strength + ",1,GETDATE()" + ",'" + question + "','" + ans + "' )";
             objDB.executeQuery(sql);
             // string fullname = fname + " " + lname;
             //insert into customer values ('pankaj','Pankaj Khatkar', 'pkhatkar@asu.edu','pankaj')
