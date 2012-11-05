@@ -5,12 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using WebDocumentSystem.Models;
 
 namespace SSproject
 {
     public partial class USR_login1 : System.Web.UI.UserControl
     {
-        DataAccessor objDB = new DataAccessor();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,21 +21,31 @@ namespace SSproject
 
             string username = txb_usrname.Text;
             string password = txb_password.Text;
-            try
+
+            using (var ctx = new WebDocEntities())
             {
-                User user = new User(username, password);
-                Session["name"] = user.getName();
-                if (user.getRole() == "0")
+                var user = (from c in ctx.Users
+                            where c.Name == txb_usrname.Text && c.Password == txb_password.Text
+                            select c).FirstOrDefault();
+                if (user != null)
                 {
-                    Response.Redirect("SysAdmin.aspx");
+                    Session["user"] = user.Name;
+                    Session["lastActionTime"] = DateTime.Now.ToString();
+
+                    if (user.UserType.Type != "Admin")
+                    {
+                        Response.Redirect("~/Account/SysAdmin.aspx");
+                    }
+                    else
+                    {                       
+                        Response.Redirect("~/Document/Index.aspx");
+                    }
                 }
                 else
                 {
-                    Response.Redirect("DocsPage.aspx");
+                    lbl_display.Text = lbl_display.Text = "Invalid userid and/or password!! Please enter valid username and password";
                 }
-            }
-            catch(Exception exp) {
-                lbl_display.Text = lbl_display.Text = "Invalid userid and/or password!! Please enter valid username and password";
+
             }
         }
     }

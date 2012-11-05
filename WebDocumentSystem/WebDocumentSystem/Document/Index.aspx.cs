@@ -13,10 +13,17 @@ namespace WebDocumentSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            pageNumber = 1;
-            var pageQuery = Request.QueryString["page"];
-            if (pageQuery != null)
-                pageNumber = Int32.Parse(pageQuery); 
+            if (Session["user"] == null || Convert.ToDateTime(Session["lastActionTime"]) > DateTime.Now.AddMinutes(20))
+            {
+                Response.Redirect("~/Account/Login.aspx");
+            }
+            else
+            {
+                pageNumber = 1;
+                var pageQuery = Request.QueryString["page"];
+                if (pageQuery != null)
+                    pageNumber = Int32.Parse(pageQuery);
+            }
         }
 
         protected int pageNumber;
