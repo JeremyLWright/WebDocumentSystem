@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebDocumentSystem.Models;
 using WebDocumentSystem.Document;
+using WebDocumentSystem.Account;
 
 namespace WebDocumentSystem
 {
@@ -13,17 +14,12 @@ namespace WebDocumentSystem
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user"] == null || Convert.ToDateTime(Session["lastActionTime"]) > DateTime.Now.AddMinutes(20))
-            {
-                Response.Redirect("~/Account/Login.aspx");
-            }
-            else
-            {
-                pageNumber = 1;
-                var pageQuery = Request.QueryString["page"];
-                if (pageQuery != null)
-                    pageNumber = Int32.Parse(pageQuery);
-            }
+            var check = new AuthenticatedUser(); //Probably not idiomatic to C#, but I miss Python, why don't attributes work like decorators, I'm sad now.
+
+            pageNumber = 1;
+            var pageQuery = Request.QueryString["page"];
+            if (pageQuery != null)
+                pageNumber = Int32.Parse(pageQuery);
         }
 
         protected int pageNumber;

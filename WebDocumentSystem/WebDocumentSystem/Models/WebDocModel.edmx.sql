@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/04/2012 18:01:16
+-- Date Created: 11/04/2012 22:56:09
 -- Generated from EDMX file: C:\Users\Jeremy\workspaces\545_proj\WebDocumentSystem\WebDocumentSystem\Models\WebDocModel.edmx
 -- --------------------------------------------------
 
@@ -43,6 +43,9 @@ IF OBJECT_ID(N'[dbo].[FK_DocumentLogUser]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_DocumentNoteUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[DocumentNotes] DROP CONSTRAINT [FK_DocumentNoteUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserDocument]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_UserDocument];
 GO
 
 -- --------------------------------------------------
@@ -87,7 +90,8 @@ CREATE TABLE [dbo].[DocumentDatas] (
     [DocContent] varbinary(max)  NULL,
     [CreatedDate] datetime  NOT NULL,
     [Document] int  NOT NULL,
-    [Encrypted] bit  NOT NULL
+    [Encrypted] bit  NOT NULL,
+    [Salt] varbinary(max)  NULL
 );
 GO
 

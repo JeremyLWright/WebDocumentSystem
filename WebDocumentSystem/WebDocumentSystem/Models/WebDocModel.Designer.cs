@@ -780,14 +780,12 @@ namespace WebDocumentSystem.Models
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="createdDate">Initial value of the CreatedDate property.</param>
         /// <param name="document">Initial value of the Document property.</param>
-        /// <param name="encrypted">Initial value of the Encrypted property.</param>
-        public static DocumentData CreateDocumentData(global::System.Int32 id, global::System.DateTime createdDate, global::System.Int32 document, global::System.Boolean encrypted)
+        public static DocumentData CreateDocumentData(global::System.Int32 id, global::System.DateTime createdDate, global::System.Int32 document)
         {
             DocumentData documentData = new DocumentData();
             documentData.Id = id;
             documentData.CreatedDate = createdDate;
             documentData.Document = document;
-            documentData.Encrypted = encrypted;
             return documentData;
         }
 
@@ -913,9 +911,33 @@ namespace WebDocumentSystem.Models
                 OnEncryptedChanged();
             }
         }
-        private global::System.Boolean _Encrypted;
+        private global::System.Boolean _Encrypted = false;
         partial void OnEncryptedChanging(global::System.Boolean value);
         partial void OnEncryptedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] Salt
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_Salt);
+            }
+            set
+            {
+                OnSaltChanging(value);
+                ReportPropertyChanging("Salt");
+                _Salt = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Salt");
+                OnSaltChanged();
+            }
+        }
+        private global::System.Byte[] _Salt;
+        partial void OnSaltChanging(global::System.Byte[] value);
+        partial void OnSaltChanged();
 
         #endregion
     

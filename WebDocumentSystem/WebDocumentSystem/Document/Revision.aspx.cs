@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebDocumentSystem.Models;
+using WebDocumentSystem.Account;
 
 namespace WebDocumentSystem.Document
 {
@@ -12,6 +13,7 @@ namespace WebDocumentSystem.Document
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            var check = new AuthenticatedUser(); //Probably not idiomatic to C#, but I miss Python, why don't attributes work like decorators, I'm sad now.
             var version_id = Request.Form["versions"];
             if (version_id == null)
             {

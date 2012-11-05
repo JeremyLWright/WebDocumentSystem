@@ -24,26 +24,32 @@ namespace WebDocumentSystem.Document
 
             var data = (from d in ctx.DocumentDatas
                         where d.Id == doc.Revision
-                        select d).First();
-
-            using (Stream st = new MemoryStream(data.DocContent))
+                        select d).FirstOrDefault();
+            if (data != null)
             {
-                byte[] buffer = new byte[blockSize];
-
-                long dataLengthToRead = st.Length;
-                Response.ContentType = "text/plain";  //Or other you need
-                Response.AddHeader("Content-Disposition", "attachment; filename=\"" + doc.Name + "\"");
-                while (dataLengthToRead > 0 && Response.IsClientConnected)
+                using (Stream st = new MemoryStream(data.DocContent))
                 {
-                    Int32 lengthRead = st.Read(buffer, 0, blockSize);
-                    Response.OutputStream.Write(buffer, 0, lengthRead);
+                    byte[] buffer = new byte[blockSize];
+
+                    long dataLengthToRead = st.Length;
+                    Response.ContentType = "text/plain";  //Or other you need
+                    Response.AddHeader("Content-Disposition", "attachment; filename=\"" + doc.Name + "\"");
+                    while (dataLengthToRead > 0 && Response.IsClientConnected)
+                    {
+                        Int32 lengthRead = st.Read(buffer, 0, blockSize);
+                        Response.OutputStream.Write(buffer, 0, lengthRead);
+                        Response.Flush();
+                        dataLengthToRead = dataLengthToRead - lengthRead;
+                    }
                     Response.Flush();
-                    dataLengthToRead = dataLengthToRead - lengthRead;
+                    Response.Close();
                 }
-                Response.Flush();
-                Response.Close();
+                Response.End();
             }
-            Response.End();
+            else
+            {
+                Response.Redirect("~/Document/Index.aspx"); //This is an error, we couldn't find the document data.
+            }
         }
 
 

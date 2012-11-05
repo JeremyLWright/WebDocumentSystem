@@ -24,7 +24,7 @@
                     Enter a name for the document :
                 </td>
                 <td>
-                    <asp:TextBox runat="server" type="text" name="tb_name" id="tb_name"/>
+                    <asp:TextBox runat="server" type="text" name="tb_name" id="tb_name" />
                 </td>
             </tr>
             <tr>
@@ -42,6 +42,7 @@
                 </td>
                 <td>
                 <asp:Button class="btn" ID="btn_upload" runat="server" Text="Upload" />
+                <asp:HiddenField ID="hid_documentId" runat="server" Value="" />
                 </td>
             </tr>
             </table>
