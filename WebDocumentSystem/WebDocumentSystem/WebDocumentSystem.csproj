@@ -76,10 +76,6 @@
     <Content Include="Account\USR_password_recover.ascx" />
     <Content Include="Account\USR_register1.ascx" />
     <Content Include="Account\USR_sysadmin.ascx" />
-    <Content Include="App_Data\WebDocDB.mdf" />
-    <Content Include="App_Data\WebDocDB_log.ldf">
-      <DependentUpon>WebDocDB.mdf</DependentUpon>
-    </Content>
     <Content Include="Document\DocumentUpload.aspx" />
     <Content Include="Document\SuperSecretDeleteMeFile.aspx" />
     <Content Include="Document\View.aspx" />
@@ -311,6 +307,9 @@
       <Project>{10CFCCE6-3EFB-4F81-8DA3-980C8ACA144C}</Project>
       <Name>BusinessObjects</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

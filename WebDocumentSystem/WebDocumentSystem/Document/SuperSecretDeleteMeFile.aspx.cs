@@ -47,6 +47,7 @@ namespace WebDocumentSystem.Document
                 {
                     var document = new Models.Document();
                     document.Name = "Document_" + i;
+                    document.Owner = UserJeremy;
                     
                     // Create 15 random versions.
                     for (int j = 0; j < 15; ++j)

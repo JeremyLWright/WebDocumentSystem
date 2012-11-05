@@ -27,6 +27,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("WebDocModel", "UserUserLog", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User), "UserLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.UserLog), true)]
 [assembly: EdmRelationshipAttribute("WebDocModel", "DocumentLogUser", "DocumentLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.DocumentLog), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User))]
 [assembly: EdmRelationshipAttribute("WebDocModel", "DocumentNoteUser", "DocumentNote", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.DocumentNote), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User))]
+[assembly: EdmRelationshipAttribute("WebDocModel", "UserDocument", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.Document), true)]
 
 #endregion
 
@@ -467,12 +468,14 @@ namespace WebDocumentSystem.Models
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="isLocked">Initial value of the IsLocked property.</param>
         /// <param name="lastModified">Initial value of the LastModified property.</param>
-        public static Document CreateDocument(global::System.Int32 id, global::System.Boolean isLocked, global::System.DateTime lastModified)
+        /// <param name="userId">Initial value of the UserId property.</param>
+        public static Document CreateDocument(global::System.Int32 id, global::System.Boolean isLocked, global::System.DateTime lastModified, global::System.Int32 userId)
         {
             Document document = new Document();
             document.Id = id;
             document.IsLocked = isLocked;
             document.LastModified = lastModified;
+            document.UserId = userId;
             return document;
         }
 
@@ -625,6 +628,30 @@ namespace WebDocumentSystem.Models
         private global::System.DateTime _LastModified;
         partial void OnLastModifiedChanging(global::System.DateTime value);
         partial void OnLastModifiedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private global::System.Int32 _UserId;
+        partial void OnUserIdChanging(global::System.Int32 value);
+        partial void OnUserIdChanged();
 
         #endregion
     
@@ -692,6 +719,44 @@ namespace WebDocumentSystem.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DocumentNote>("WebDocModel.FK_DocumentNotes_Document", "DocumentNotes", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocModel", "UserDocument", "User")]
+        public User Owner
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("WebDocModel.UserDocument", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("WebDocModel.UserDocument", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> OwnerReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("WebDocModel.UserDocument", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("WebDocModel.UserDocument", "User", value);
                 }
             }
         }
@@ -1758,6 +1823,28 @@ namespace WebDocumentSystem.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DocumentNote>("WebDocModel.DocumentNoteUser", "DocumentNote", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocModel", "UserDocument", "Document")]
+        public EntityCollection<Document> Documents
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Document>("WebDocModel.UserDocument", "Document");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Document>("WebDocModel.UserDocument", "Document", value);
                 }
             }
         }

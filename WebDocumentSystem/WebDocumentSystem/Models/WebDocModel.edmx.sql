@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/04/2012 17:17:15
+-- Date Created: 11/04/2012 18:01:16
 -- Generated from EDMX file: C:\Users\Jeremy\workspaces\545_proj\WebDocumentSystem\WebDocumentSystem\Models\WebDocModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,65 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_DocumentData_Document]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DocumentDatas] DROP CONSTRAINT [FK_DocumentData_Document];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Audit_Log_Document]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DocumentLogs] DROP CONSTRAINT [FK_Audit_Log_Document];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DocumentNotes_Document]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DocumentNotes] DROP CONSTRAINT [FK_DocumentNotes_Document];
+GO
+IF OBJECT_ID(N'[dbo].[FK_user_accounts2SecurityQuestions]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_user_accounts2SecurityQuestions];
+GO
+IF OBJECT_ID(N'[dbo].[FK_user_requestsUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AccountRequests] DROP CONSTRAINT [FK_user_requestsUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserUserType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_UserUserType];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserUserLog]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[UserLogs] DROP CONSTRAINT [FK_UserUserLog];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DocumentLogUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DocumentLogs] DROP CONSTRAINT [FK_DocumentLogUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DocumentNoteUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DocumentNotes] DROP CONSTRAINT [FK_DocumentNoteUser];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[DocumentDatas]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DocumentDatas];
+GO
+IF OBJECT_ID(N'[dbo].[DocumentLogs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DocumentLogs];
+GO
+IF OBJECT_ID(N'[dbo].[DocumentNotes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DocumentNotes];
+GO
+IF OBJECT_ID(N'[dbo].[Documents]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Documents];
+GO
+IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Users];
+GO
+IF OBJECT_ID(N'[dbo].[AccountRequests]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AccountRequests];
+GO
+IF OBJECT_ID(N'[dbo].[UserTypes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserTypes];
+GO
+IF OBJECT_ID(N'[dbo].[UserLogs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserLogs];
+GO
+IF OBJECT_ID(N'[dbo].[SecurityQuestions]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SecurityQuestions];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -64,7 +118,8 @@ CREATE TABLE [dbo].[Documents] (
     [IsLocked] bit  NOT NULL,
     [LockHolder] int  NULL,
     [Revision] int  NULL,
-    [LastModified] datetime  NOT NULL
+    [LastModified] datetime  NOT NULL,
+    [UserId] int  NOT NULL
 );
 GO
 
@@ -298,6 +353,20 @@ ADD CONSTRAINT [FK_DocumentNoteUser]
 CREATE INDEX [IX_FK_DocumentNoteUser]
 ON [dbo].[DocumentNotes]
     ([User_Id]);
+GO
+
+-- Creating foreign key on [UserId] in table 'Documents'
+ALTER TABLE [dbo].[Documents]
+ADD CONSTRAINT [FK_UserDocument]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[Users]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserDocument'
+CREATE INDEX [IX_FK_UserDocument]
+ON [dbo].[Documents]
+    ([UserId]);
 GO
 
 -- --------------------------------------------------

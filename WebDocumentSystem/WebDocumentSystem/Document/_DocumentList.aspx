@@ -24,7 +24,7 @@
             <tr data-documentId="<%=document.Id %>" onclick="document_row_click(this)">
                 <td><input type="checkbox"/></td>
                 <td ><a href="View.aspx?DocumentId=<%=document.Id%>"><%= document.Name %></a></td>
-                <td></td>
+                <td><%= document.Owner.Name %></td>
                 <td><%= document.LastModified %></td>
                 <% if ((bool)document.IsLocked)
                    { %>
