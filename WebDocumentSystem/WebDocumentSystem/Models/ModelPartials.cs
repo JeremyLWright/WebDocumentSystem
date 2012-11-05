@@ -45,4 +45,12 @@ namespace WebDocumentSystem.Models
             Date = DateTime.Now;
         }
     }
+
+    public partial class AccountRequest
+    {
+        public AccountRequest()
+        {
+            Timestamp = DateTime.Now;
+        }
+    }
 }

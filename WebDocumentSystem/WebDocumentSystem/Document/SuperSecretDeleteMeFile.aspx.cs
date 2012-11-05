@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebDocumentSystem.Models;
+using BusinessObjects;
+
 
 namespace WebDocumentSystem.Document
 {
@@ -16,24 +18,47 @@ namespace WebDocumentSystem.Document
             {
                 Random rnd = new Random();
                 byte[] b = new byte[4096];
-               
-                for (var i = 0; i < 1000; ++i)
+
+
+                var AdminRole = new Models.UserType();
+                AdminRole.Type = "Admin";
+
+                var UserJeremy = new Models.User();
+                UserJeremy.Name = "jwright";
+                UserJeremy.Password = "hello";
+                UserJeremy.UserType = AdminRole;
+                
+
+                var request = new AccountRequest();
+                request.PasswordStrength = (int)PasswordAdvisor.CheckStrength(UserJeremy.Password);
+
+                request.User = UserJeremy;
+
+                var SecQuestion = new Models.SecurityQuestions();
+                SecQuestion.Question = "What is your quest?";
+                UserJeremy.SecurityQuestion = SecQuestion;
+
+                UserJeremy.SecurityAnswer = "Holy Grail.";
+
+                ctx.Users.AddObject(UserJeremy);
+                ctx.SaveChanges();
+
+                for (var i = 0; i < 20; ++i)
                 {
                     var document = new Models.Document();
                     document.Name = "Document_" + i;
                     
+                    // Create 15 random versions.
                     for (int j = 0; j < 15; ++j)
                     {
                         var documentData = new Models.DocumentData();
-
-                        document.DocumentDatas.Add(documentData);
                         document.Revision = documentData.Id;
                         rnd.NextBytes(b);
                         documentData.DocContent = b;
+                        document.DocumentDatas.Add(documentData);
 
                     }
                     ctx.Documents.AddObject(document);
-                    
                 }
                 ctx.SaveChanges();
 
@@ -43,8 +68,9 @@ namespace WebDocumentSystem.Document
                     {
                         var note = new Models.DocumentNote();
                         note.Note = random_notes[rnd.Next(random_notes.Length)];
+                        note.User = UserJeremy;
                         document.DocumentNotes.Add(note);
-                        
+
                     }
                 }
 

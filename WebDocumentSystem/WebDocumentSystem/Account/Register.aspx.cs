@@ -33,10 +33,10 @@ namespace WebDocumentSystem.Account
             using( var ctx = new WebDocEntities())
             {
                 var userEvent = new Models.UserLog();
-                var user = (from c in ctx.user_accounts2 
-                           where c.name == RegisterUser.UserName
+                var user = (from c in ctx.Users
+                           where c.Name == RegisterUser.UserName
                            select c).First();
-                userEvent.user_accounts2 = user;
+                userEvent.User = user;
                 userEvent.Message = "User Registered.";
                 ctx.UserLogs.AddObject(userEvent);
                 ctx.SaveChanges();

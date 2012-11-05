@@ -1,0 +1,690 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WebDocModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="WebDocModelStoreContainer">
+    <EntitySet Name="DocumentDatas" EntityType="WebDocModel.Store.DocumentDatas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DocumentLogs" EntityType="WebDocModel.Store.DocumentLogs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DocumentNotes" EntityType="WebDocModel.Store.DocumentNotes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Documents" EntityType="WebDocModel.Store.Documents" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="WebDocModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AccountRequests" EntityType="WebDocModel.Store.AccountRequests" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserTypes" EntityType="WebDocModel.Store.UserTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserLogs" EntityType="WebDocModel.Store.UserLogs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SecurityQuestions" EntityType="WebDocModel.Store.SecurityQuestions" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_DocumentData_Document" Association="WebDocModel.Store.FK_DocumentData_Document">
+      <End Role="Documents" EntitySet="Documents" />
+      <End Role="DocumentDatas" EntitySet="DocumentDatas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Audit_Log_Document" Association="WebDocModel.Store.FK_Audit_Log_Document">
+      <End Role="Documents" EntitySet="Documents" />
+      <End Role="DocumentLogs" EntitySet="DocumentLogs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DocumentNotes_Document" Association="WebDocModel.Store.FK_DocumentNotes_Document">
+      <End Role="Documents" EntitySet="Documents" />
+      <End Role="DocumentNotes" EntitySet="DocumentNotes" />
+    </AssociationSet>
+    <AssociationSet Name="user_accounts2SecurityQuestions" Association="WebDocModel.Store.user_accounts2SecurityQuestions">
+      <End Role="user_accounts2" EntitySet="Users" />
+      <End Role="SecurityQuestions" EntitySet="SecurityQuestions" />
+    </AssociationSet>
+    <AssociationSet Name="user_requestsUser" Association="WebDocModel.Store.user_requestsUser">
+      <End Role="user_requests" EntitySet="AccountRequests" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="UserUserType" Association="WebDocModel.Store.UserUserType">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserType" EntitySet="UserTypes" />
+    </AssociationSet>
+    <AssociationSet Name="UserUserLog" Association="WebDocModel.Store.UserUserLog">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserLog" EntitySet="UserLogs" />
+    </AssociationSet>
+    <AssociationSet Name="DocumentLogUser" Association="WebDocModel.Store.DocumentLogUser">
+      <End Role="DocumentLog" EntitySet="DocumentLogs" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="DocumentNoteUser" Association="WebDocModel.Store.DocumentNoteUser">
+      <End Role="DocumentNote" EntitySet="DocumentNotes" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="DocumentDatas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocContent" Type="varbinary(max)" Nullable="true" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="Document" Type="int" Nullable="false" />
+    <Property Name="Encrypted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DocumentLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Document" Type="int" Nullable="false" />
+    <Property Name="Message" Type="varchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DocumentNotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="Note" Type="varchar(max)" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="true" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Documents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar(max)" Nullable="true" />
+    <Property Name="IsLocked" Type="bit" Nullable="false" />
+    <Property Name="LockHolder" Type="int" Nullable="true" />
+    <Property Name="Revision" Type="int" Nullable="true" />
+    <Property Name="LastModified" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="SecurityAnswer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SecurityQuestion_Id" Type="int" Nullable="false" />
+    <Property Name="UserType_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AccountRequests">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PasswordStrength" Type="int" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="true" StoreGeneratedPattern="None" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SecurityQuestions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_DocumentData_Document">
+    <End Role="Documents" Type="WebDocModel.Store.Documents" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DocumentDatas" Type="WebDocModel.Store.DocumentDatas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DocumentDatas">
+        <PropertyRef Name="Document" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Audit_Log_Document">
+    <End Role="Documents" Type="WebDocModel.Store.Documents" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DocumentLogs" Type="WebDocModel.Store.DocumentLogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DocumentLogs">
+        <PropertyRef Name="Document" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DocumentNotes_Document">
+    <End Role="Documents" Type="WebDocModel.Store.Documents" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DocumentNotes" Type="WebDocModel.Store.DocumentNotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DocumentNotes">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_accounts2SecurityQuestions">
+    <End Role="user_accounts2" Type="WebDocModel.Store.Users" Multiplicity="*" />
+    <End Role="SecurityQuestions" Type="WebDocModel.Store.SecurityQuestions" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="SecurityQuestions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="user_accounts2">
+        <PropertyRef Name="SecurityQuestion_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_requestsUser">
+    <End Role="user_requests" Type="WebDocModel.Store.AccountRequests" Multiplicity="*" />
+    <End Role="User" Type="WebDocModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="user_requests">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserUserType">
+    <End Role="User" Type="WebDocModel.Store.Users" Multiplicity="*" />
+    <End Role="UserType" Type="WebDocModel.Store.UserTypes" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="UserType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="UserType_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserUserLog">
+    <End Role="User" Type="WebDocModel.Store.Users" Multiplicity="1" />
+    <End Role="UserLog" Type="WebDocModel.Store.UserLogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserLog">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocumentLogUser">
+    <End Role="DocumentLog" Type="WebDocModel.Store.DocumentLogs" Multiplicity="*" />
+    <End Role="User" Type="WebDocModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DocumentLog">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocumentNoteUser">
+    <End Role="DocumentNote" Type="WebDocModel.Store.DocumentNotes" Multiplicity="*" />
+    <End Role="User" Type="WebDocModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DocumentNote">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebDocModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="WebDocEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DocumentDatas" EntityType="WebDocModel.DocumentData" />
+          <EntitySet Name="DocumentLogs" EntityType="WebDocModel.DocumentLog" />
+          <EntitySet Name="DocumentNotes" EntityType="WebDocModel.DocumentNote" />
+          <EntitySet Name="Documents" EntityType="WebDocModel.Document" />
+          <EntitySet Name="Users" EntityType="WebDocModel.User" />
+          <EntitySet Name="AccountRequests" EntityType="WebDocModel.AccountRequest" />
+          <EntitySet Name="UserTypes" EntityType="WebDocModel.UserType" />
+          <EntitySet Name="UserLogs" EntityType="WebDocModel.UserLog" />
+          <AssociationSet Name="FK_DocumentData_Document" Association="WebDocModel.FK_DocumentData_Document">
+            <End Role="Documents" EntitySet="Documents" />
+            <End Role="DocumentDatas" EntitySet="DocumentDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Audit_Log_Document" Association="WebDocModel.FK_Audit_Log_Document">
+            <End Role="Documents" EntitySet="Documents" />
+            <End Role="DocumentLogs" EntitySet="DocumentLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentNotes_Document" Association="WebDocModel.FK_DocumentNotes_Document">
+            <End Role="Documents" EntitySet="Documents" />
+            <End Role="DocumentNotes" EntitySet="DocumentNotes" />
+          </AssociationSet>
+          <EntitySet Name="SecurityQuestions" EntityType="WebDocModel.SecurityQuestions" />
+          <AssociationSet Name="user_accounts2SecurityQuestions" Association="WebDocModel.user_accounts2SecurityQuestions">
+            <End Role="user_accounts2" EntitySet="Users" />
+            <End Role="SecurityQuestions" EntitySet="SecurityQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="user_requestsUser" Association="WebDocModel.user_requestsUser">
+            <End Role="user_requests" EntitySet="AccountRequests" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserUserType" Association="WebDocModel.UserUserType">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserType" EntitySet="UserTypes" />
+          </AssociationSet>
+          <AssociationSet Name="UserUserLog" Association="WebDocModel.UserUserLog">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserLog" EntitySet="UserLogs" />
+          </AssociationSet>
+          <AssociationSet Name="DocumentLogUser" Association="WebDocModel.DocumentLogUser">
+            <End Role="DocumentLog" EntitySet="DocumentLogs" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="DocumentNoteUser" Association="WebDocModel.DocumentNoteUser">
+            <End Role="DocumentNote" EntitySet="DocumentNotes" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DocumentData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocContent" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" />
+          <Property Name="Document" Type="Int32" Nullable="false" />
+          <Property Name="Encrypted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Document1" Relationship="WebDocModel.FK_DocumentData_Document" FromRole="DocumentDatas" ToRole="Documents" />
+        </EntityType>
+        <EntityType Name="DocumentLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Document" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Document1" Relationship="WebDocModel.FK_Audit_Log_Document" FromRole="DocumentLogs" ToRole="Documents" />
+          <NavigationProperty Name="User" Relationship="WebDocModel.DocumentLogUser" FromRole="DocumentLog" ToRole="User" />
+        </EntityType>
+        <EntityType Name="DocumentNote">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <NavigationProperty Name="Document" Relationship="WebDocModel.FK_DocumentNotes_Document" FromRole="DocumentNotes" ToRole="Documents" />
+          <NavigationProperty Name="User" Relationship="WebDocModel.DocumentNoteUser" FromRole="DocumentNote" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="IsLocked" Type="Boolean" Nullable="false" />
+          <Property Name="LockHolder" Type="Int32" />
+          <Property Name="Revision" Type="Int32" />
+          <Property Name="LastModified" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="DocumentDatas" Relationship="WebDocModel.FK_DocumentData_Document" FromRole="Documents" ToRole="DocumentDatas" />
+          <NavigationProperty Name="DocumentLogs" Relationship="WebDocModel.FK_Audit_Log_Document" FromRole="Documents" ToRole="DocumentLogs" />
+          <NavigationProperty Name="DocumentNotes" Relationship="WebDocModel.FK_DocumentNotes_Document" FromRole="Documents" ToRole="DocumentNotes" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="SecurityQuestion" Relationship="WebDocModel.user_accounts2SecurityQuestions" FromRole="user_accounts2" ToRole="SecurityQuestions" />
+          <Property Type="String" Name="SecurityAnswer" Nullable="false" />
+          <NavigationProperty Name="AccountRequest" Relationship="WebDocModel.user_requestsUser" FromRole="User" ToRole="user_requests" />
+          <NavigationProperty Name="UserType" Relationship="WebDocModel.UserUserType" FromRole="User" ToRole="UserType" />
+          <NavigationProperty Name="UserLogs" Relationship="WebDocModel.UserUserLog" FromRole="User" ToRole="UserLog" />
+          <NavigationProperty Name="DocumentLogs" Relationship="WebDocModel.DocumentLogUser" FromRole="User" ToRole="DocumentLog" />
+          <NavigationProperty Name="DocumentNotes" Relationship="WebDocModel.DocumentNoteUser" FromRole="User" ToRole="DocumentNote" />
+        </EntityType>
+        <EntityType Name="AccountRequest">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PasswordStrength" Type="Int32" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="User" Relationship="WebDocModel.user_requestsUser" FromRole="user_requests" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Users" Relationship="WebDocModel.UserUserType" FromRole="UserType" ToRole="User" />
+        </EntityType>
+        <EntityType Name="UserLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="WebDocModel.UserUserLog" FromRole="UserLog" ToRole="User" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DocumentData_Document">
+          <End Role="Documents" Type="WebDocModel.Document" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DocumentDatas" Type="WebDocModel.DocumentData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DocumentDatas">
+              <PropertyRef Name="Document" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Audit_Log_Document">
+          <End Role="Documents" Type="WebDocModel.Document" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DocumentLogs" Type="WebDocModel.DocumentLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DocumentLogs">
+              <PropertyRef Name="Document" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocumentNotes_Document">
+          <End Role="Documents" Type="WebDocModel.Document" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DocumentNotes" Type="WebDocModel.DocumentNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DocumentNotes">
+              <PropertyRef Name="DocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SecurityQuestions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Question" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="WebDocModel.user_accounts2SecurityQuestions" FromRole="SecurityQuestions" ToRole="user_accounts2" />
+        </EntityType>
+        <Association Name="user_accounts2SecurityQuestions">
+          <End Type="WebDocModel.User" Role="user_accounts2" Multiplicity="*" />
+          <End Type="WebDocModel.SecurityQuestions" Role="SecurityQuestions" Multiplicity="1" />
+        </Association>
+        <Association Name="user_requestsUser">
+          <End Type="WebDocModel.AccountRequest" Role="user_requests" Multiplicity="1" />
+          <End Type="WebDocModel.User" Role="User" Multiplicity="1" />
+        </Association>
+        <Association Name="UserUserType">
+          <End Type="WebDocModel.User" Role="User" Multiplicity="*" />
+          <End Type="WebDocModel.UserType" Role="UserType" Multiplicity="1" />
+        </Association>
+        <Association Name="UserUserLog">
+          <End Type="WebDocModel.User" Role="User" Multiplicity="1" />
+          <End Type="WebDocModel.UserLog" Role="UserLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserLog">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DocumentLogUser">
+          <End Type="WebDocModel.DocumentLog" Role="DocumentLog" Multiplicity="*" />
+          <End Type="WebDocModel.User" Role="User" Multiplicity="1" />
+        </Association>
+        <Association Name="DocumentNoteUser">
+          <End Type="WebDocModel.DocumentNote" Role="DocumentNote" Multiplicity="*" />
+          <End Type="WebDocModel.User" Role="User" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebDocModelStoreContainer" CdmEntityContainer="WebDocEntities">
+    <EntitySetMapping Name="DocumentDatas">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.DocumentData)">
+        <MappingFragment StoreEntitySet="DocumentDatas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DocContent" ColumnName="DocContent" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+          <ScalarProperty Name="Encrypted" ColumnName="Encrypted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocumentLogs">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.DocumentLog)">
+        <MappingFragment StoreEntitySet="DocumentLogs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Document" ColumnName="Document" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocumentNotes">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.DocumentNote)">
+        <MappingFragment StoreEntitySet="DocumentNotes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.Document)">
+        <MappingFragment StoreEntitySet="Documents">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+          <ScalarProperty Name="LockHolder" ColumnName="LockHolder" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
+          <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="SecurityAnswer" ColumnName="SecurityAnswer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AccountRequests">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.AccountRequest)">
+        <MappingFragment StoreEntitySet="AccountRequests">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PasswordStrength" ColumnName="PasswordStrength" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.UserType)">
+        <MappingFragment StoreEntitySet="UserTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLogs">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.UserLog)">
+        <MappingFragment StoreEntitySet="UserLogs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SecurityQuestions">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.SecurityQuestions)">
+        <MappingFragment StoreEntitySet="SecurityQuestions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Question" ColumnName="Question" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="user_accounts2SecurityQuestions" TypeName="WebDocModel.user_accounts2SecurityQuestions" StoreEntitySet="Users">
+      <EndProperty Name="SecurityQuestions">
+        <ScalarProperty Name="Id" ColumnName="SecurityQuestion_Id" />
+      </EndProperty>
+      <EndProperty Name="user_accounts2">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="user_requestsUser" TypeName="WebDocModel.user_requestsUser" StoreEntitySet="AccountRequests">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="user_requests">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserUserType" TypeName="WebDocModel.UserUserType" StoreEntitySet="Users">
+      <EndProperty Name="UserType">
+        <ScalarProperty Name="Id" ColumnName="UserType_Id" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DocumentLogUser" TypeName="WebDocModel.DocumentLogUser" StoreEntitySet="DocumentLogs">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="DocumentLog">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DocumentNoteUser" TypeName="WebDocModel.DocumentNoteUser" StoreEntitySet="DocumentNotes">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="DocumentNote">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="WebDocModel">
+        <EntityTypeShape EntityType="WebDocModel.DocumentData" Width="1.5" PointX="3" PointY="4.5" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.DocumentLog" Width="1.375" PointX="6" PointY="5.75" Height="1.9802864583333335" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.DocumentNote" Width="1.5" PointX="3.25" PointY="8.125" Height="1.9802864583333317" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.Document" Width="1.5" PointX="0.75" PointY="5.5" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.User" Width="1.5" PointX="3.75" PointY="0.75" Height="2.7494921875" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.AccountRequest" Width="2" PointX="8.5" PointY="3.375" Height="1.7879850260416665" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.UserType" Width="1.5" PointX="1.25" PointY="2.125" Height="1.4033821614583353" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.UserLog" Width="1.625" PointX="6" PointY="2.625" Height="1.9802864583333335" IsExpanded="true" />
+        <AssociationConnector Association="WebDocModel.FK_DocumentData_Document" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.0862939453125" />
+          <ConnectorPoint PointX="3" PointY="6.0862939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebDocModel.FK_Audit_Log_Document" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7.0107682963867193" />
+          <ConnectorPoint PointX="4.8111991666666674" PointY="7.0107682963867184" />
+          <ConnectorPoint PointX="4.9778658333333334" PointY="7.0107682963867193" />
+          <ConnectorPoint PointX="5.0201854166666671" PointY="7.0107682963867184" />
+          <ConnectorPoint PointX="5.1868520833333331" PointY="7.0107682963867193" />
+          <ConnectorPoint PointX="6" PointY="7.0107682963867193" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebDocModel.FK_DocumentNotes_Document" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="7.6368989726562511" />
+          <ConnectorPoint PointX="4.65625" PointY="7.6368989726562511" />
+          <ConnectorPoint PointX="4.65625" PointY="8.125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="WebDocModel.SecurityQuestions" Width="1.5" PointX="6.875" PointY="0.5" Height="1.59568359375" />
+        <AssociationConnector Association="WebDocModel.user_accounts2SecurityQuestions">
+          <ConnectorPoint PointX="5.25" PointY="1.422841796875" />
+          <ConnectorPoint PointX="6.875" PointY="1.422841796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebDocModel.user_requestsUser">
+          <ConnectorPoint PointX="9.5" PointY="3.375" />
+          <ConnectorPoint PointX="9.5" PointY="2.360341796875" />
+          <ConnectorPoint PointX="5.25" PointY="2.360341796875" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebDocModel.UserUserType">
+          <ConnectorPoint PointX="3.75" PointY="2.9083968098958328" />
+          <ConnectorPoint PointX="2.75" PointY="2.9083968098958328" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebDocModel.UserUserLog">
+          <ConnectorPoint PointX="5.25" PointY="3.06224609375" />
+          <ConnectorPoint PointX="6" PointY="3.06224609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebDocModel.DocumentLogUser">
+          <ConnectorPoint PointX="6" PointY="7.3362047222900415" />
+          <ConnectorPoint PointX="5.1868520833333331" PointY="7.3362047222900406" />
+          <ConnectorPoint PointX="5.0201854166666671" PointY="7.3362047222900415" />
+          <ConnectorPoint PointX="4.8945325" PointY="7.3362047222900415" />
+          <ConnectorPoint PointX="4.8945325" PointY="3.8840950520833331" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebDocModel.DocumentNoteUser">
+          <ConnectorPoint PointX="4.75" PointY="9.2112939453125" />
+          <ConnectorPoint PointX="5.10351875" PointY="9.2112939453125" />
+          <ConnectorPoint PointX="5.10351875" PointY="3.8840950520833331" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
