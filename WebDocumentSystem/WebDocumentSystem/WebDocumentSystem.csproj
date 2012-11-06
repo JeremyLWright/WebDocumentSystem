@@ -74,8 +74,8 @@
     <Content Include="Account\USR_docspage.ascx" />
     <Content Include="Account\USR_login1.ascx" />
     <Content Include="Account\USR_password_recover.ascx" />
-    <Content Include="Account\USR_register1.ascx" />
     <Content Include="Account\USR_sysadmin.ascx" />
+    <Content Include="CreateMockData.aspx" />
     <Content Include="Document\DocumentUpload.aspx" />
     <Content Include="Document\SuperSecretDeleteMeFile.aspx" />
     <Content Include="Document\View.aspx" />
@@ -172,19 +172,19 @@
     <Compile Include="Account\USR_password_recover.ascx.designer.cs">
       <DependentUpon>USR_password_recover.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Account\USR_register1.ascx.cs">
-      <DependentUpon>USR_register1.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Account\USR_register1.ascx.designer.cs">
-      <DependentUpon>USR_register1.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Account\USR_sysadmin.ascx.cs">
       <DependentUpon>USR_sysadmin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Account\USR_sysadmin.ascx.designer.cs">
       <DependentUpon>USR_sysadmin.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateMockData.aspx.cs">
+      <DependentUpon>CreateMockData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateMockData.aspx.designer.cs">
+      <DependentUpon>CreateMockData.aspx</DependentUpon>
     </Compile>
     <Compile Include="DataAccessor.cs" />
     <Compile Include="Default.aspx.cs">
