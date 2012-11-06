@@ -37,73 +37,65 @@ namespace WebDocumentSystem.Account
             ddl_questions.DataValueField = "question_id";
         }
 
-        protected void valid_registration(object sender, EventArgs e)
+        protected void RegisterSubmit(object sender, EventArgs e)
         {
-            Boolean isvalidmail = new Boolean();
-            Boolean isvaliduid = new Boolean();
+            if (Page.IsValid)
+            {
+                string password = txb_pwdc.Text.ToString();
 
-            /* isvalidmail = objDB.getValidcheck(txb_email.Text, "email_id");
-             isvaliduid = objDB.getValidcheck(txb_user_id.Text, "user_id");
-             */
-            lbl_errormail.Text = "";
-            lbl_error_user_id.Text = "";
-            if (isvalidmail == true)
-            {
-                lbl_errormail.Text = "Invalid mail id!!!. The Mail Id  is already registered.User another mail id!!!";
+                string user_id = txb_user_id.Text.ToString();
+                string user_name = txb_name.Text.ToString();
+                string user_role = ddl_usrole.SelectedItem.Value;
+                string email_id = txb_email.Text.ToString();
+                ddl_questions.SelectedValue = ddl_questions.SelectedItem.Value;
+                string question = ddl_questions.SelectedItem.Text;
+                string ans = txb_ans1.Text;
+
+
+                int password_strength = (int)PasswordAdvisor.CheckStrength(password);
+                using (var ctx = new WebDocEntities())
+                {
+                    var role = (from c in ctx.UserTypes where c.Type == user_role select c).First();
+
+                    var temp_user = new Models.User();
+                    temp_user.Email = email_id;
+                    temp_user.Name = user_name;
+                    temp_user.SecurityAnswer = ans;
+                    temp_user.Password = password;
+                    temp_user.SecurityQuestion = (from c in ctx.SecurityQuestions where c.Question == question select c).First();
+                    temp_user.UserType = role;
+
+                    var request = new AccountRequest();
+                    request.PasswordStrength = (int)PasswordAdvisor.CheckStrength(temp_user.Password);
+                    temp_user.AccountRequest = request;
+
+                    ctx.Users.AddObject(temp_user);
+                    ctx.SaveChanges();
+                    Response.Redirect("Reg_success.aspx");
+                }
             }
-            if (isvaliduid)
-            {
-                lbl_errormail.Text = "";
-                lbl_error_user_id.Text = "Invalid user id!!!.The Id  is already registered.User another user id!!!";
-            }
-            if (!(isvalidmail || isvaliduid))
-            {
-                onclick_btn_submit();
-            }
+        }
+
+        public void PasswordValidate(Object sender, ServerValidateEventArgs args)
+        {
+            if (PasswordAdvisor.CheckStrength(args.Value) >= PasswordScore.Medium)
+                args.IsValid = true;
             else
-            {
-
-            }
+                args.IsValid = false;
         }
 
-        protected void onclick_btn_submit()
+        public void UsernameAvailable(Object sender, ServerValidateEventArgs args)
         {
-
-            string password = txb_pwdc.Text.ToString();
-
-            string user_id = txb_user_id.Text.ToString();
-            string user_name = txb_name.Text.ToString();
-            string user_role = ddl_usrole.SelectedItem.Value;
-            string email_id = txb_email.Text.ToString();
-            ddl_questions.SelectedValue = ddl_questions.SelectedItem.Value;
-            string question = ddl_questions.SelectedItem.Text;
-            string ans = txb_ans1.Text;
-            if (ddl_questions.SelectedItem.Value == "-1" || string.IsNullOrEmpty(ans) || string.IsNullOrWhiteSpace(ans))
+            using (var ctx = new WebDocEntities())
             {
-                question = txb_cust_quest.Text;
-                ans = txb_cust_ans.Text;
+                var usernameTaken = (from c in ctx.Users where c.Name == args.Value select c).Any();
+                if (usernameTaken)
+                    args.IsValid = false;
+                else
+                    args.IsValid = true;
+
             }
 
-            int password_strength = (int)PasswordAdvisor.CheckStrength(password);
-
-            //request_id	user_id	password	user_type	name	email	password_streangth	request_type_id	timestamp
-            //2	mgr_13	password1	2	Jimmy	Jimmy@gmail.com	6	1	2012-10-09 17:33:16.343
-            //3	ceo_21	password1	1	Tommy	Tommy@gmail.com	7	1	2012-10-09 17:33:16.383
-            //string request_id =objDB.executeQueryReturnString(" select (max(request_id) +1) as val2 from user_requests");
-            string sql = @"insert into user_requests values('"
-                + user_id + "','" + password + "'," + user_role + ",'" + user_name + "','" + email_id + "'," + password_strength + ",1,GETDATE()" + ",'" + question + "','" + ans + "' )";
-            //objDB.executeQuery(sql);
-            // string fullname = fname + " " + lname;
-            //insert into customer values ('pankaj','Pankaj Khatkar', 'pkhatkar@asu.edu','pankaj')
-            //string sql_string = "insert into customer values ('" + uname + "','" + fullname + "','" + email + "','" + password + "')";
-            //objDB.executeQuery(sql_string);
-            // Response.Redirect("Reg_success.aspx");
-
-        }
-
-        public bool PasswordValidate(Object sender, ServerValidateEventArgs args)
-        {
-            return false;
         }
     }
 }

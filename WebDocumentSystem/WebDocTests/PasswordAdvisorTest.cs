@@ -76,5 +76,22 @@ namespace WebDocTests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod()]
+        public void CheckStrengthTestVeryStrong()
+        {
+            string password = "Q9MTZx14we!";
+            PasswordScore expected = PasswordScore.VeryStrong;
+            var actual = PasswordAdvisor.CheckStrength(password);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void CheckStrengthTestStrong()
+        {
+            string password = "paNther89";
+            PasswordScore expected = PasswordScore.Strong;
+            var actual = PasswordAdvisor.CheckStrength(password);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
