@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
 using WebDocumentSystem.Models;
+using System.Web.Security;
 
 namespace SSproject
 {
@@ -30,15 +31,15 @@ namespace SSproject
                 if (user != null)
                 {
                     Session["user"] = user.Name;
-                    Session["lastActionTime"] = DateTime.Now.ToString();
-
-                    if (user.UserType.Type != "Admin")
+                    Session.Timeout = 20;
+                    if (Request.QueryString["ReturnUrl"] == null)
                     {
-                        Response.Redirect("~/Account/SysAdmin.aspx");
+                        FormsAuthentication.SetAuthCookie(user.Name, true);
+                        Response.Redirect("~/Document/Index.aspx");
                     }
                     else
-                    {                       
-                        Response.Redirect("~/Document/Index.aspx");
+                    {
+                        FormsAuthentication.RedirectFromLoginPage(user.Name, true);
                     }
                 }
                 else

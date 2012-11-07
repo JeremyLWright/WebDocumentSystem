@@ -5,7 +5,6 @@
 </asp:Content>
 
 <asp:Content ID="ContentNav" ContentPlaceHolderID="MainNav" runat="server">
-<% Session.Abandon(); %>
     <h2>
         Welcome to Group 4's WebDoc
     </h2>

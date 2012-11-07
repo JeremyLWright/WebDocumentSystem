@@ -9,23 +9,27 @@ namespace WebDocumentSystem.Account
     [AttributeUsage(AttributeTargets.All)]
     public class AuthenticatedUser : System.Attribute
     {
-        public AuthenticatedUser()
-        {
-            if (HttpContext.Current.Session["user"] == null)
-            {
-                ForceLogin();
-            }
-        }
-
-        public void ForceLogin()
-        {
-            HttpContext.Current.Response.Redirect("~/Account/Login.aspx");
-        }
-
         public string Get()
         {
-            return HttpContext.Current.Session["user"].ToString();            
+            return HttpContext.Current.User.Identity.Name;            
 
+        }
+
+        public static bool isSuperUser()
+        {
+            var username = HttpContext.Current.User.Identity.Name;
+            using (var ctx = new WebDocEntities())
+            {
+                var user = (from c in ctx.Users
+                            where c.Name == username
+                            select c).FirstOrDefault();
+                if (user != null)
+                {
+                    if (user.UserType.Type == "Admin")
+                        return true;
+                }
+            }
+            return false;
         }
     }
 }
