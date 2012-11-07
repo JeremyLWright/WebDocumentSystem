@@ -19,14 +19,10 @@ namespace WebDocumentSystem.Document
                 Random rnd = new Random();
                 byte[] b = new byte[4096];
 
-
-                var AdminRole = new Models.UserType();
-                AdminRole.Type = "Admin";
-
                 var UserJeremy = new Models.User();
                 UserJeremy.Name = "jwright";
                 UserJeremy.Password = "hello";
-                UserJeremy.UserType = AdminRole;
+                UserJeremy.Role = (int)Models.User.Roles.Admin;
                 
 
                 var request = new AccountRequest();

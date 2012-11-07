@@ -12,7 +12,6 @@
     <EntitySet Name="Documents" EntityType="WebDocModel.Store.Documents" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="WebDocModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AccountRequests" EntityType="WebDocModel.Store.AccountRequests" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserTypes" EntityType="WebDocModel.Store.UserTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserLogs" EntityType="WebDocModel.Store.UserLogs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SecurityQuestions" EntityType="WebDocModel.Store.SecurityQuestions" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_DocumentData_Document" Association="WebDocModel.Store.FK_DocumentData_Document">
@@ -34,10 +33,6 @@
     <AssociationSet Name="user_requestsUser" Association="WebDocModel.Store.user_requestsUser">
       <End Role="user_requests" EntitySet="AccountRequests" />
       <End Role="User" EntitySet="Users" />
-    </AssociationSet>
-    <AssociationSet Name="UserUserType" Association="WebDocModel.Store.UserUserType">
-      <End Role="User" EntitySet="Users" />
-      <End Role="UserType" EntitySet="UserTypes" />
     </AssociationSet>
     <AssociationSet Name="UserUserLog" Association="WebDocModel.Store.UserUserLog">
       <End Role="User" EntitySet="Users" />
@@ -108,8 +103,9 @@
     <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
     <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="50" />
     <Property Name="SecurityAnswer" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Salt" Type="varbinary(max)" Nullable="true" />
+    <Property Name="Role" Type="int" Nullable="false" />
     <Property Name="SecurityQuestion_Id" Type="int" Nullable="false" />
-    <Property Name="UserType_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="AccountRequests">
     <Key>
@@ -118,14 +114,8 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PasswordStrength" Type="int" Nullable="false" />
     <Property Name="Timestamp" Type="datetime" Nullable="true" />
+    <Property Name="State" Type="int" Nullable="false" />
     <Property Name="User_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="UserTypes">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="50" />
   </EntityType>
   <EntityType Name="UserLogs">
     <Key>
@@ -209,18 +199,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="UserUserType">
-    <End Role="User" Type="WebDocModel.Store.Users" Multiplicity="*" />
-    <End Role="UserType" Type="WebDocModel.Store.UserTypes" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="UserType">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="UserType_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="UserUserLog">
     <End Role="User" Type="WebDocModel.Store.Users" Multiplicity="1" />
     <End Role="UserLog" Type="WebDocModel.Store.UserLogs" Multiplicity="*" />
@@ -280,7 +258,6 @@
           <EntitySet Name="Documents" EntityType="WebDocModel.Document" />
           <EntitySet Name="Users" EntityType="WebDocModel.User" />
           <EntitySet Name="AccountRequests" EntityType="WebDocModel.AccountRequest" />
-          <EntitySet Name="UserTypes" EntityType="WebDocModel.UserType" />
           <EntitySet Name="UserLogs" EntityType="WebDocModel.UserLog" />
           <AssociationSet Name="FK_DocumentData_Document" Association="WebDocModel.FK_DocumentData_Document">
             <End Role="Documents" EntitySet="Documents" />
@@ -302,10 +279,6 @@
           <AssociationSet Name="user_requestsUser" Association="WebDocModel.user_requestsUser">
             <End Role="user_requests" EntitySet="AccountRequests" />
             <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="UserUserType" Association="WebDocModel.UserUserType">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserType" EntitySet="UserTypes" />
           </AssociationSet>
           <AssociationSet Name="UserUserLog" Association="WebDocModel.UserUserLog">
             <End Role="User" EntitySet="Users" />
@@ -385,11 +358,12 @@
           <NavigationProperty Name="SecurityQuestion" Relationship="WebDocModel.user_accounts2SecurityQuestions" FromRole="user_accounts2" ToRole="SecurityQuestions" />
           <Property Type="String" Name="SecurityAnswer" Nullable="false" />
           <NavigationProperty Name="AccountRequest" Relationship="WebDocModel.user_requestsUser" FromRole="User" ToRole="user_requests" />
-          <NavigationProperty Name="UserType" Relationship="WebDocModel.UserUserType" FromRole="User" ToRole="UserType" />
           <NavigationProperty Name="UserLogs" Relationship="WebDocModel.UserUserLog" FromRole="User" ToRole="UserLog" />
           <NavigationProperty Name="DocumentLogs" Relationship="WebDocModel.DocumentLogUser" FromRole="User" ToRole="DocumentLog" />
           <NavigationProperty Name="DocumentNotes" Relationship="WebDocModel.DocumentNoteUser" FromRole="User" ToRole="DocumentNote" />
           <NavigationProperty Name="Documents" Relationship="WebDocModel.UserDocument" FromRole="User" ToRole="Document" />
+          <Property Type="Binary" Name="Salt" Nullable="true" />
+          <Property Type="Int32" Name="Role" Nullable="false" />
         </EntityType>
         <EntityType Name="AccountRequest">
           <Key>
@@ -399,14 +373,7 @@
           <Property Name="PasswordStrength" Type="Int32" Nullable="false" />
           <Property Name="Timestamp" Type="DateTime" annotation:StoreGeneratedPattern="None" />
           <NavigationProperty Name="User" Relationship="WebDocModel.user_requestsUser" FromRole="user_requests" ToRole="User" />
-        </EntityType>
-        <EntityType Name="UserType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Users" Relationship="WebDocModel.UserUserType" FromRole="UserType" ToRole="User" />
+          <Property Type="Int32" Name="State" Nullable="false" />
         </EntityType>
         <EntityType Name="UserLog">
           <Key>
@@ -475,10 +442,6 @@
         <Association Name="user_requestsUser">
           <End Type="WebDocModel.AccountRequest" Role="user_requests" Multiplicity="1" />
           <End Type="WebDocModel.User" Role="User" Multiplicity="1" />
-        </Association>
-        <Association Name="UserUserType">
-          <End Type="WebDocModel.User" Role="User" Multiplicity="*" />
-          <End Type="WebDocModel.UserType" Role="UserType" Multiplicity="1" />
         </Association>
         <Association Name="UserUserLog">
           <End Type="WebDocModel.User" Role="User" Multiplicity="1" />
@@ -571,6 +534,8 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="SecurityAnswer" ColumnName="SecurityAnswer" />
+          <ScalarProperty Name="Salt" ColumnName="Salt" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -580,14 +545,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="PasswordStrength" ColumnName="PasswordStrength" />
           <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="UserTypes">
-      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.UserType)">
-        <MappingFragment StoreEntitySet="UserTypes">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="State" ColumnName="State" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -622,14 +580,6 @@
         <ScalarProperty Name="Id" ColumnName="User_Id" />
       </EndProperty>
       <EndProperty Name="user_requests">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="UserUserType" TypeName="WebDocModel.UserUserType" StoreEntitySet="Users">
-      <EndProperty Name="UserType">
-        <ScalarProperty Name="Id" ColumnName="UserType_Id" />
-      </EndProperty>
-      <EndProperty Name="User">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
@@ -673,21 +623,20 @@
         <EntityTypeShape EntityType="WebDocModel.DocumentLog" Width="1.375" PointX="6.75" PointY="5.75" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDocModel.DocumentNote" Width="1.5" PointX="3.25" PointY="8.125" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDocModel.Document" Width="1.5" PointX="0.5" PointY="4.5" Height="2.7494921874999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDocModel.User" Width="1.5" PointX="3.75" PointY="0.75" Height="2.7494921875" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDocModel.AccountRequest" Width="2" PointX="8.5" PointY="3.375" Height="1.7879850260416665" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDocModel.UserType" Width="1.5" PointX="1.25" PointY="2.125" Height="1.4033821614583353" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.User" Width="1.5" PointX="3.75" PointY="0.5" Height="3.5186979166666665" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.AccountRequest" Width="2" PointX="8.5" PointY="3.375" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDocModel.UserLog" Width="1.625" PointX="6" PointY="2.625" Height="1.9802864583333335" IsExpanded="true" />
         <AssociationConnector Association="WebDocModel.FK_DocumentData_Document" ManuallyRouted="false">
           <ConnectorPoint PointX="2" PointY="5.4949446614583337" />
           <ConnectorPoint PointX="2.75" PointY="5.4949446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.FK_Audit_Log_Document" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="6.8415983439127608" />
-          <ConnectorPoint PointX="4.5494779166666666" PointY="6.84159834391276" />
-          <ConnectorPoint PointX="4.7161445833333326" PointY="6.8415983439127608" />
-          <ConnectorPoint PointX="4.7369779166666666" PointY="6.84159834391276" />
-          <ConnectorPoint PointX="4.9036445833333326" PointY="6.8415983439127608" />
-          <ConnectorPoint PointX="6.75" PointY="6.8415983439127608" />
+          <ConnectorPoint PointX="2" PointY="7.0932421875" />
+          <ConnectorPoint PointX="4.5812158072916676" PointY="7.0932421874999987" />
+          <ConnectorPoint PointX="4.7478824739583336" PointY="7.0932421875" />
+          <ConnectorPoint PointX="4.8739412369791673" PointY="7.0932421874999987" />
+          <ConnectorPoint PointX="5.0406079036458333" PointY="7.0932421875" />
+          <ConnectorPoint PointX="6.75" PointY="7.0932421875" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.FK_DocumentNotes_Document" ManuallyRouted="false">
           <ConnectorPoint PointX="1.25" PointY="7.2494921875" />
@@ -696,35 +645,31 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="WebDocModel.SecurityQuestions" Width="1.5" PointX="6.875" PointY="0.5" Height="1.59568359375" />
         <AssociationConnector Association="WebDocModel.user_accounts2SecurityQuestions">
-          <ConnectorPoint PointX="5.25" PointY="1.4228417968749998" />
-          <ConnectorPoint PointX="6.875" PointY="1.4228417968749998" />
+          <ConnectorPoint PointX="5.25" PointY="1.2978417968749998" />
+          <ConnectorPoint PointX="6.875" PointY="1.2978417968749998" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.user_requestsUser">
           <ConnectorPoint PointX="9.5" PointY="3.375" />
-          <ConnectorPoint PointX="9.5" PointY="2.3603417968749993" />
-          <ConnectorPoint PointX="5.25" PointY="2.3603417968749993" />
-        </AssociationConnector>
-        <AssociationConnector Association="WebDocModel.UserUserType">
-          <ConnectorPoint PointX="3.75" PointY="2.922841796875" />
-          <ConnectorPoint PointX="2.75" PointY="2.922841796875" />
+          <ConnectorPoint PointX="9.5" PointY="2.360341796875" />
+          <ConnectorPoint PointX="5.25" PointY="2.360341796875" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.UserUserLog">
-          <ConnectorPoint PointX="5.25" PointY="3.2545475260416663" />
-          <ConnectorPoint PointX="6" PointY="3.2545475260416663" />
+          <ConnectorPoint PointX="5.25" PointY="3.3218489583333333" />
+          <ConnectorPoint PointX="6" PointY="3.3218489583333333" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.DocumentLogUser">
-          <ConnectorPoint PointX="6.75" PointY="7.5891976277669269" />
-          <ConnectorPoint PointX="4.82031125" PointY="7.5891976277669269" />
-          <ConnectorPoint PointX="4.82031125" PointY="4.076396484375" />
+          <ConnectorPoint PointX="6.75" PointY="7.658754505208333" />
+          <ConnectorPoint PointX="4.9572745703125" PointY="7.658754505208333" />
+          <ConnectorPoint PointX="4.9572745703125" PointY="4.0186979166666665" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.DocumentNoteUser">
-          <ConnectorPoint PointX="4.63281125" PointY="8.125" />
-          <ConnectorPoint PointX="4.63281125" PointY="4.076396484375" />
+          <ConnectorPoint PointX="4.6645491406250006" PointY="8.125" />
+          <ConnectorPoint PointX="4.6645491406250006" PointY="4.0186979166666665" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.UserDocument">
-          <ConnectorPoint PointX="3.75" PointY="1.40625" />
-          <ConnectorPoint PointX="0.84375" PointY="1.40625" />
-          <ConnectorPoint PointX="0.84375" PointY="4.5" />
+          <ConnectorPoint PointX="3.75" PointY="2.2593489583333333" />
+          <ConnectorPoint PointX="1.25" PointY="2.2593489583333333" />
+          <ConnectorPoint PointX="1.25" PointY="4.5" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

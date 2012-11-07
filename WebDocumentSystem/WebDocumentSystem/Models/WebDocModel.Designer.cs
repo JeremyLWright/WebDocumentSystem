@@ -23,7 +23,6 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("WebDocModel", "FK_DocumentNotes_Document", "Documents", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.Document), "DocumentNotes", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.DocumentNote), true)]
 [assembly: EdmRelationshipAttribute("WebDocModel", "user_accounts2SecurityQuestions", "user_accounts2", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.User), "SecurityQuestions", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.SecurityQuestions))]
 [assembly: EdmRelationshipAttribute("WebDocModel", "user_requestsUser", "user_requests", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.AccountRequest), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User))]
-[assembly: EdmRelationshipAttribute("WebDocModel", "UserUserType", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.User), "UserType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.UserType))]
 [assembly: EdmRelationshipAttribute("WebDocModel", "UserUserLog", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User), "UserLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.UserLog), true)]
 [assembly: EdmRelationshipAttribute("WebDocModel", "DocumentLogUser", "DocumentLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.DocumentLog), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User))]
 [assembly: EdmRelationshipAttribute("WebDocModel", "DocumentNoteUser", "DocumentNote", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.DocumentNote), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User))]
@@ -178,22 +177,6 @@ namespace WebDocumentSystem.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<UserType> UserTypes
-        {
-            get
-            {
-                if ((_UserTypes == null))
-                {
-                    _UserTypes = base.CreateObjectSet<UserType>("UserTypes");
-                }
-                return _UserTypes;
-            }
-        }
-        private ObjectSet<UserType> _UserTypes;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<UserLog> UserLogs
         {
             get
@@ -275,14 +258,6 @@ namespace WebDocumentSystem.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the UserTypes EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToUserTypes(UserType userType)
-        {
-            base.AddObject("UserTypes", userType);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the UserLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToUserLogs(UserLog userLog)
@@ -321,11 +296,13 @@ namespace WebDocumentSystem.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="passwordStrength">Initial value of the PasswordStrength property.</param>
-        public static AccountRequest CreateAccountRequest(global::System.Int32 id, global::System.Int32 passwordStrength)
+        /// <param name="state">Initial value of the State property.</param>
+        public static AccountRequest CreateAccountRequest(global::System.Int32 id, global::System.Int32 passwordStrength, global::System.Int32 state)
         {
             AccountRequest accountRequest = new AccountRequest();
             accountRequest.Id = id;
             accountRequest.PasswordStrength = passwordStrength;
+            accountRequest.State = state;
             return accountRequest;
         }
 
@@ -406,6 +383,30 @@ namespace WebDocumentSystem.Models
         private Nullable<global::System.DateTime> _Timestamp;
         partial void OnTimestampChanging(Nullable<global::System.DateTime> value);
         partial void OnTimestampChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 State
+        {
+            get
+            {
+                return _State;
+            }
+            set
+            {
+                OnStateChanging(value);
+                ReportPropertyChanging("State");
+                _State = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("State");
+                OnStateChanged();
+            }
+        }
+        private global::System.Int32 _State;
+        partial void OnStateChanging(global::System.Int32 value);
+        partial void OnStateChanged();
 
         #endregion
     
@@ -1529,13 +1530,15 @@ namespace WebDocumentSystem.Models
         /// <param name="password">Initial value of the Password property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="securityAnswer">Initial value of the SecurityAnswer property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String password, global::System.String name, global::System.String securityAnswer)
+        /// <param name="role">Initial value of the Role property.</param>
+        public static User CreateUser(global::System.Int32 id, global::System.String password, global::System.String name, global::System.String securityAnswer, global::System.Int32 role)
         {
             User user = new User();
             user.Id = id;
             user.Password = password;
             user.Name = name;
             user.SecurityAnswer = securityAnswer;
+            user.Role = role;
             return user;
         }
 
@@ -1664,6 +1667,54 @@ namespace WebDocumentSystem.Models
         private global::System.String _SecurityAnswer;
         partial void OnSecurityAnswerChanging(global::System.String value);
         partial void OnSecurityAnswerChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.Byte[] Salt
+        {
+            get
+            {
+                return StructuralObject.GetValidValue(_Salt);
+            }
+            set
+            {
+                OnSaltChanging(value);
+                ReportPropertyChanging("Salt");
+                _Salt = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Salt");
+                OnSaltChanged();
+            }
+        }
+        private global::System.Byte[] _Salt;
+        partial void OnSaltChanging(global::System.Byte[] value);
+        partial void OnSaltChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Role
+        {
+            get
+            {
+                return _Role;
+            }
+            set
+            {
+                OnRoleChanging(value);
+                ReportPropertyChanging("Role");
+                _Role = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Role");
+                OnRoleChanged();
+            }
+        }
+        private global::System.Int32 _Role;
+        partial void OnRoleChanging(global::System.Int32 value);
+        partial void OnRoleChanged();
 
         #endregion
     
@@ -1741,44 +1792,6 @@ namespace WebDocumentSystem.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<AccountRequest>("WebDocModel.user_requestsUser", "user_requests", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WebDocModel", "UserUserType", "UserType")]
-        public UserType UserType
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserType>("WebDocModel.UserUserType", "UserType").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserType>("WebDocModel.UserUserType", "UserType").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<UserType> UserTypeReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<UserType>("WebDocModel.UserUserType", "UserType");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<UserType>("WebDocModel.UserUserType", "UserType", value);
                 }
             }
         }
@@ -2041,112 +2054,6 @@ namespace WebDocumentSystem.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("WebDocModel.UserUserLog", "User", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="UserType")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class UserType : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new UserType object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="type">Initial value of the Type property.</param>
-        public static UserType CreateUserType(global::System.Int32 id, global::System.String type)
-        {
-            UserType userType = new UserType();
-            userType.Id = id;
-            userType.Type = type;
-            return userType;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                if (_Id != value)
-                {
-                    OnIdChanging(value);
-                    ReportPropertyChanging("Id");
-                    _Id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("Id");
-                    OnIdChanged();
-                }
-            }
-        }
-        private global::System.Int32 _Id;
-        partial void OnIdChanging(global::System.Int32 value);
-        partial void OnIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Type
-        {
-            get
-            {
-                return _Type;
-            }
-            set
-            {
-                OnTypeChanging(value);
-                ReportPropertyChanging("Type");
-                _Type = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("Type");
-                OnTypeChanged();
-            }
-        }
-        private global::System.String _Type;
-        partial void OnTypeChanging(global::System.String value);
-        partial void OnTypeChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WebDocModel", "UserUserType", "User")]
-        public EntityCollection<User> Users
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("WebDocModel.UserUserType", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("WebDocModel.UserUserType", "User", value);
                 }
             }
         }

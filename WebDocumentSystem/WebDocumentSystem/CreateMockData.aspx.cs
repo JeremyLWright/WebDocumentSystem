@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebDocumentSystem.Models;
+using WebDocumentSystem.BusinessLogic;
+using BusinessObjects;
 
 namespace WebDocumentSystem
 {
@@ -22,15 +24,26 @@ namespace WebDocumentSystem
                 }
                 ctx.SaveChanges();
 
-                foreach (var roleText in exampleRoles)
-                {
-                    var Role = new Models.UserType();
-                    Role.Type = roleText;
-                    ctx.UserTypes.AddObject(Role);
-                }
+
+                var salt = Encryptor.GetSalt();
+                var password = Encryptor.GenerateSaltedHash("AUwtaGL9BmV8VBh", salt);
+                var user = new Models.User();
+                user.Password = password;
+                user.Salt = salt;
+                user.Name = "Admin";
+                user.Role = (int)Models.User.Roles.Admin;
+
+                user.SecurityQuestion = (from c in ctx.SecurityQuestions select c).First();
+                user.SecurityAnswer = "Don't think about it.";
+
+                var request = new Models.AccountRequest();
+                request.State = (int)Models.AccountRequest.States.Approved;
+                request.PasswordStrength = (int)PasswordScore.VeryStrong;
+                user.AccountRequest = request;
+
+                ctx.Users.AddObject(user);
                 ctx.SaveChanges();
             }
-
 
 
         }
@@ -47,14 +60,7 @@ namespace WebDocumentSystem
 "What is your maternal grandmother's maiden name?",
 "In what city or town was your first job?",
 "Where were you when you first heard about 9/11?"};
-        string[] exampleRoles = {
-                                 "President/CEO/VP",
-"Dept Mgr",
-"R Employee",
-"Temp_User",
-"Guest_User",
-"Sys_admin",
-"new_user"};
+        
 
     }
 }

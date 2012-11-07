@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/04/2012 22:56:09
+-- Date Created: 11/07/2012 13:41:12
 -- Generated from EDMX file: C:\Users\Jeremy\workspaces\545_proj\WebDocumentSystem\WebDocumentSystem\Models\WebDocModel.edmx
 -- --------------------------------------------------
 
@@ -31,9 +31,6 @@ IF OBJECT_ID(N'[dbo].[FK_user_accounts2SecurityQuestions]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_user_requestsUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AccountRequests] DROP CONSTRAINT [FK_user_requestsUser];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UserUserType]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Users] DROP CONSTRAINT [FK_UserUserType];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserUserLog]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserLogs] DROP CONSTRAINT [FK_UserUserLog];
@@ -69,9 +66,6 @@ IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[AccountRequests]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AccountRequests];
-GO
-IF OBJECT_ID(N'[dbo].[UserTypes]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UserTypes];
 GO
 IF OBJECT_ID(N'[dbo].[UserLogs]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserLogs];
@@ -134,8 +128,9 @@ CREATE TABLE [dbo].[Users] (
     [Name] nvarchar(50)  NOT NULL,
     [Email] nvarchar(50)  NULL,
     [SecurityAnswer] nvarchar(max)  NOT NULL,
-    [SecurityQuestion_Id] int  NOT NULL,
-    [UserType_Id] int  NOT NULL
+    [Salt] varbinary(max)  NULL,
+    [Role] int  NOT NULL,
+    [SecurityQuestion_Id] int  NOT NULL
 );
 GO
 
@@ -144,14 +139,8 @@ CREATE TABLE [dbo].[AccountRequests] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [PasswordStrength] int  NOT NULL,
     [Timestamp] datetime  NULL,
+    [State] int  NOT NULL,
     [User_Id] int  NOT NULL
-);
-GO
-
--- Creating table 'UserTypes'
-CREATE TABLE [dbo].[UserTypes] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [Type] nvarchar(50)  NOT NULL
 );
 GO
 
@@ -208,12 +197,6 @@ GO
 -- Creating primary key on [Id] in table 'AccountRequests'
 ALTER TABLE [dbo].[AccountRequests]
 ADD CONSTRAINT [PK_AccountRequests]
-    PRIMARY KEY CLUSTERED ([Id] ASC);
-GO
-
--- Creating primary key on [Id] in table 'UserTypes'
-ALTER TABLE [dbo].[UserTypes]
-ADD CONSTRAINT [PK_UserTypes]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -301,20 +284,6 @@ ADD CONSTRAINT [FK_user_requestsUser]
 CREATE INDEX [IX_FK_user_requestsUser]
 ON [dbo].[AccountRequests]
     ([User_Id]);
-GO
-
--- Creating foreign key on [UserType_Id] in table 'Users'
-ALTER TABLE [dbo].[Users]
-ADD CONSTRAINT [FK_UserUserType]
-    FOREIGN KEY ([UserType_Id])
-    REFERENCES [dbo].[UserTypes]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UserUserType'
-CREATE INDEX [IX_FK_UserUserType]
-ON [dbo].[Users]
-    ([UserType_Id]);
 GO
 
 -- Creating foreign key on [UserId] in table 'UserLogs'

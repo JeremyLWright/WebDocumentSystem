@@ -17,6 +17,15 @@ namespace WebDocumentSystem.BusinessLogic
             return salt;
         }
 
+        public static string GenerateSaltedHash(string plainText, byte[] salt)
+        {
+            using (var pbkdf2 = new Rfc2898DeriveBytes(plainText, salt))
+            {
+                var key = pbkdf2.GetBytes(24);
+                return Convert.ToBase64String(key);
+            }
+        }
+
         public static byte[] Encrypt(string password, byte[] data, byte[] salt)
         {
             var encryptedResult = new MemoryStream();

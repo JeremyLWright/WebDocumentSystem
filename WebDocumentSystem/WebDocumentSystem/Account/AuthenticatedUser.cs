@@ -25,7 +25,7 @@ namespace WebDocumentSystem.Account
                             select c).FirstOrDefault();
                 if (user != null)
                 {
-                    if (user.UserType.Type == "Admin")
+                    if (user.Role == (int)Models.User.Roles.Admin)
                         return true;
                 }
             }

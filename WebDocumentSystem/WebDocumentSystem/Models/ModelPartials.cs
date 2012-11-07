@@ -105,7 +105,35 @@ namespace WebDocumentSystem.Models
         public AccountRequest()
         {
             Timestamp = DateTime.Now;
+            State = (int)States.Pending;
+        }
+
+        public enum States
+        {
+            Pending,
+            Approved,
+            Revoked
         }
     }
+
+    public partial class User
+    {
+        public User()
+        {
+            Role = (int)Roles.NewUser;
+        }
+
+        public enum Roles
+        {
+            CEO,
+            Dept_Mgr,
+            Employee,
+            Temporary,
+            Guest,
+            Admin,
+            NewUser
+        }
+    }
+
 
 }

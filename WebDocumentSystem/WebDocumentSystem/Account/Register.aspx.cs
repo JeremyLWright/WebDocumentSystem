@@ -15,12 +15,10 @@ namespace WebDocumentSystem.Account
         {
             
             var ctx = new WebDocEntities();
-            var roles = from c in ctx.UserTypes
-                        select c;
-
-            foreach (var role in roles)
+            var values = Enum.GetNames(typeof(Models.User.Roles));
+            foreach (var role in values)
             {
-                ddl_usrole.Items.Add(new ListItem(role.Type));
+                ddl_usrole.Items.Add(new ListItem());
             }
 
             ddl_usrole.DataTextField = "type_name";
@@ -55,7 +53,10 @@ namespace WebDocumentSystem.Account
                 int password_strength = (int)PasswordAdvisor.CheckStrength(password);
                 using (var ctx = new WebDocEntities())
                 {
-                    var role = (from c in ctx.UserTypes where c.Type == user_role select c).First();
+                    var values = Enum.GetNames(typeof(Models.User.Roles));
+                    var role2 = (from c in values
+                                where c == user_role
+                                select c).First();
 
                     var temp_user = new Models.User();
                     temp_user.Email = email_id;
@@ -63,7 +64,7 @@ namespace WebDocumentSystem.Account
                     temp_user.SecurityAnswer = ans;
                     temp_user.Password = password;
                     temp_user.SecurityQuestion = (from c in ctx.SecurityQuestions where c.Question == question select c).First();
-                    temp_user.UserType = role;
+                    temp_user.Role = (int)Enum.Parse(typeof(Models.User.Roles), role2);
 
                     var request = new AccountRequest();
                     request.PasswordStrength = (int)PasswordAdvisor.CheckStrength(temp_user.Password);

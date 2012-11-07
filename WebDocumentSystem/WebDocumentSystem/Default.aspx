@@ -16,7 +16,8 @@
         <li class="nav-header">Sponsorship</li>
         <li>WebDoc has been brought to you by the letter <em>P</em> and the number <em>0b10</em>
  </li>
- <li>In coorperation with Lilly, the hungry muppet who lives on a breadline.</li>
+ <li>In cooperation with Lilly, the hungry muppet who lives on a breadline.</li>
+ <li>...and users like you, thank you</li>
     </ul>
  
  </asp:Content>

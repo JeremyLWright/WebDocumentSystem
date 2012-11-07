@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using WebDocumentSystem.Models;
 using System.Web.Security;
+using WebDocumentSystem.BusinessLogic;
 
 namespace SSproject
 {
@@ -19,33 +20,35 @@ namespace SSproject
         }
         public void validate_login(object sender, EventArgs e)
         {
-
             string username = txb_usrname.Text;
             string password = txb_password.Text;
 
             using (var ctx = new WebDocEntities())
             {
-                var user = (from c in ctx.Users
-                            where c.Name == txb_usrname.Text && c.Password == txb_password.Text
+                var requestedUser = (from c in ctx.Users
+                            where c.Name == username
                             select c).FirstOrDefault();
-                if (user != null)
+                if (requestedUser != null)
                 {
-                    Session["user"] = user.Name;
-                    Session.Timeout = 20;
-                    if (Request.QueryString["ReturnUrl"] == null)
+                    var salt = requestedUser.Salt;
+                    var saltedPassword = Encryptor.GenerateSaltedHash(txb_password.Text, salt);
+                    if (saltedPassword == requestedUser.Password)
                     {
-                        FormsAuthentication.SetAuthCookie(user.Name, true);
-                        Response.Redirect("~/Document/Index.aspx");
-                    }
-                    else
-                    {
-                        FormsAuthentication.RedirectFromLoginPage(user.Name, true);
+                        Session["user"] = requestedUser.Name;
+                        Session.Timeout = 20;
+                        if (Request.QueryString["ReturnUrl"] == null)
+                        {
+                            FormsAuthentication.SetAuthCookie(requestedUser.Name, true);
+                            Response.Redirect("~/Document/Index.aspx");
+                        }
+                        else
+                        {
+                            FormsAuthentication.RedirectFromLoginPage(requestedUser.Name, true);
+                        }
                     }
                 }
-                else
-                {
-                    lbl_display.Text = lbl_display.Text = "Invalid userid and/or password!! Please enter valid username and password";
-                }
+                lbl_display.Text = lbl_display.Text = "Invalid userid and/or password!! Please enter valid username and password";
+                
 
             }
         }
