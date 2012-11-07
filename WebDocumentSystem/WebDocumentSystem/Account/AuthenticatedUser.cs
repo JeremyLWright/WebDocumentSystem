@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebDocumentSystem.Models;
 
 namespace WebDocumentSystem.Account
 {
@@ -20,6 +21,12 @@ namespace WebDocumentSystem.Account
         public void ForceLogin()
         {
             HttpContext.Current.Response.Redirect("~/Account/Login.aspx");
+        }
+
+        public string Get()
+        {
+            return HttpContext.Current.Session["user"].ToString();            
+
         }
     }
 }

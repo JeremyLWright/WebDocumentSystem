@@ -2,15 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Diagnostics;
 
 namespace WebDocumentSystem.Models
 {
+    public partial class WebDocEntities
+    {
+        partial void OnContextCreated()
+        {
+            this.SavingChanges += new EventHandler(WebDocEntities_SavingChanges);
+        }
+
+        void WebDocEntities_SavingChanges(object sender, EventArgs e)
+        {
+            Debug.WriteLine("WebDoc Saving Changes.");
+        }
+    }
+
     public partial class Document
     {
         public Document()
         {
             LastModified = DateTime.Now;
         }
+
     }
 
     public partial class DocumentData
@@ -53,4 +68,5 @@ namespace WebDocumentSystem.Models
             Timestamp = DateTime.Now;
         }
     }
+
 }
