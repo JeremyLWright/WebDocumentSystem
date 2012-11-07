@@ -11,8 +11,7 @@ namespace WebDocumentSystem.Account
     {
         public AuthenticatedUser()
         {
-            if (HttpContext.Current.Session["user"] == null || 
-                Convert.ToDateTime(HttpContext.Current.Session["lastActionTime"]) > DateTime.Now.AddMinutes(20))
+            if (HttpContext.Current.Session["user"] == null)
             {
                 ForceLogin();
             }

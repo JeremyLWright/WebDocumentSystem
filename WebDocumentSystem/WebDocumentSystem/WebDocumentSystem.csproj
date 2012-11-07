@@ -149,6 +149,13 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Account\SysAdmin.aspx.cs">
+      <DependentUpon>SysAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\SysAdmin.aspx.designer.cs">
+      <DependentUpon>SysAdmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\User.cs" />
     <Compile Include="Account\AuthenticatedUser.cs" />
     <Compile Include="Account\USR_docspage.ascx.cs">

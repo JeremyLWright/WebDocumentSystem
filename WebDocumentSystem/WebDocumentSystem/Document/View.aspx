@@ -25,7 +25,8 @@
 </asp:Content>
 
 <asp:Content ID="DocumentNotes" ContentPlaceHolderID="SideBarContent" runat="server">
-    <ul id="DocumentNotes" class="nav nav-list">
+    <!--<ul id="DocumentNotes" class="nav nav-list">-->
+    <ul id="DocumentNotes" class="">
         <li class="nav-header">Document Notes</li>
         <!-- Loaded via AJAX -->
     </ul>
@@ -56,8 +57,8 @@
             var data = GetDocumentHistory();
             var pageSize = 10;
             
-            var page_data = WebDocumentSystem.Document.PagingExtensions.Page(data, pageNumber, pageSize); %>
-        <% foreach (var document in page_data) %>
+//var page_data = WebDocumentSystem.Document.PagingExtensions.Page(data, pageNumber, pageSize); %>
+        <% foreach (var document in data) %>
         <% { %>
             <tr data-documentId="<%=document.Id %>">
                 <td></td>

@@ -18,23 +18,42 @@ namespace WebDocumentSystem.Models
 
         void WebDocEntities_SavingChanges(object sender, EventArgs e)
         {
-            Debug.WriteLine("WebDoc Saving Changes.");
-            IEnumerable<ObjectStateEntry> createdEntities = from ose in this.ObjectStateManager.GetObjectStateEntries(EntityState.Added)
+            IEnumerable<ObjectStateEntry> createdEntities = from ose in this.ObjectStateManager.GetObjectStateEntries(EntityState.Added | EntityState.Modified)
                                                              where ose.Entity != null
                                                              select ose;
             foreach(var entity in createdEntities)
             {
                 if (entity.Entity is Models.DocumentNote) //Add a created document note
                 {
+                    Debug.WriteLine("Logging for Document Note");
                     var convertedEntity = (Models.DocumentNote)entity.Entity;
                     var document_message = new Models.DocumentLog();
                     document_message.Date = DateTime.Now;
                     document_message.User = convertedEntity.User;
-                    document_message.Message = "User added a document note.";
+                    
+                    if(entity.State == EntityState.Modified)
+                        document_message.Message = "User modifed a document note.";
+                    else
+                        document_message.Message = "User added a document note.";
+                    
                     document_message.Document1 = convertedEntity.Document;
                     convertedEntity.Document.DocumentLogs.Add(document_message);
                 }
-                
+                else if (entity.Entity is Models.Document)
+                {
+                    Debug.WriteLine("Logging for Document");
+                    var convertedEntity = (Models.Document)entity.Entity;
+                    var document_message = new Models.DocumentLog();
+                    document_message.Date = DateTime.Now;
+                    document_message.User = convertedEntity.Owner;
+                    if(entity.State == EntityState.Modified)
+                        document_message.Message = "User modified a document.";
+                    else
+                        document_message.Message = "User added a document.";
+
+                    document_message.Document1 = convertedEntity;
+                    convertedEntity.DocumentLogs.Add(document_message);
+                }
             }
         }
     }
