@@ -27,6 +27,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("WebDocModel", "DocumentLogUser", "DocumentLog", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.DocumentLog), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User))]
 [assembly: EdmRelationshipAttribute("WebDocModel", "DocumentNoteUser", "DocumentNote", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.DocumentNote), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User))]
 [assembly: EdmRelationshipAttribute("WebDocModel", "UserDocument", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.Document), true)]
+[assembly: EdmRelationshipAttribute("WebDocModel", "ShareDocument", "Share", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.Share), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.Document))]
+[assembly: EdmRelationshipAttribute("WebDocModel", "ShareWithUser", "Share", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.Share), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User))]
 
 #endregion
 
@@ -205,6 +207,22 @@ namespace WebDocumentSystem.Models
             }
         }
         private ObjectSet<SecurityQuestions> _SecurityQuestions;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Share> Shares
+        {
+            get
+            {
+                if ((_Shares == null))
+                {
+                    _Shares = base.CreateObjectSet<Share>("Shares");
+                }
+                return _Shares;
+            }
+        }
+        private ObjectSet<Share> _Shares;
 
         #endregion
         #region AddTo Methods
@@ -271,6 +289,14 @@ namespace WebDocumentSystem.Models
         public void AddToSecurityQuestions(SecurityQuestions securityQuestions)
         {
             base.AddObject("SecurityQuestions", securityQuestions);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Shares EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToShares(Share share)
+        {
+            base.AddObject("Shares", share);
         }
 
         #endregion
@@ -758,6 +784,28 @@ namespace WebDocumentSystem.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("WebDocModel.UserDocument", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocModel", "ShareDocument", "Share")]
+        public EntityCollection<Share> Shares
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Share>("WebDocModel.ShareDocument", "Share");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Share>("WebDocModel.ShareDocument", "Share", value);
                 }
             }
         }
@@ -1516,6 +1564,166 @@ namespace WebDocumentSystem.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="Share")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Share : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Share object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
+        public static Share CreateShare(global::System.Int32 id, global::System.DateTime created)
+        {
+            Share share = new Share();
+            share.Id = id;
+            share.Created = created;
+            return share;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
+        partial void OnCreatedChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocModel", "ShareDocument", "Document")]
+        public Document Document
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocModel.ShareDocument", "Document").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocModel.ShareDocument", "Document").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Document> DocumentReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocModel.ShareDocument", "Document");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Document>("WebDocModel.ShareDocument", "Document", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocModel", "ShareWithUser", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("WebDocModel.ShareWithUser", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("WebDocModel.ShareWithUser", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("WebDocModel.ShareWithUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("WebDocModel.ShareWithUser", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="User")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1880,6 +2088,28 @@ namespace WebDocumentSystem.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Document>("WebDocModel.UserDocument", "Document", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocModel", "ShareWithUser", "Share")]
+        public EntityCollection<Share> Shares
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Share>("WebDocModel.ShareWithUser", "Share");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Share>("WebDocModel.ShareWithUser", "Share", value);
                 }
             }
         }

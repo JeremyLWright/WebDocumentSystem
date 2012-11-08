@@ -38,10 +38,13 @@
 </asp:Content>
 
 <asp:Content ID="ContentNav" ContentPlaceHolderID="MainNav" runat="server">
+<div class="btn-group">
 <a class="btn" id="btn_lock" href="#">Lock</a>
 <a class="btn" id="btn_download" href="#">Download</a>
 <a class="btn" id="btn_revisions" href="Revision.aspx?DocumentId=<%=safeDocumentId %>">Revision</a>
 <a class="btn" id="btn_update" href="DocumentUpload.aspx?DocumentId=<%=safeDocumentId %>">Update</a>
+<a class="btn" id="btn-share"  href="Share.aspx?DocumentId=<%=safeDocumentId %>">Share</a>
+</div>
 </asp:Content>
 
 <asp:Content ID="DocumentNotes" ContentPlaceHolderID="SideBarContent" runat="server">

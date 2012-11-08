@@ -14,6 +14,7 @@
     <EntitySet Name="AccountRequests" EntityType="WebDocModel.Store.AccountRequests" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserLogs" EntityType="WebDocModel.Store.UserLogs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SecurityQuestions" EntityType="WebDocModel.Store.SecurityQuestions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Shares" EntityType="WebDocModel.Store.Shares" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_DocumentData_Document" Association="WebDocModel.Store.FK_DocumentData_Document">
       <End Role="Documents" EntitySet="Documents" />
       <End Role="DocumentDatas" EntitySet="DocumentDatas" />
@@ -49,6 +50,14 @@
     <AssociationSet Name="UserDocument" Association="WebDocModel.Store.UserDocument">
       <End Role="User" EntitySet="Users" />
       <End Role="Document" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="ShareDocument" Association="WebDocModel.Store.ShareDocument">
+      <End Role="Share" EntitySet="Shares" />
+      <End Role="Document" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="ShareWithUser" Association="WebDocModel.Store.ShareWithUser">
+      <End Role="Share" EntitySet="Shares" />
+      <End Role="User" EntitySet="Users" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="DocumentDatas">
@@ -132,6 +141,15 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Question" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Shares">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+    <Property Name="Document_Id" Type="int" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_DocumentData_Document">
     <End Role="Documents" Type="WebDocModel.Store.Documents" Multiplicity="1">
@@ -247,6 +265,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="ShareDocument">
+    <End Role="Share" Type="WebDocModel.Store.Shares" Multiplicity="*" />
+    <End Role="Document" Type="WebDocModel.Store.Documents" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Share">
+        <PropertyRef Name="Document_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ShareWithUser">
+    <End Role="Share" Type="WebDocModel.Store.Shares" Multiplicity="*" />
+    <End Role="User" Type="WebDocModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Share">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -295,6 +337,15 @@
           <AssociationSet Name="UserDocument" Association="WebDocModel.UserDocument">
             <End Role="User" EntitySet="Users" />
             <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <EntitySet Name="Shares" EntityType="WebDocModel.Share" />
+          <AssociationSet Name="ShareDocument" Association="WebDocModel.ShareDocument">
+            <End Role="Share" EntitySet="Shares" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="ShareWithUser" Association="WebDocModel.ShareWithUser">
+            <End Role="Share" EntitySet="Shares" />
+            <End Role="User" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="DocumentData">
@@ -346,6 +397,7 @@
           <NavigationProperty Name="DocumentNotes" Relationship="WebDocModel.FK_DocumentNotes_Document" FromRole="Documents" ToRole="DocumentNotes" />
           <NavigationProperty Name="Owner" Relationship="WebDocModel.UserDocument" FromRole="Document" ToRole="User" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
+          <NavigationProperty Name="Shares" Relationship="WebDocModel.ShareDocument" FromRole="Document" ToRole="Share" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -364,6 +416,7 @@
           <NavigationProperty Name="Documents" Relationship="WebDocModel.UserDocument" FromRole="User" ToRole="Document" />
           <Property Type="Binary" Name="Salt" Nullable="true" />
           <Property Type="Int32" Name="Role" Nullable="false" />
+          <NavigationProperty Name="Shares" Relationship="WebDocModel.ShareWithUser" FromRole="User" ToRole="Share" />
         </EntityType>
         <EntityType Name="AccountRequest">
           <Key>
@@ -475,6 +528,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Share">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="Created" Nullable="false" />
+          <NavigationProperty Name="Document" Relationship="WebDocModel.ShareDocument" FromRole="Share" ToRole="Document" />
+          <NavigationProperty Name="User" Relationship="WebDocModel.ShareWithUser" FromRole="Share" ToRole="User" />
+        </EntityType>
+        <Association Name="ShareDocument">
+          <End Type="WebDocModel.Share" Role="Share" Multiplicity="*" />
+          <End Type="WebDocModel.Document" Role="Document" Multiplicity="1" />
+        </Association>
+        <Association Name="ShareWithUser">
+          <End Type="WebDocModel.Share" Role="Share" Multiplicity="*" />
+          <End Type="WebDocModel.User" Role="User" Multiplicity="1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -567,6 +637,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Shares">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.Share)">
+        <MappingFragment StoreEntitySet="Shares">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="user_accounts2SecurityQuestions" TypeName="WebDocModel.user_accounts2SecurityQuestions" StoreEntitySet="Users">
       <EndProperty Name="SecurityQuestions">
         <ScalarProperty Name="Id" ColumnName="SecurityQuestion_Id" />
@@ -599,6 +677,22 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
+    <AssociationSetMapping Name="ShareDocument" TypeName="WebDocModel.ShareDocument" StoreEntitySet="Shares">
+      <EndProperty Name="Document">
+        <ScalarProperty Name="Id" ColumnName="Document_Id" />
+      </EndProperty>
+      <EndProperty Name="Share">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ShareWithUser" TypeName="WebDocModel.ShareWithUser" StoreEntitySet="Shares">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Share">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -628,20 +722,26 @@
         <EntityTypeShape EntityType="WebDocModel.UserLog" Width="1.625" PointX="6" PointY="2.625" Height="1.9802864583333335" IsExpanded="true" />
         <AssociationConnector Association="WebDocModel.FK_DocumentData_Document" ManuallyRouted="false">
           <ConnectorPoint PointX="2" PointY="5.4949446614583337" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="5.4949446614583328" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="5.4949446614583337" />
           <ConnectorPoint PointX="2.75" PointY="5.4949446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.FK_Audit_Log_Document" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="7.0932421875" />
-          <ConnectorPoint PointX="4.5812158072916676" PointY="7.0932421874999987" />
-          <ConnectorPoint PointX="4.7478824739583336" PointY="7.0932421875" />
-          <ConnectorPoint PointX="4.8739412369791673" PointY="7.0932421874999987" />
-          <ConnectorPoint PointX="5.0406079036458333" PointY="7.0932421875" />
-          <ConnectorPoint PointX="6.75" PointY="7.0932421875" />
+          <ConnectorPoint PointX="2" PointY="6.9111552213541669" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="6.911155221354166" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="6.9111552213541669" />
+          <ConnectorPoint PointX="4.58319942545573" PointY="6.911155221354166" />
+          <ConnectorPoint PointX="4.7498660921223959" PointY="6.9111552213541669" />
+          <ConnectorPoint PointX="4.8747346842447916" PointY="6.911155221354166" />
+          <ConnectorPoint PointX="5.0414013509114577" PointY="6.9111552213541669" />
+          <ConnectorPoint PointX="6.75" PointY="6.9111552213541669" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.FK_DocumentNotes_Document" ManuallyRouted="false">
-          <ConnectorPoint PointX="1.25" PointY="7.2494921875" />
-          <ConnectorPoint PointX="1.25" PointY="9.2112939453125" />
-          <ConnectorPoint PointX="3.25" PointY="9.2112939453125" />
+          <ConnectorPoint PointX="2" PointY="7.4000283528645845" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="7.4000283528645836" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="7.4000283528645845" />
+          <ConnectorPoint PointX="4.4580655175781256" PointY="7.4000283528645845" />
+          <ConnectorPoint PointX="4.4580655175781256" PointY="8.125" />
         </AssociationConnector>
         <EntityTypeShape EntityType="WebDocModel.SecurityQuestions" Width="1.5" PointX="6.875" PointY="0.5" Height="1.59568359375" />
         <AssociationConnector Association="WebDocModel.user_accounts2SecurityQuestions">
@@ -670,6 +770,17 @@
           <ConnectorPoint PointX="3.75" PointY="2.2593489583333333" />
           <ConnectorPoint PointX="1.25" PointY="2.2593489583333333" />
           <ConnectorPoint PointX="1.25" PointY="4.5" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="WebDocModel.Share" Width="1.5" PointX="0.5" PointY="8.25" Height="1.4033821614583335" />
+        <AssociationConnector Association="WebDocModel.ShareDocument">
+          <ConnectorPoint PointX="1.25" PointY="8.25" />
+          <ConnectorPoint PointX="1.25" PointY="7.826396484375" />
+        </AssociationConnector>
+        <AssociationConnector Association="WebDocModel.ShareWithUser">
+          <ConnectorPoint PointX="2" PointY="8.2511528461538468" />
+          <ConnectorPoint PointX="2.375" PointY="7.8761528461538468" />
+          <ConnectorPoint PointX="2.375" PointY="2.9800713593750014" />
+          <ConnectorPoint PointX="3.75" PointY="2.9800713593750014" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

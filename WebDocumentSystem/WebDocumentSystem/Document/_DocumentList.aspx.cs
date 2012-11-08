@@ -24,10 +24,18 @@ namespace WebDocumentSystem.Document
                         where c.Name == (sessionUser)
                         select c).FirstOrDefault();
 
-            return from c in ctx.Documents 
-                   where c.Owner.Name == user.Name
-                   orderby c.LastModified 
-                   descending select c;
+             var documents = (from c in ctx.Documents 
+                             where c.Owner.Name == user.Name
+                             orderby c.LastModified 
+                             descending select c);
+             var shared_docs = (from c in ctx.Shares
+                               where c.User.Id == user.Id
+                               orderby c.Created
+                               descending
+                               select c.Document);
+
+             return documents.Union(shared_docs).OrderBy(x => x.LastModified);
+
         }
     }
 }

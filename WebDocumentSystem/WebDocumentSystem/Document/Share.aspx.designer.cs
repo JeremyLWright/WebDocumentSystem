@@ -22,22 +22,13 @@ namespace WebDocumentSystem.Document {
         protected global::System.Web.UI.WebControls.ListBox listbox_members;
         
         /// <summary>
-        /// listbox_departments control.
+        /// listbox_groups control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox listbox_departments;
-        
-        /// <summary>
-        /// listbox_manual_members control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox listbox_manual_members;
+        protected global::System.Web.UI.WebControls.ListBox listbox_groups;
         
         /// <summary>
         /// btn_leave_folder control.

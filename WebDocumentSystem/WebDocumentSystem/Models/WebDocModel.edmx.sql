@@ -2,12 +2,12 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/07/2012 17:33:57
+-- Date Created: 11/07/2012 23:42:55
 -- Generated from EDMX file: C:\Users\Jeremy\workspaces\545_proj\WebDocumentSystem\WebDocumentSystem\Models\WebDocModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
-GO
+GO 
 USE [WebDoc];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
@@ -44,6 +44,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserDocument]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_UserDocument];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ShareDocument]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Shares] DROP CONSTRAINT [FK_ShareDocument];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ShareWithUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Shares] DROP CONSTRAINT [FK_ShareWithUser];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -72,6 +78,9 @@ IF OBJECT_ID(N'[dbo].[UserLogs]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SecurityQuestions]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SecurityQuestions];
+GO
+IF OBJECT_ID(N'[dbo].[Shares]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Shares];
 GO
 
 -- --------------------------------------------------
@@ -160,6 +169,15 @@ CREATE TABLE [dbo].[SecurityQuestions] (
 );
 GO
 
+-- Creating table 'Shares'
+CREATE TABLE [dbo].[Shares] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Created] datetime  NOT NULL,
+    [Document_Id] int  NOT NULL,
+    [User_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -209,6 +227,12 @@ GO
 -- Creating primary key on [Id] in table 'SecurityQuestions'
 ALTER TABLE [dbo].[SecurityQuestions]
 ADD CONSTRAINT [PK_SecurityQuestions]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'Shares'
+ALTER TABLE [dbo].[Shares]
+ADD CONSTRAINT [PK_Shares]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -340,6 +364,34 @@ ADD CONSTRAINT [FK_UserDocument]
 CREATE INDEX [IX_FK_UserDocument]
 ON [dbo].[Documents]
     ([UserId]);
+GO
+
+-- Creating foreign key on [Document_Id] in table 'Shares'
+ALTER TABLE [dbo].[Shares]
+ADD CONSTRAINT [FK_ShareDocument]
+    FOREIGN KEY ([Document_Id])
+    REFERENCES [dbo].[Documents]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ShareDocument'
+CREATE INDEX [IX_FK_ShareDocument]
+ON [dbo].[Shares]
+    ([Document_Id]);
+GO
+
+-- Creating foreign key on [User_Id] in table 'Shares'
+ALTER TABLE [dbo].[Shares]
+ADD CONSTRAINT [FK_ShareWithUser]
+    FOREIGN KEY ([User_Id])
+    REFERENCES [dbo].[Users]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ShareWithUser'
+CREATE INDEX [IX_FK_ShareWithUser]
+ON [dbo].[Shares]
+    ([User_Id]);
 GO
 
 -- --------------------------------------------------
