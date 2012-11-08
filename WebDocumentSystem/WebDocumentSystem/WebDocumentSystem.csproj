@@ -23,6 +23,17 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="WebDocEntities-Deployment" Order="1">
+          <Destination Path="" />
+          <Object Type="dbFullSql">
+            <PreSource Path="Data Source=REDSHIFT-WIN\SQLEXPRESS%3bInitial Catalog=WebDoc%3bIntegrated Security=True%3bPooling=False%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\WebDocEntities-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -75,6 +86,10 @@
     <Content Include="Account\USR_login1.ascx" />
     <Content Include="Account\USR_password_recover.ascx" />
     <Content Include="Account\USR_sysadmin.ascx" />
+    <Content Include="App_Data\WebDoc.mdf" />
+    <Content Include="App_Data\WebDoc_log.ldf">
+      <DependentUpon>WebDoc.mdf</DependentUpon>
+    </Content>
     <Content Include="CreateMockData.aspx" />
     <Content Include="Document\DocumentUpload.aspx" />
     <Content Include="Document\SuperSecretDeleteMeFile.aspx" />
@@ -89,7 +104,6 @@
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
     <Content Include="Images\spinner.gif" />
-    <Content Include="Models\DocumentModel.edmx.sql" />
     <Content Include="Models\WebDocModel.edmx.sql" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -104,7 +118,9 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -317,9 +333,7 @@
       <Name>BusinessObjects</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <ProjectExtensions>

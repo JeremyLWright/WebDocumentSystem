@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="ftp://10.0.2.131" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FTP" replaceMatchingFiles="True" userName="vlab" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoxe+wQA0C0W4Esd4NqtABgAAAAACAAAAAAAQZgAAAAEAACAAAABlGn0tgl2+jU8HsGktGR78Bxl4H77atpFr9K8X0YH4nQAAAAAOgAAAAAIAACAAAADVXDDtesTvJd0/Uc/xWtUOmodgGhvWcMaYMphqEOwQUxAAAADdGdiA5AP26VYqcEDKTqj1QAAAAOEkRhnNO7kxgvt3DakDGDkyw4Kja7fP7txVPus1bJjHvq8WIqhgXXkKBYToUndTFdjW80QkVt1jHX2xnf/U4GI=" SelectedForPublish="True">
+    <file relUrl="Styles/bootstrap.css" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Document/Search.aspx" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="bin/WebDocumentSystem.pdb" publishTime="11/07/2012 18:18:14" />
+    <file relUrl="Document/SuperSecretDeleteMeFile.aspx" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="Global.asax" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="bin/EntityFramework.xml" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Site.Master" publishTime="11/07/2012 13:15:18" />
+    <file relUrl="Styles/Site.css" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Account/USR_docspage.ascx" publishTime="10/28/2012 19:14:32" />
+    <file relUrl="Images/glyphicons-halflings.png" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="bin/AntiXssLibrary.dll" publishTime="10/28/2012 20:59:56" />
+    <file relUrl="About.aspx" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="Models/WebDocModel.edmx.sql" publishTime="11/07/2012 17:35:07" />
+    <file relUrl="Scripts/bootstrap.js" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Account/USR_sysadmin.ascx" publishTime="10/28/2012 19:14:32" />
+    <file relUrl="Scripts/DocumentHelper.js" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="App_Data/WebDoc_log.ldf" publishTime="11/07/2012 18:20:41" />
+    <file relUrl="CreateMockData.aspx" publishTime="11/05/2012 21:04:41" />
+    <file relUrl="Images/spinner.gif" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="bin/HtmlSanitizationLibrary.xml" publishTime="10/28/2012 20:59:56" />
+    <file relUrl="Account/PasswordRecovery.aspx" publishTime="11/04/2012 16:39:51" />
+    <file relUrl="Styles/bootstrap-responsive.min.css" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Account/Register.aspx" publishTime="11/05/2012 22:39:43" />
+    <file relUrl="Account/Login.aspx" publishTime="10/28/2012 19:14:32" />
+    <file relUrl="Document/DocumentUpload.aspx" publishTime="11/04/2012 22:33:12" />
+    <file relUrl="Document/Share.aspx" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="bin/BusinessObjects.pdb" publishTime="11/07/2012 14:51:09" />
+    <file relUrl="packages.config" publishTime="10/28/2012 20:59:58" />
+    <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Document/Revision.aspx" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="Account/USR_login1.ascx" publishTime="10/28/2012 19:14:32" />
+    <file relUrl="Account/USR_password_recover.ascx" publishTime="11/04/2012 16:39:51" />
+    <file relUrl="Default.aspx" publishTime="11/07/2012 14:22:20" />
+    <file relUrl="Account/ChangePasswordSuccess.aspx" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="Account/Admin.aspx" publishTime="11/07/2012 12:16:29" />
+    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Document/_DocumentDownloader.aspx" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="Images/glyphicons-halflings-white.png" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="Account/Web.config" publishTime="11/07/2012 17:35:15" />
+    <file relUrl="Document/_DocumentLock.aspx" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="bin/WebDocumentSystem.dll" publishTime="11/07/2012 18:18:14" />
+    <file relUrl="Account/ChangePassword.aspx" publishTime="10/28/2012 19:14:32" />
+    <file relUrl="Document/_DocumentList.aspx" publishTime="11/04/2012 18:08:58" />
+    <file relUrl="Document/View.aspx" publishTime="11/07/2012 10:44:32" />
+    <file relUrl="bin/AntiXssLibrary.xml" publishTime="10/28/2012 20:59:56" />
+    <file relUrl="Web.config" publishTime="11/07/2012 18:20:42" />
+    <file relUrl="bin/BusinessObjects.dll" publishTime="11/07/2012 14:51:09" />
+    <file relUrl="bin/HtmlSanitizationLibrary.dll" publishTime="10/28/2012 20:59:56" />
+    <file relUrl="App_Data/WebDoc.mdf" publishTime="11/07/2012 18:20:40" />
+    <file relUrl="bin/EntityFramework.dll" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Styles/bootstrap-responsive.css" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Styles/bootstrap.min.css" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Document/Index.aspx" publishTime="11/04/2012 16:39:51" />
+    <file relUrl="Scripts/bootstrap.min.js" publishTime="10/21/2012 13:15:07" />
+    <file relUrl="Document/_DocumentMetaData.aspx" publishTime="10/21/2012 13:15:06" />
+    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="10/21/2012 13:15:07" />
+  </publishProfile>
+</publishData>
