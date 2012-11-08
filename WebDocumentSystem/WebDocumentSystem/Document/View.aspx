@@ -16,13 +16,22 @@
             });
         });
 
+        $('a#btn_download').attr({target: '_blank', 
+            href  : '_DocumentDownloader.aspx?DocumentId=<%=safeDocumentId %>&P='});
+
         <%if(documentEncrypted){ %>
                 $('#Modal_encryption').modal();
-                $('#modal-password-save').bind("click", function (evt){ password=$('#encryption_password').val(); $('#Modal_encryption').modal('hide'); });
+                $('#modal-password-save').bind("click", 
+                    function (evt){ 
+                        password=$('#encryption_password').val(); 
+                        $('#Modal_encryption').modal('hide'); 
+                        $('a#btn_download').attr({target: '_blank', 
+                    href  : '_DocumentDownloader.aspx?DocumentId=<%=safeDocumentId %>&P='+password});
+                    });
 
                 <%} %>
-        $('a#btn_update').attr({target: '_blank', 
-                    href  : 'DocumentUpload.aspx?DocumentId=<%=safeDocumentId %>'});
+                
+        
     });
 
 </script>
@@ -30,9 +39,9 @@
 
 <asp:Content ID="ContentNav" ContentPlaceHolderID="MainNav" runat="server">
 <a class="btn" id="btn_lock" href="#">Lock</a>
-<a class="btn" id="btn_download" href="_DocumentDownloader.aspx?DocumentId=<%=safeDocumentId %>">Download</a>
+<a class="btn" id="btn_download" href="#">Download</a>
 <a class="btn" id="btn_revisions" href="Revision.aspx?DocumentId=<%=safeDocumentId %>">Revision</a>
-<a class="btn" id="btn_update" href="#">Update</a>
+<a class="btn" id="btn_update" href="DocumentUpload.aspx?DocumentId=<%=safeDocumentId %>">Update</a>
 </asp:Content>
 
 <asp:Content ID="DocumentNotes" ContentPlaceHolderID="SideBarContent" runat="server">

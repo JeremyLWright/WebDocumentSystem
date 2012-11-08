@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebDocumentSystem.Models;
 using System.IO;
+using WebDocumentSystem.BusinessLogic;
 
 namespace WebDocumentSystem.Document
 {
@@ -17,7 +18,7 @@ namespace WebDocumentSystem.Document
             const int blockSize = 4096;
             ctx = new WebDocEntities();
             requestedId = Int32.Parse(Request.QueryString["DocumentId"]);
-
+            var password = Request.QueryString.GetValue<string>("P");
             var doc = (from d in ctx.Documents
                       where d.Id == requestedId
                       select d).First();
@@ -27,10 +28,14 @@ namespace WebDocumentSystem.Document
                         select d).FirstOrDefault();
             if (data != null)
             {
-               
+                byte[] buffer = data.DocContent;
+                if (data.Encrypted)
+                {
+                    buffer = Encryptor.Decrypt(password, data.DocContent, data.Salt);
+                }
                 Response.ContentType = "text/plain";  //Or other you need
                 Response.AddHeader("Content-Disposition", "attachment; filename=\"" + doc.Name + "\"");
-                Response.BinaryWrite(data.DocContent);
+                Response.BinaryWrite(buffer);
                 Response.Flush();
                 Response.Close();
                 Response.End();
