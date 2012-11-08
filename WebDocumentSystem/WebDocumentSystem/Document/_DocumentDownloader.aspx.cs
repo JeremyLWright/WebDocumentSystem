@@ -27,23 +27,12 @@ namespace WebDocumentSystem.Document
                         select d).FirstOrDefault();
             if (data != null)
             {
-                using (Stream st = new MemoryStream(data.DocContent))
-                {
-                    byte[] buffer = new byte[blockSize];
-
-                    long dataLengthToRead = st.Length;
-                    Response.ContentType = "text/plain";  //Or other you need
-                    Response.AddHeader("Content-Disposition", "attachment; filename=\"" + doc.Name + "\"");
-                    while (dataLengthToRead > 0 && Response.IsClientConnected)
-                    {
-                        Int32 lengthRead = st.Read(buffer, 0, blockSize);
-                        Response.OutputStream.Write(buffer, 0, lengthRead);
-                        Response.Flush();
-                        dataLengthToRead = dataLengthToRead - lengthRead;
-                    }
-                    Response.Flush();
-                    Response.Close();
-                }
+               
+                Response.ContentType = "text/plain";  //Or other you need
+                Response.AddHeader("Content-Disposition", "attachment; filename=\"" + doc.Name + "\"");
+                Response.BinaryWrite(data.DocContent);
+                Response.Flush();
+                Response.Close();
                 Response.End();
             }
             else

@@ -28,7 +28,6 @@ namespace WebDocumentSystem.Document
                     var workingDocument = (from c in ctx.Documents
                                        where c.Id == DocumentId
                                        select c).First();
-                    tb_name.Text = workingDocument.Name;
                     hid_documentId.Value = workingDocument.Id.ToString();
                     UploadReplaceMode = true;
                 }
@@ -52,7 +51,7 @@ namespace WebDocumentSystem.Document
                     {
                         Models.Document workingDocument;
                        
-                        if (hid_documentId.Value != null) //Update an existing document
+                        if (hid_documentId.Value != "") //Update an existing document
                         {
                             var DocumentId = Int32.Parse(hid_documentId.Value);
 
@@ -62,12 +61,12 @@ namespace WebDocumentSystem.Document
                         }
                         else //Create a new document
                         {
-                            var userName = Session["user"].ToString();
+                            var userName = HttpContext.Current.User.Identity.Name;
                             var currentUser = (from c in ctx.Users
                                                where c.Name == userName
                                                select c).First();
                             workingDocument = new Models.Document();
-                            workingDocument.Name = tb_name.Text;
+                            workingDocument.Name = FileUpload_doc.FileName;
                             workingDocument.Owner = currentUser;
                         }
 

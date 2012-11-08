@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="SideBarContent" runat="server">
+<h2>Work in Progress...</h2>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainNav" runat="server">
 </asp:Content>

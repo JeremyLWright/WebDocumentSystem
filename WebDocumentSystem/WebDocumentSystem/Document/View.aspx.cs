@@ -45,11 +45,17 @@ namespace WebDocumentSystem.Document
                                          select c).First();
 
                 document_message.Message = "Document Viewed";
-                document_message.Document1 = (from c in ctx.Documents
-                                             where c.Id == documentId
-                                             select c).First();
+                var document = (from c in ctx.Documents
+                                where c.Id == documentId
+                                select c).First();
+                document_message.Document1 = document;
                 ctx.DocumentLogs.AddObject(document_message);
                 ctx.SaveChanges();
+
+                var document_data = (from c in ctx.DocumentDatas
+                                     where c.Id == document.Revision
+                                     select c).First();
+                documentEncrypted = document_data.Encrypted;
             }
         }
 
@@ -89,5 +95,6 @@ namespace WebDocumentSystem.Document
         public string authenticatedUsername;
         protected int documentId;
         protected int pageNumber;
+        protected bool documentEncrypted;
     }
 }

@@ -32,7 +32,7 @@
 
     <div class="btn-group">
       <a href="DocumentUpload.aspx" id="btn-upload" class="btn">Upload</a>
-      <button id="btn-download" class="btn">Download</button>
+      <!--<button id="btn-download" class="btn">Download</button>-->
       <button id="btn-delete" class="btn">Delete</button>
       <button id="btn-share" class="btn">Share</button>
       <button id="btn-revert" class="btn">Versions</button>

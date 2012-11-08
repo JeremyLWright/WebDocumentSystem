@@ -19,7 +19,7 @@ namespace WebDocumentSystem.Document
         protected IQueryable<Models.Document> GetDocumentList()
         {
             WebDocEntities ctx = new WebDocEntities();
-            var sessionUser = Session["user"];
+            var sessionUser = HttpContext.Current.User.Identity.Name;
             var user = (from c in ctx.Users
                         where c.Name == (sessionUser)
                         select c).FirstOrDefault();

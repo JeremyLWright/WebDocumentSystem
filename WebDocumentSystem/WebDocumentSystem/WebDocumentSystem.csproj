@@ -82,6 +82,7 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\PasswordRecovery.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="Account\Reg_success.aspx" />
     <Content Include="Account\USR_docspage.ascx" />
     <Content Include="Account\USR_login1.ascx" />
     <Content Include="Account\USR_password_recover.ascx" />
@@ -171,6 +172,13 @@
     </Compile>
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Reg_success.aspx.cs">
+      <DependentUpon>Reg_success.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Reg_success.aspx.designer.cs">
+      <DependentUpon>Reg_success.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\User.cs" />
     <Compile Include="Account\AuthenticatedUser.cs" />

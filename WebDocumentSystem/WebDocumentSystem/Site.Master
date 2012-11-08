@@ -60,10 +60,10 @@
 
             </p>
             <ul class="nav">
-              <li class="active"><a href="/Account/Document/Index.aspx">Home</a></li>
+              <li class="active"><a href="/Document/Index.aspx">Home</a></li>
                  <% if (isSuperUser)
                  {  %>
-                    <li><a href="/Account/SysAdmin.aspx">Admin</a></li>
+                    <li><a href="/Account/Admin.aspx">Admin</a></li>
               <%} %>
               <li><a href="/Default.aspx">Logout</a></li>
             </ul>

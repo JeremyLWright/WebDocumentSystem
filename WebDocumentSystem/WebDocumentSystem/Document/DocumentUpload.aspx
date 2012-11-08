@@ -21,14 +21,6 @@
             </tr>
             <tr>
                 <td>
-                    Enter a name for the document :
-                </td>
-                <td>
-                    <asp:TextBox runat="server" type="text" name="tb_name" id="tb_name" />
-                </td>
-            </tr>
-            <tr>
-                <td>
                     Enter Encryption Key: 
                 </td>
                 <td>

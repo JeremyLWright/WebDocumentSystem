@@ -2,8 +2,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 <script type="text/javascript" src="../Scripts/DocumentHelper.js"></script>
 <script type="text/javascript">
+    var password = "";
     $(document).ready(function () {
         $('#DocumentNotes').load('/Document/_DocumentMetaData.aspx?DocumentId=<%=Request.QueryString["DocumentId"]%>');
+        
+
         $("#btn_lock").bind("click", function (evt) {
             $.get("/Document/_DocumentLock.aspx?DocumentId=<%=safeDocumentId %>", function (data) {
                 if ($('#btn_lock').html() == "Lock")
@@ -12,6 +15,14 @@
                     $('#btn_lock').html("Lock");
             });
         });
+
+        <%if(documentEncrypted){ %>
+                $('#Modal_encryption').modal();
+                $('#modal-password-save').bind("click", function (evt){ password=$('#encryption_password').val(); $('#Modal_encryption').modal('hide'); });
+
+                <%} %>
+        $('a#btn_update').attr({target: '_blank', 
+                    href  : 'DocumentUpload.aspx?DocumentId=<%=safeDocumentId %>'});
     });
 
 </script>
@@ -21,7 +32,7 @@
 <a class="btn" id="btn_lock" href="#">Lock</a>
 <a class="btn" id="btn_download" href="_DocumentDownloader.aspx?DocumentId=<%=safeDocumentId %>">Download</a>
 <a class="btn" id="btn_revisions" href="Revision.aspx?DocumentId=<%=safeDocumentId %>">Revision</a>
-<a class="btn" id="btn_update" href="DocumentUpload.aspx?DocumentId=<%=safeDocumentId %>">Update</a>
+<a class="btn" id="btn_update" href="#">Update</a>
 </asp:Content>
 
 <asp:Content ID="DocumentNotes" ContentPlaceHolderID="SideBarContent" runat="server">
@@ -69,4 +80,16 @@
         <% } %>
         </tbody>
     </table>
+    <div id="Modal_encryption" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Decryption Key</h3>
+  </div>
+  <div class="modal-body">
+    <input type="password" id="encryption_password" />
+  </div>
+  <div class="modal-footer">
+    <a id="modal-password-save" href="#" class="btn btn-primary">Save</a>
+  </div>
+</div>
 </asp:Content>

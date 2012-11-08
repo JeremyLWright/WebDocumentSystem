@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebDocumentSystem.Models;
 using BusinessObjects;
+using WebDocumentSystem.BusinessLogic;
 
 namespace WebDocumentSystem.Account
 {
@@ -18,7 +19,7 @@ namespace WebDocumentSystem.Account
             var values = Enum.GetNames(typeof(Models.User.Roles));
             foreach (var role in values)
             {
-                ddl_usrole.Items.Add(new ListItem());
+                ddl_usrole.Items.Add(new ListItem(role));
             }
 
             ddl_usrole.DataTextField = "type_name";
@@ -58,11 +59,13 @@ namespace WebDocumentSystem.Account
                                 where c == user_role
                                 select c).First();
 
+                    var salt = Encryptor.GetSalt();
                     var temp_user = new Models.User();
                     temp_user.Email = email_id;
                     temp_user.Name = user_name;
                     temp_user.SecurityAnswer = ans;
-                    temp_user.Password = password;
+                    temp_user.Password = Encryptor.GenerateSaltedHash(password, salt);
+                    temp_user.Salt = salt;
                     temp_user.SecurityQuestion = (from c in ctx.SecurityQuestions where c.Question == question select c).First();
                     temp_user.Role = (int)Enum.Parse(typeof(Models.User.Roles), role2);
 
