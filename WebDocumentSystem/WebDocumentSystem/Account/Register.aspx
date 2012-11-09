@@ -108,7 +108,26 @@
         <asp:TableCell ID="TableCell3" runat="server"><asp:Label runat="server" ID=lbl_ans1 Text="Answer"></asp:Label></asp:TableCell>
         <asp:TableCell ID="TableCell4" runat="server"><asp:TextBox runat="server" ID=txb_ans1 ></asp:TextBox></asp:TableCell>
         </asp:TableRow>
-
+        <asp:TableRow>
+        <asp:TableCell>
+            <asp:Label ID="LblMsg" runat="server" Text="Enter the captua code here:"></asp:Label>
+            <br />
+            <asp:Image ID="ImgCaptcha" runat="server" />
+        </asp:TableCell>
+        <asp:TableCell>
+            <asp:TextBox ID="TxtCpatcha" runat="server" Text=""></asp:TextBox>
+            <asp:CustomValidator runat="server" ID="CaptuaValidator" ControlToValidate="TxtCpatcha" Display="Dynamic" OnServerValidate="CaptuaValidate" ErrorMessage="Please try again."></asp:CustomValidator>
+        </asp:TableCell>
+    </asp:TableRow>
+    <asp:TableRow>
+        
+    </asp:TableRow>
+    <asp:TableRow>
+        <asp:TableCell>
+            <asp:LinkButton ID="btnTryNewWords" runat="server" Font-Names="Tahoma" 
+                Font-Size="Smaller" onclick="btnTryNewWords_Click">Can&#39;t read? Refresh Captcha Image</asp:LinkButton>
+        </asp:TableCell>
+    </asp:TableRow>
           <asp:TableRow>
             <asp:TableCell>
                 <asp:Button ID="btn_submit" class="btn" runat="server" Text="Submit" OnClick="RegisterSubmit" />
@@ -118,25 +137,7 @@
             </asp:TableCell>
         </asp:TableRow>
     </asp:Table>
-    <table >
-    <tr>
-        <td style="text-align: center" >
-            <asp:Image ID="ImgCaptcha" runat="server" />
-        </td>
-    </tr>
-    <tr>
-        <td valign="middle">
-            <asp:Label ID="LblMsg" runat="server" Text="Enter the above code here:"></asp:Label>
-            <asp:TextBox ID="TxtCpatcha" runat="server" Text=""></asp:TextBox>
-        </td>
-    </tr>
-    <tr>
-        <td valign="middle">
-            <asp:LinkButton ID="btnTryNewWords" runat="server" Font-Names="Tahoma" 
-                Font-Size="Smaller" onclick="btnTryNewWords_Click">Can&#39;t read? Refresh Captcha Image</asp:LinkButton>
-        </td>
-    </tr>
-</table>
+    
     </form>
 
 </asp:Content>

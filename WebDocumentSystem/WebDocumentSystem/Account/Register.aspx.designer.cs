@@ -301,13 +301,13 @@ namespace WebDocumentSystem.Account {
         protected global::System.Web.UI.WebControls.TextBox txb_ans1;
         
         /// <summary>
-        /// btn_submit control.
+        /// LblMsg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_submit;
+        protected global::System.Web.UI.WebControls.Label LblMsg;
         
         /// <summary>
         /// ImgCaptcha control.
@@ -319,15 +319,6 @@ namespace WebDocumentSystem.Account {
         protected global::System.Web.UI.WebControls.Image ImgCaptcha;
         
         /// <summary>
-        /// LblMsg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblMsg;
-        
-        /// <summary>
         /// TxtCpatcha control.
         /// </summary>
         /// <remarks>
@@ -337,6 +328,15 @@ namespace WebDocumentSystem.Account {
         protected global::System.Web.UI.WebControls.TextBox TxtCpatcha;
         
         /// <summary>
+        /// CaptuaValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CaptuaValidator;
+        
+        /// <summary>
         /// btnTryNewWords control.
         /// </summary>
         /// <remarks>
@@ -344,5 +344,14 @@ namespace WebDocumentSystem.Account {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnTryNewWords;
+        
+        /// <summary>
+        /// btn_submit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_submit;
     }
 }

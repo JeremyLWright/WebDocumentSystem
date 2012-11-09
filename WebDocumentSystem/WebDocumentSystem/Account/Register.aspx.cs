@@ -87,6 +87,12 @@ namespace WebDocumentSystem.Account
         
         public void btnTryNewWords_Click(Object sender, EventArgs e)
         {
+            TryNew();
+        }
+
+        public void CaptuaValidate(Object sender, ServerValidateEventArgs args)
+        {
+            args.IsValid = CaptuaIsValid;
         }
 
         public void PasswordValidate(Object sender, ServerValidateEventArgs args)
