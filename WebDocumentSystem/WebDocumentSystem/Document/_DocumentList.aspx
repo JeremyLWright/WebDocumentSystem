@@ -21,11 +21,11 @@
             var page_data = WebDocumentSystem.Document.PagingExtensions.Page(data, pageNumber, pageSize); %>
         <% foreach (var document in page_data) %>
         <% { %>
-            <tr data-documentId="<%=document.Id %>" onclick="document_row_click(this)">
+            <tr data-documentId="<%:document.Id %>" onclick="document_row_click(this)">
                 <td><input type="checkbox"/></td>
-                <td ><a href="View.aspx?DocumentId=<%=document.Id%>"><%= document.Name %></a></td>
-                <td><%= document.Owner.Name %></td>
-                <td><%= document.LastModified %></td>
+                <td ><a href="View.aspx?DocumentId=<%:document.Id%>"><%: document.Name %></a></td>
+                <td><%: document.Owner.Name %></td>
+                <td><%: document.LastModified %></td>
                 <% if ((bool)document.IsLocked)
                    { %>
                     <td onclick="document_lock_click(this)" data-lock="true"><img alt="Locked" src="../Images/glyphicons_203_lock.png" /></td>

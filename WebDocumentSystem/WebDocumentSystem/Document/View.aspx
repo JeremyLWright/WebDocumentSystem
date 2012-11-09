@@ -4,11 +4,11 @@
 <script type="text/javascript">
     var password = "";
     $(document).ready(function () {
-        $('#DocumentNotes').load('/Document/_DocumentMetaData.aspx?DocumentId=<%=Request.QueryString["DocumentId"]%>');
+        $('#DocumentNotes').load('/Document/_DocumentMetaData.aspx?DocumentId=<%:Request.QueryString["DocumentId"]%>');
         
 
         $("#btn_lock").bind("click", function (evt) {
-            $.get("/Document/_DocumentLock.aspx?DocumentId=<%=safeDocumentId %>", function (data) {
+            $.get("/Document/_DocumentLock.aspx?DocumentId=<%:safeDocumentId %>", function (data) {
                 if ($('#btn_lock').html() == "Lock")
                     $('#btn_lock').html("Unlock");
                 else
@@ -17,7 +17,7 @@
         });
 
         $('a#btn_download').attr({target: '_blank', 
-            href  : '_DocumentDownloader.aspx?DocumentId=<%=safeDocumentId %>&P='});
+            href  : '_DocumentDownloader.aspx?DocumentId=<%:safeDocumentId %>&P='});
 
         <%if(documentEncrypted){ %>
                 $('#Modal_encryption').modal();
@@ -26,7 +26,7 @@
                         password=$('#encryption_password').val(); 
                         $('#Modal_encryption').modal('hide'); 
                         $('a#btn_download').attr({target: '_blank', 
-                    href  : '_DocumentDownloader.aspx?DocumentId=<%=safeDocumentId %>&P='+password});
+                    href  : '_DocumentDownloader.aspx?DocumentId=<%:safeDocumentId %>&P='+password});
                     });
 
                 <%} %>
@@ -41,9 +41,9 @@
 <div class="btn-group">
 <a class="btn" id="btn_lock" href="#">Lock</a>
 <a class="btn" id="btn_download" href="#">Download</a>
-<a class="btn" id="btn_revisions" href="Revision.aspx?DocumentId=<%=safeDocumentId %>">Revision</a>
-<a class="btn" id="btn_update" href="DocumentUpload.aspx?DocumentId=<%=safeDocumentId %>">Update</a>
-<a class="btn" id="btn-share"  href="Share.aspx?DocumentId=<%=safeDocumentId %>">Share</a>
+<a class="btn" id="btn_revisions" href="Revision.aspx?DocumentId=<%:safeDocumentId %>">Revision</a>
+<a class="btn" id="btn_update" href="DocumentUpload.aspx?DocumentId=<%:safeDocumentId %>">Update</a>
+<a class="btn" id="btn-share"  href="Share.aspx?DocumentId=<%:safeDocumentId %>">Share</a>
 </div>
 </asp:Content>
 
@@ -83,11 +83,11 @@
 //var page_data = WebDocumentSystem.Document.PagingExtensions.Page(data, pageNumber, pageSize); %>
         <% foreach (var document in data) %>
         <% { %>
-            <tr data-documentId="<%=document.Id %>">
+            <tr data-documentId="<%:document.Id %>">
                 <td></td>
-                <td ><%= document.Date %></td>
-                <td><%= document.User.Name %></td>
-                <td><%= document.Message %></td>
+                <td ><%: document.Date %></td>
+                <td><%: document.User.Name %></td>
+                <td><%: document.Message %></td>
             </tr>
         <% } %>
         </tbody>

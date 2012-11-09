@@ -5,10 +5,10 @@
     <ul>
 <% if (request != null)
    { %>
-<li>Username: <%=request.User.Name%></li>
-<li>Email: <%=request.User.Email%></li>
-<li>Role: <%= Enum.GetName(typeof(WebDocumentSystem.Models.User.Roles), request.User.Role)%></li>
-<li>Password Score: <%= Enum.GetName(typeof(BusinessObjects.PasswordScore), request.PasswordStrength)%></li>
+<li>Username: <%:request.User.Name%></li>
+<li>Email: <%:request.User.Email%></li>
+<li>Role: <%: Enum.GetName(typeof(WebDocumentSystem.Models.User.Roles), request.User.Role)%></li>
+<li>Password Score: <%: Enum.GetName(typeof(BusinessObjects.PasswordScore), request.PasswordStrength)%></li>
 <% } %>
 </ul>
 </asp:Content>

@@ -25,7 +25,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <form id="version_form" action="Revision.aspx" name="revision" method="post">
-<input type="hidden" name="DocumentId" value="<%= documentId %>">
+<input type="hidden" name="DocumentId" value="<%: documentId %>">
 <table class="table table-hover table-condensed">
         <thead>
             <th></th>
@@ -38,8 +38,8 @@
         <% foreach (var version in versions) %>
         <% { %>
             <tr>
-                <td><input name="versions" data-versionId="<%=version.Id %>" type="radio" value="<%=version.Id %>" /></td>
-                <td>Version <%=i--%></td>
+                <td><input name="versions" data-versionId="<%:version.Id %>" type="radio" value="<%:version.Id %>" /></td>
+                <td>Version <%:i--%></td>
             </tr>
         <% } %>
          </tbody>

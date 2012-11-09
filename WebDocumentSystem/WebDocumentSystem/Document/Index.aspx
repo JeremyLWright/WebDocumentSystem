@@ -5,7 +5,7 @@
 <script type="text/javascript">
     var lastSelectedRow = null;
     $(document).ready(function () {
-        $('#documentListContainer').load('/Document/_DocumentList.aspx?page=<%=pageNumber %>').hide().fadeIn('slow');
+        $('#documentListContainer').load('/Document/_DocumentList.aspx?page=<%:pageNumber %>').hide().fadeIn('slow');
         $("#btn-revert").bind("click", function (evt) {
             selectedRow = $("#DocumentNotes").attr("data-selected-document");
 
@@ -48,7 +48,7 @@
     </div>
     
 
-    <ul data-page="<%=pageNumber %>" class="pager">
+    <ul data-page="<%:pageNumber %>" class="pager">
         <li class="previous">
             <a onclick="document_list_page(this, 'prev')" href="#">&larr; Prev</a>
         </li>

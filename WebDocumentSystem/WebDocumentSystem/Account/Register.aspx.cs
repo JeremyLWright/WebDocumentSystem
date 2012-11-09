@@ -48,7 +48,8 @@ namespace WebDocumentSystem.Account
             {
                 string password = txb_pwdc.Text.ToString();
 
-                AntiXssEncoder
+                var l = new AntiXssEncoder();
+                
 
                 string user_id = txb_user_id.Text.ToString();
                 string user_name = txb_name.Text.ToString();
