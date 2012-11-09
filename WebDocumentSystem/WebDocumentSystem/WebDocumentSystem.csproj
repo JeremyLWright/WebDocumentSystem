@@ -104,8 +104,9 @@
     <Content Include="Document\_DocumentLock.aspx" />
     <Content Include="Document\_DocumentMetaData.aspx" />
     <Content Include="ErrorPages\404.aspx" />
-    <Content Include="ErrorPages\404.htm" />
     <Content Include="ErrorPages\GenericError.aspx" />
+    <Content Include="ErrorPages\redirectToHttps.htm" />
+    <Content Include="Images\AnonymousHacker.jpg" />
     <Content Include="Images\captcha1.gif" />
     <Content Include="Images\captcha1.png" />
     <Content Include="Images\captcha2.jpg" />
