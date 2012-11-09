@@ -18,8 +18,7 @@
 
 <asp:Content ID="ContentNav" ContentPlaceHolderID="MainNav" runat="server">
     <div class="btn-group">
-        <button id="btn-update" class="btn">Update</button>
-        <button id="btn-cancel" class="btn">Cancel</button>
+        <button id="btn-update" class="btn btn-primary">Update</button>
     </div>
 </asp:Content>
 
