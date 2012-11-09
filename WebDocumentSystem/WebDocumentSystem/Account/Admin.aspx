@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="SideBarContent" runat="server">
-<ul>
+    <ul>
 <% if (request != null)
    { %>
 <li>Username: <%=request.User.Name%></li>
@@ -13,7 +13,7 @@
 </ul>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainNav" runat="server">
-<form id="Form1" runat="server" method="post">
+    <form id="Form1" runat="server" method="post">
 <% if (request != null)
    { %>
 <table>

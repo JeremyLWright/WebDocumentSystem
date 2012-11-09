@@ -128,7 +128,7 @@ Please review the User's Guide.
     </asp:TableRow>
     <asp:TableRow>
         <asp:TableCell>
-            <asp:LinkButton ID="btnTryNewWords" runat="server" Font-Names="Tahoma" 
+            <asp:LinkButton ID="btnTryNewWords" runat="server" Font-Names="Tahoma" CausesValidation="False"
                 Font-Size="Smaller" onclick="btnTryNewWords_Click">Can&#39;t read? Refresh Captcha Image</asp:LinkButton>
         </asp:TableCell>
     </asp:TableRow>
