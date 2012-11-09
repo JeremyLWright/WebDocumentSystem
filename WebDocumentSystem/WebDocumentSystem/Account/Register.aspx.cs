@@ -14,26 +14,31 @@ namespace WebDocumentSystem.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            var ctx = new WebDocEntities();
-            var values = Enum.GetNames(typeof(Models.User.Roles));
-            foreach (var role in values)
+            if (!IsPostBack)
             {
-                ddl_usrole.Items.Add(new ListItem(role));
+                if (GeneratedText == null)
+                    TryNew();
+
+                var ctx = new WebDocEntities();
+                var values = Enum.GetNames(typeof(Models.User.Roles));
+                foreach (var role in values)
+                {
+                    ddl_usrole.Items.Add(new ListItem(role));
+                }
+
+                ddl_usrole.DataTextField = "type_name";
+                ddl_usrole.DataValueField = "user_type";
+
+                var questions = from c in ctx.SecurityQuestions
+                                select c;
+                foreach (var question in questions)
+                {
+                    ddl_questions.Items.Add(new ListItem(question.Question));
+                }
+
+                ddl_questions.DataTextField = "question";
+                ddl_questions.DataValueField = "question_id";
             }
-
-            ddl_usrole.DataTextField = "type_name";
-            ddl_usrole.DataValueField = "user_type";
-
-            var questions = from c in ctx.SecurityQuestions
-                            select c;
-            foreach (var question in questions)
-            {
-                ddl_questions.Items.Add(new ListItem(question.Question));
-            }
-
-            ddl_questions.DataTextField = "question";
-            ddl_questions.DataValueField = "question_id";
         }
 
         protected void RegisterSubmit(object sender, EventArgs e)
@@ -79,6 +84,10 @@ namespace WebDocumentSystem.Account
                 }
             }
         }
+        
+        public void btnTryNewWords_Click(Object sender, EventArgs e)
+        {
+        }
 
         public void PasswordValidate(Object sender, ServerValidateEventArgs args)
         {
@@ -101,5 +110,57 @@ namespace WebDocumentSystem.Account
             }
 
         }
+
+        private string GeneratedText
+        {
+            get
+            {
+                return ViewState[this.ClientID + "text"] != null ?
+                    ViewState[this.ClientID + "text"].ToString() : null;
+            }
+            set
+            {
+                // Encrypt the value before storing it in viewstate.
+                ViewState[this.ClientID + "text"] = value;
+            }
+        }
+
+        public int MaxLetterCount { get; set; }
+
+        public void TryNew()
+        {
+            char[] Valichars = {'1','2','3','4','5','6','7','8','9','0','a','b','c','d','e','f','g','h','i',
+                           'j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z' };
+            string Captcha = "";
+            int LetterCount = MaxLetterCount > 5 ? MaxLetterCount : 5;
+            for (int i = 0; i < LetterCount; i++)
+            {
+                char newChar = (char)0;
+                do
+                {
+                    newChar = Char.ToUpper(Valichars[new Random(DateTime.Now.Millisecond).Next(Valichars.Count() - 1)]);
+                }
+                while (Captcha.Contains(newChar));
+                Captcha += newChar;
+            }
+            GeneratedText = Captcha;
+
+            ImgCaptcha.ImageUrl = "GetImgText.ashx?CaptchaText=" +
+                
+                Server.UrlEncode(Convert.ToBase64String(BusinessObjects.SecurityHelper.EncryptString(Captcha)));
+        }
+
+        public bool CaptuaIsValid
+        {
+            get
+            {
+                bool result = GeneratedText.ToUpper() == TxtCpatcha.Text.Trim().ToUpper();
+                if (!result)
+                    TryNew();
+                return result;
+            }
+        }
+
+
     }
 }

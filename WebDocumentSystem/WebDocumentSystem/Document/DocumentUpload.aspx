@@ -17,6 +17,7 @@
                 </td>
                 <td>
                     <asp:FileUpload runat="server" type="file" name="FileUpload_doc" id="FileUpload_doc" />
+                    <asp:CustomValidator runat="server" ID="CustomValidator1" ControlToValidate="FileUpload_doc" Display="Dynamic" OnServerValidate="FilenameCheck" ErrorMessage="You must choose a file of the same name."></asp:CustomValidator>
                 </td>
             </tr>
             <tr>

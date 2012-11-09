@@ -31,6 +31,15 @@ namespace WebDocumentSystem.Document {
         protected global::System.Web.UI.WebControls.FileUpload FileUpload_doc;
         
         /// <summary>
+        /// CustomValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
+        
+        /// <summary>
         /// txt_encrypt control.
         /// </summary>
         /// <remarks>
