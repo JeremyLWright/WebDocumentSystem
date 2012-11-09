@@ -22,11 +22,20 @@ namespace WebDocumentSystem
                          select d;
         }
 
+        protected IQueryable<Models.Document> GetSearchedDocuments()
+        {
+            var documents = (from d in ctx.Documents
+                             where d.Name.Contains(search_term)
+                             select d);
+            return documents;
+        }
+
         protected Models.Document GetRelatedDocument(DocumentNote note)
         {
             var relatedDocument = (from d in ctx.Documents
                                    where d.Id == note.DocumentId
                                    select d).First();
+            
             return relatedDocument;
         }
 

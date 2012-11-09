@@ -20,6 +20,11 @@
         <dt><a href="View.aspx?DocumentId=<%=relatedDocument.Id%>"><%= relatedDocument.Name%></a></dt>
         <dd><%= note.Note.Replace(search_term, "<b class=\"text-info\">"+search_term+"</b>") %></dd>
     <% } %>
+    <% var docs = GetSearchedDocuments(); %>
+    <% foreach ( var doc in docs) {%>
+        <dt><a href="View.aspx?DocumentId=<%=doc.Id%>"><%= doc.Name%></a></dt>
+        <dd><em>Name Match</em></dd>
+    <% } %>
     </dl>
 
     <a id="btn-done" class="btn" href="Index.aspx">Done</a>
