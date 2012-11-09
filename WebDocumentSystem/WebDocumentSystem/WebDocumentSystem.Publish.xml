@@ -15,7 +15,7 @@
     <file relUrl="Images/glyphicons_226_euro.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_350_shopping_bag.png" publishTime="11/04/2012 10:59:30" />
     <file relUrl="Images/glyphicons_063_power.png" publishTime="11/04/2012 10:59:28" />
-    <file relUrl="Document/View.aspx" publishTime="11/09/2012 00:12:22" />
+    <file relUrl="Document/View.aspx" publishTime="11/09/2012 00:50:55" />
     <file relUrl="Document/Share.aspx" publishTime="11/09/2012 00:12:34" />
     <file relUrl="Images/glyphicons_089_magnet.png" publishTime="11/04/2012 10:59:28" />
     <file relUrl="Images/glyphicons_119_adjust.png" publishTime="11/04/2012 10:59:29" />
@@ -49,7 +49,7 @@
     <file relUrl="Images/glyphicons_074_cup.png" publishTime="11/04/2012 10:59:28" />
     <file relUrl="Images/glyphicons_230_moon.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_188_brightness_reduce.png" publishTime="11/04/2012 10:59:29" />
-    <file relUrl="App_Data/WebDoc.mdf" publishTime="11/09/2012 00:16:21" />
+    <file relUrl="App_Data/WebDoc.mdf" publishTime="11/09/2012 01:12:35" />
     <file relUrl="Images/glyphicons_222_share.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_064_lightbulb.png" publishTime="11/04/2012 10:59:28" />
     <file relUrl="Images/glyphicons_357_suitcase.png" publishTime="11/04/2012 10:59:30" />
@@ -85,7 +85,7 @@
     <file relUrl="Images/glyphicons_196_circle_exclamation_mark.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_324_tie.png" publishTime="11/04/2012 10:59:30" />
     <file relUrl="Images/glyphicons_275_fast_food.png" publishTime="11/04/2012 10:59:30" />
-    <file relUrl="bin/WebDocumentSystem.dll" publishTime="11/09/2012 00:13:26" />
+    <file relUrl="bin/WebDocumentSystem.dll" publishTime="11/09/2012 01:12:35" />
     <file relUrl="Images/glyphicons_200_download.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_220_play_button.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_219_circle_arrow_down.png" publishTime="11/04/2012 10:59:29" />
@@ -141,13 +141,13 @@
     <file relUrl="Images/glyphicons_270_shield.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_317_tree_deciduous.png" publishTime="11/04/2012 10:59:30" />
     <file relUrl="Images/glyphicons_052_eye_close.png" publishTime="11/04/2012 10:59:28" />
-    <file relUrl="bin/WebDocumentSystem.pdb" publishTime="11/09/2012 00:13:26" />
+    <file relUrl="bin/WebDocumentSystem.pdb" publishTime="11/09/2012 01:12:34" />
     <file relUrl="Images/glyphicons_083_random.png" publishTime="11/04/2012 10:59:28" />
     <file relUrl="Account/Web.config" publishTime="11/04/2012 10:59:26" />
     <file relUrl="Images/glyphicons_025_binoculars.png" publishTime="11/04/2012 10:59:28" />
     <file relUrl="Account/ChangePassword.aspx" publishTime="11/09/2012 00:12:22" />
     <file relUrl="Images/glyphicons_273_drink.png" publishTime="11/04/2012 10:59:30" />
-    <file relUrl="Account/USR_login1.ascx" publishTime="11/04/2012 10:59:26" />
+    <file relUrl="Account/USR_login1.ascx" publishTime="11/09/2012 01:01:30" />
     <file relUrl="Images/glyphicons_254_fishes.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_335_pin_classic.png" publishTime="11/04/2012 10:59:30" />
     <file relUrl="CreateMockData.aspx" publishTime="11/08/2012 10:33:30" />
@@ -197,7 +197,7 @@
     <file relUrl="Images/glyphicons_309_comments.png" publishTime="11/04/2012 10:59:30" />
     <file relUrl="Images/glyphicons_147_folder_lock.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_140_database_lock.png" publishTime="11/04/2012 10:59:29" />
-    <file relUrl="Models/WebDocModel.edmx.sql" publishTime="11/08/2012 22:04:19" />
+    <file relUrl="Models/WebDocModel.edmx.sql" publishTime="11/09/2012 00:56:41" />
     <file relUrl="Images/glyphicons_362_google+_alt.png" publishTime="11/04/2012 10:59:30" />
     <file relUrl="Images/glyphicons_259_barcode.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_161_macbook.png" publishTime="11/04/2012 10:59:29" />
@@ -207,6 +207,7 @@
     <file relUrl="Images/glyphicons_269_keyboard_wired.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Document/_DocumentDownloader.aspx" publishTime="11/04/2012 10:59:27" />
     <file relUrl="Images/glyphicons_192_circle_remove.png" publishTime="11/04/2012 10:59:29" />
+    <file relUrl="Document/Delete.aspx" publishTime="11/09/2012 00:51:45" />
     <file relUrl="Images/glyphicons_279_tablet.png" publishTime="11/04/2012 10:59:30" />
     <file relUrl="Images/glyphicons_202_shopping_cart.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_129_message_new.png" publishTime="11/04/2012 10:59:29" />
@@ -402,10 +403,10 @@
     <file relUrl="Images/glyphicons_034_old_man.png" publishTime="11/04/2012 10:59:28" />
     <file relUrl="Images/glyphicons_072_bookmark.png" publishTime="11/04/2012 10:59:28" />
     <file relUrl="Images/glyphicons_388_stumbleupon.png" publishTime="11/04/2012 10:59:30" />
-    <file relUrl="Document/_DocumentList.aspx" publishTime="11/09/2012 00:12:34" />
+    <file relUrl="Document/_DocumentList.aspx" publishTime="11/09/2012 01:06:51" />
     <file relUrl="Images/glyphicons_100_font.png" publishTime="11/04/2012 10:59:28" />
     <file relUrl="Images/glyphicons_353_nameplate_alt.png" publishTime="11/04/2012 10:59:30" />
-    <file relUrl="App_Data/WebDoc_log.ldf" publishTime="11/09/2012 00:16:22" />
+    <file relUrl="App_Data/WebDoc_log.ldf" publishTime="11/09/2012 01:12:35" />
     <file relUrl="bin/BusinessObjects.pdb" publishTime="11/08/2012 16:53:06" />
     <file relUrl="Images/glyphicons_330_blog.png" publishTime="11/04/2012 10:59:30" />
     <file relUrl="Images/glyphicons_286_fabric.png" publishTime="11/04/2012 10:59:30" />
@@ -426,7 +427,7 @@
     <file relUrl="Images/glyphicons_110_align_left.png" publishTime="11/04/2012 10:59:28" />
     <file relUrl="Images/glyphicons_141_database_plus.png" publishTime="11/04/2012 10:59:29" />
     <file relUrl="Images/glyphicons_051_eye_open.png" publishTime="11/04/2012 10:59:28" />
-    <file relUrl="Web.config" publishTime="11/09/2012 00:16:25" />
+    <file relUrl="Web.config" publishTime="11/09/2012 01:12:39" />
     <file relUrl="Images/glyphicons_377_linked_in.png" publishTime="11/04/2012 10:59:30" />
     <file relUrl="Images/glyphicons_015_print.png" publishTime="11/04/2012 10:59:28" />
     <file relUrl="Images/glyphicons_308_bomb.png" publishTime="11/04/2012 10:59:30" />

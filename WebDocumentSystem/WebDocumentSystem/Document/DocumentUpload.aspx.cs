@@ -112,7 +112,7 @@ namespace WebDocumentSystem.Document
                     }
 
                     ctx.SaveChanges(); //Save changes so the data's Id populates
-
+                    workingDocument.Deleted = false; //If we're updating the document, we're undeleting it.
                     workingDocument.Revision = documentData.Id; //Point the document to this version.
                     ctx.SaveChanges();
 

@@ -637,6 +637,7 @@
     <Compile Include="Document\Delete.aspx.designer.cs">
       <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Document\DocumentHelper.cs" />
     <Compile Include="Document\DocumentUpload.aspx.cs">
       <DependentUpon>DocumentUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

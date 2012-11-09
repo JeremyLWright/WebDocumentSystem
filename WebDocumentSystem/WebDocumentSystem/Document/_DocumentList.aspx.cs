@@ -15,27 +15,5 @@ namespace WebDocumentSystem.Document
         {
             var check = new AuthenticatedUser(); //Probably not idiomatic to C#, but I miss Python, why don't attributes work like decorators, I'm sad now.
         }
-
-        protected IQueryable<Models.Document> GetDocumentList()
-        {
-            WebDocEntities ctx = new WebDocEntities();
-            var sessionUser = HttpContext.Current.User.Identity.Name;
-            var user = (from c in ctx.Users
-                        where c.Name == (sessionUser)
-                        select c).FirstOrDefault();
-
-             var documents = (from c in ctx.Documents 
-                             where c.Owner.Name == user.Name
-                             orderby c.LastModified 
-                             descending select c);
-             var shared_docs = (from c in ctx.Shares
-                               where c.User.Id == user.Id
-                               orderby c.Created
-                               descending
-                               select c.Document);
-
-             return documents.Union(shared_docs).OrderBy(x => x.LastModified);
-
-        }
     }
 }

@@ -12,7 +12,7 @@
         <tbody>
         <% 
             //Setup the document paging
-            var data = GetDocumentList();
+            var data = WebDocumentSystem.Document.DocumentHelper.GetDocumentList();
             
                 var pageSize = 10;
                 var pageQuery = Request.QueryString["page"];

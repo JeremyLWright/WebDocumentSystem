@@ -16,17 +16,22 @@ namespace WebDocumentSystem
             var check = new AuthenticatedUser(); //Probably not idiomatic to C#, but I miss Python, why don't attributes work like decorators, I'm sad now.
             ctx = new WebDocEntities();
             search_term = Request.Form["search_term"];
-            
+            var username = HttpContext.Current.User.Identity.Name;
+            var user = (from u in ctx.Users
+                       where u.Name == username
+                       select u).First();
             releventNotes = from d in ctx.DocumentNotes
-                         where d.Note.Contains(search_term)
+                         where d.Note.Contains(search_term) 
+                               && d.User.Id == user.Id
                          select d;
         }
 
         protected IQueryable<Models.Document> GetSearchedDocuments()
         {
-            var documents = (from d in ctx.Documents
-                             where d.Name.Contains(search_term)
-                             select d);
+            var documents = WebDocumentSystem.Document.DocumentHelper.GetDocumentList();
+            var searchedDocuments = (from d in documents
+                                     where d.Name.Contains(search_term)
+                                     select d);
             return documents;
         }
 
