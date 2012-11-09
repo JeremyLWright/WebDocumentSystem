@@ -48,10 +48,18 @@ namespace SSproject
                                 FormsAuthentication.RedirectFromLoginPage(requestedUser.Name, true);
                             }
                         }
+                        else
+                        {
+                            lbl_display.Text = lbl_display.Text = "Your account is not yet approved.";
+                            return;
+                        }
+
                     }
                 }
-                lbl_display.Text = lbl_display.Text = "Invalid userid and/or password!! Please enter valid username and password";
                 
+                    lbl_display.Text = lbl_display.Text = "Invalid userid and/or password!! Please enter valid username and password";
+               
+               
 
             }
         }
