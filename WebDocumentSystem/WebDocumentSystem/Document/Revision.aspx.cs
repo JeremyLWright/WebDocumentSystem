@@ -30,6 +30,7 @@ namespace WebDocumentSystem.Document
                                        select c).First();
                 
                 doc.Revision = int.Parse(version_id);
+                doc.Deleted = false; //If we are reverting a document, we undelete it.
                 ctx.SaveChanges();
                 Response.Redirect("/Document/Index.aspx");
 
