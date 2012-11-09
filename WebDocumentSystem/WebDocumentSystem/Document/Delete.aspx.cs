@@ -31,10 +31,13 @@ namespace WebDocumentSystem.Document
                     var document = (from c in ctx.Documents
                                     where c.Id == documentId
                                     select c).First();
-                    document.Deleted = true;
-                    document_message.Document1 = document;
-                    ctx.DocumentLogs.AddObject(document_message);
-                    ctx.SaveChanges();
+                    if(DocumentHelper.CanAction(document, Models.Document.DocumentActions.Delete))
+                    {
+                        document.Deleted = true;
+                        document_message.Document1 = document;
+                        ctx.DocumentLogs.AddObject(document_message);
+                        ctx.SaveChanges();
+                    }
                 }
             }
             catch (ArgumentOutOfRangeException)

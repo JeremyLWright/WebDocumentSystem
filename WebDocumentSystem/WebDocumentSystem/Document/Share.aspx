@@ -5,13 +5,25 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
 <form method="post" runat="server">
-<table>
-<tr><td><%: numberUsers %> members</td><td><%: numberGroups %> groups</td></tr>
-<tr><td><asp:ListBox ID="listbox_members" runat="server"/></td><td><asp:ListBox ID="listbox_groups" runat="server" /></td></tr>
-<tr>
-    <td><asp:Button ID="btn_leave_folder" class="btn" Text="Cancel" runat="server" 
-            onclick="btn_leave_folder_Click" /></td><td><asp:Button ID="btn_done" 
-            class="btn btn-primary" Text="Share" runat="server" onclick="btn_done_Click" /></td></tr>
+
+<table class="table table-hover table-condensed">
+        <thead>
+            <th><%: numberUsers %> members</th>
+            <th><%: numberGroups %> groups</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td><asp:ListBox ID="listbox_members" runat="server"/></td>
+                <td><asp:ListBox ID="listbox_groups" runat="server" /></td>
+           </tr>
+          <tr>
+                <td colspan="2"><asp:DropDownList ID="DropDownPermissionLevel" runat="server" /></td>
+          </tr>
+          <tr>
+                <td><asp:Button ID="btn_leave_folder" class="btn" Text="Cancel" runat="server" onclick="btn_leave_folder_Click" /></td>
+                <td><asp:Button ID="btn_done" class="btn btn-primary" Text="Share" runat="server" onclick="btn_done_Click" /></td>
+          </tr>
+        </tbody>
 </table>
 </form>
 </asp:Content>

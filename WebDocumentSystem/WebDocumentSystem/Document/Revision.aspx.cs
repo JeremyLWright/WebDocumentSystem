@@ -17,23 +17,24 @@ namespace WebDocumentSystem.Document
             var version_id = Request.Form["versions"];
             if (version_id == null)
             {
-                int.TryParse(Request.QueryString["DocumentId"], out documentId);
+                documentId = Request.QueryString.GetValue<int>("DocumentId");
             }
             else
             {
                 //Process the form and return to the document list
-                int.TryParse(Request.Form["DocumentId"], out documentId);
+                documentId = Request.Form.GetValue<int>("DocumentId");
                 WebDocEntities ctx = new WebDocEntities();
 
                 Models.Document doc = (from c in ctx.Documents
                                        where c.Id == documentId
                                        select c).First();
-                
-                doc.Revision = int.Parse(version_id);
-                doc.Deleted = false; //If we are reverting a document, we undelete it.
-                ctx.SaveChanges();
+                if(DocumentHelper.CanAction(doc, Models.Document.DocumentActions.Replace_Revise))
+                {
+                    doc.Revision = int.Parse(version_id);
+                    doc.Deleted = false; //If we are reverting a document, we undelete it.
+                    ctx.SaveChanges();
+                }
                 Response.Redirect("/Document/Index.aspx");
-
             }
 
         }

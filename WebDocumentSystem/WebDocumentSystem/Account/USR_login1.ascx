@@ -7,11 +7,9 @@
             </asp:Label></asp:TableCell></asp:TableHeaderRow>
     <asp:TableRow>
         <asp:TableCell>
-            <asp:Label ID="lbl_header" Text="Login" runat="server" Font-Bold="true">
-            </asp:Label>
         </asp:TableCell>
         <asp:TableCell>
-            <asp:LinkButton ID="lkb_register" runat="server" Text="New user? Register here" PostBackUrl="~/Account/Register.aspx"></asp:LinkButton></asp:TableCell>
+            </asp:TableCell>
         <asp:TableCell ID="lbl_display" runat="server"></asp:TableCell>
     </asp:TableRow>
     <asp:TableRow ID="tr_rw1">

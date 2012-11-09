@@ -15,6 +15,7 @@ namespace WebDocumentSystem.Document
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             const int blockSize = 4096;
             ctx = new WebDocEntities();
             requestedId = Int32.Parse(Request.QueryString["DocumentId"]);
@@ -22,11 +23,12 @@ namespace WebDocumentSystem.Document
             var doc = (from d in ctx.Documents
                       where d.Id == requestedId
                       select d).First();
-
+            
             var data = (from d in ctx.DocumentDatas
                         where d.Id == doc.Revision
                         select d).FirstOrDefault();
-            if (data != null)
+            
+            if (data != null && DocumentHelper.CanAction(doc, Models.Document.DocumentActions.Download))
             {
                 byte[] buffer = data.DocContent;
                 if (data.Encrypted)

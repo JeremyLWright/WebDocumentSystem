@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Microsoft.Security.Application;
 using WebDocumentSystem.Account;
 using WebDocumentSystem.Models;
+using System.Diagnostics;
 
 namespace WebDocumentSystem.Document
 {
@@ -34,6 +35,8 @@ namespace WebDocumentSystem.Document
             {
                 pageNumber = 1;
             }
+
+            
             
             using (var ctx = new WebDocEntities())
             {
@@ -44,10 +47,22 @@ namespace WebDocumentSystem.Document
                                          where c.Name == authenticatedUsername
                                          select c).First();
 
-                document_message.Message = "Document Viewed";
-                var document = (from c in ctx.Documents
+                
+                document = (from c in ctx.Documents
                                 where c.Id == documentId
                                 select c).First();
+                document_message.Message = "Document Viewed by " + Enum.GetName(typeof(Share.PermissionLevel), DocumentHelper.GetPermissionLevel(document)) + " User.";
+                
+                try
+                {
+                    permissionLevel = DocumentHelper.GetPermissionLevel(document);
+                }
+                catch(Exception)
+                {
+                    Debug.WriteLine("User attempted to access invalid document.");
+                    Response.Redirect("Index.aspx");
+                }
+                
                 document_message.Document1 = document;
                 ctx.DocumentLogs.AddObject(document_message);
                 ctx.SaveChanges();
@@ -72,7 +87,10 @@ namespace WebDocumentSystem.Document
 
         protected void AddMessageSubmit(Object obj, EventArgs e)
         {
-            if(Page.IsValid)
+            if(Page.IsValid 
+                && (permissionLevel == Share.PermissionLevel.Download 
+                || permissionLevel == Share.PermissionLevel.Update
+                || permissionLevel == Share.PermissionLevel.FullControl))
             {
                 using (var ctx = new WebDocEntities())
                 {
@@ -82,12 +100,14 @@ namespace WebDocumentSystem.Document
                     var document = (from c in ctx.Documents
                                     where c.Id == documentId
                                     select c).First();
-
-                    var note = new Models.DocumentNote();
-                    note.Note = document_message.Text;
-                    note.User = user;
-                    document.DocumentNotes.Add(note);
-                    ctx.SaveChanges();
+                    if(DocumentHelper.CanAction(document, Models.Document.DocumentActions.AddNote))
+                    {
+                        var note = new Models.DocumentNote();
+                        note.Note = document_message.Text;
+                        note.User = user;
+                        document.DocumentNotes.Add(note);
+                        ctx.SaveChanges();
+                    }
                 }
             }
         }
@@ -96,5 +116,7 @@ namespace WebDocumentSystem.Document
         protected int documentId;
         protected int pageNumber;
         protected bool documentEncrypted;
+        protected Models.Document document;
+        protected Share.PermissionLevel permissionLevel;
     }
 }

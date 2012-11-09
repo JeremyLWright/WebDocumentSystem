@@ -31,24 +31,6 @@ namespace SSproject {
         protected global::System.Web.UI.WebControls.Label lbl_reg_success;
         
         /// <summary>
-        /// lbl_header control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl_header;
-        
-        /// <summary>
-        /// lkb_register control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lkb_register;
-        
-        /// <summary>
         /// lbl_display control.
         /// </summary>
         /// <remarks>

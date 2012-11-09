@@ -38,6 +38,12 @@ namespace WebDocumentSystem.Document
                 listbox_groups.Items.Add(new ListItem(group));
             }
             numberGroups = groups.Count();
+
+            var permissions = Enum.GetNames(typeof(Models.Share.PermissionLevel));
+            foreach (var permission in permissions)
+            {
+                DropDownPermissionLevel.Items.Add(new ListItem(permission));
+            }
         }
 
         protected int documentId;
@@ -59,19 +65,24 @@ namespace WebDocumentSystem.Document
                     var document = (from c in ctx.Documents
                                     where c.Id == documentId
                                     select c).First();
-
-
-                    if (selected_user != "")
+                    if(DocumentHelper.CanAction(document, Models.Document.DocumentActions.Share))
                     {
-                        var share_doc = new Models.Share();
-                        share_doc.Created = DateTime.Now;
-                        var user = (from c in ctx.Users
-                                    where c.Name == selected_user     
-                                    select c).FirstOrDefault();
-                        share_doc.Document = document;
-                        share_doc.User = user;
-                        ctx.Shares.AddObject(share_doc);
-                        ctx.SaveChanges();
+
+                        if (selected_user != "")
+                        {
+                            var share_doc = new Models.Share();
+                            share_doc.Created = DateTime.Now;
+                            var user = (from c in ctx.Users
+                                        where c.Name == selected_user     
+                                        select c).FirstOrDefault();
+                            share_doc.Document = document;
+                            share_doc.User = user;
+                            share_doc.Permission = (int)Enum.Parse(typeof(Share.PermissionLevel), DropDownPermissionLevel.SelectedValue);
+                            ctx.Shares.AddObject(share_doc);
+                            ctx.SaveChanges();
+                        }
+                    } else {
+                        Response.Redirect("Index.aspx");
                     }
 
 

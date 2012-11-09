@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/09/2012 00:56:37
--- Generated from EDMX file: C:\Users\Jeremy\workspaces\545_2\WebDocumentSystem\WebDocumentSystem\Models\WebDocModel.edmx
+-- Date Created: 11/09/2012 10:19:46
+-- Generated from EDMX file: C:\Users\Jeremy\workspaces\545_proj\WebDocumentSystem\WebDocumentSystem\Models\WebDocModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -175,6 +175,7 @@ GO
 CREATE TABLE [dbo].[Shares] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Created] datetime  NOT NULL,
+    [Permission] int  NOT NULL,
     [Document_Id] int  NOT NULL,
     [User_Id] int  NOT NULL
 );

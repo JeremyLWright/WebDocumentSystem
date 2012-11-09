@@ -1600,11 +1600,13 @@ namespace WebDocumentSystem.Models
         /// </summary>
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="created">Initial value of the Created property.</param>
-        public static Share CreateShare(global::System.Int32 id, global::System.DateTime created)
+        /// <param name="permission">Initial value of the Permission property.</param>
+        public static Share CreateShare(global::System.Int32 id, global::System.DateTime created, global::System.Int32 permission)
         {
             Share share = new Share();
             share.Id = id;
             share.Created = created;
+            share.Permission = permission;
             return share;
         }
 
@@ -1661,6 +1663,30 @@ namespace WebDocumentSystem.Models
         private global::System.DateTime _Created;
         partial void OnCreatedChanging(global::System.DateTime value);
         partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Permission
+        {
+            get
+            {
+                return _Permission;
+            }
+            set
+            {
+                OnPermissionChanging(value);
+                ReportPropertyChanging("Permission");
+                _Permission = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Permission");
+                OnPermissionChanged();
+            }
+        }
+        private global::System.Int32 _Permission;
+        partial void OnPermissionChanging(global::System.Int32 value);
+        partial void OnPermissionChanged();
 
         #endregion
     

@@ -31,11 +31,30 @@ namespace WebDocumentSystem.Document
                     documentName = workingDocument.Name;
                     hid_documentId.Value = workingDocument.Id.ToString();
                     UploadReplaceMode = true;
+                    if(UploadReplaceMode && DocumentHelper.CanAction(workingDocument, Models.Document.DocumentActions.Replace_Revise) == false)
+                    {
+                        Response.Redirect(Request.UrlReferrer.ToString());
+                    }
                 }
                 else
                 {
+                    var user = (from c in ctx.Users
+                                where c.Name == HttpContext.Current.User.Identity.Name
+                                select c).FirstOrDefault();
+
+                    if (user == null || 
+                        (User.Roles)user.Role == Models.User.Roles.Guest ||
+                        (User.Roles)user.Role == Models.User.Roles.NewUser ||
+                        (User.Roles)user.Role == Models.User.Roles.Temporary)
+                    {
+                        //User does not have permission to upload new documents
+                        Response.Redirect(Request.UrlReferrer.ToString());
+                    }
+
                     UploadReplaceMode = false;
                 }
+
+                
 
             }
             this.btn_upload.Click += new System.EventHandler(this.btn_upload_Click);

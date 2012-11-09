@@ -58,8 +58,35 @@ namespace WebDocumentSystem.Models
         }
     }
 
+    public partial class Share
+    {
+        public enum PermissionLevel
+        {
+            Read,
+            Download,
+            Update,
+            FullControl
+        }
+        public Share()
+        {
+            Created = DateTime.Now;
+            Permission = (int)PermissionLevel.Read;
+        }
+    }
+
     public partial class Document
     {
+        public enum DocumentActions
+        {
+            AddNote,
+            Download,
+            Upload_New,
+            Read,
+            Delete,
+            Share,
+            Replace_Revise
+        }
+
         public Document()
         {
             LastModified = DateTime.Now;

@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebDocumentSystem.Models;
 using WebDocumentSystem.Account;
+using WebDocumentSystem.Document;
 
 namespace WebDocumentSystem.Document
 {
@@ -13,7 +14,19 @@ namespace WebDocumentSystem.Document
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var check = new AuthenticatedUser(); //Probably not idiomatic to C#, but I miss Python, why don't attributes work like decorators, I'm sad now.
+            //Setup the document paging
+            data = WebDocumentSystem.Document.DocumentHelper.GetDocumentList();
+            
+            var pageSize = 10;
+            var pageQuery = Request.QueryString["page"];
+            Int32 pageNumber = 1;
+            if (pageQuery != null)
+                pageNumber = Int32.Parse(pageQuery);
+
+            page_data = WebDocumentSystem.Document.PagingExtensions.Page(data, pageNumber, pageSize);
         }
+        protected IQueryable<Models.Document> data;
+        protected IQueryable<Models.Document> page_data;
+       
     }
 }

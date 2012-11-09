@@ -50,8 +50,6 @@ namespace WebDocumentSystem.Account
 
                 var l = new AntiXssEncoder();
                 
-
-                string user_id = txb_user_id.Text.ToString();
                 string user_name = txb_name.Text.ToString();
                 string user_role = ddl_usrole.SelectedItem.Value;
                 string email_id = txb_email.Text.ToString();
