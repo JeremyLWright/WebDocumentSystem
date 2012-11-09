@@ -10,7 +10,7 @@
 <center>
     <p>Please Login when you account is approved.</p>
     <p>
-        <a href="Account/Login.aspx" class="btn btn-primary btn-large">Login</a>
+        <a href="Login.aspx" class="btn btn-primary btn-large">Login</a>
     </p>
     </center>
 </asp:Content>

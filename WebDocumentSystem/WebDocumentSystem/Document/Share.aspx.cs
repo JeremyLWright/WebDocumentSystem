@@ -32,10 +32,10 @@ namespace WebDocumentSystem.Document
 
                
             }
-            var groups = Enum.GetNames(typeof(Models.User.Roles));
-            foreach (var role in groups)
+            var groups = Enum.GetNames(typeof(Models.User.Groups));
+            foreach (var group in groups)
             {
-                listbox_groups.Items.Add(new ListItem(role));
+                listbox_groups.Items.Add(new ListItem(group));
             }
             numberGroups = groups.Count();
         }
@@ -73,6 +73,8 @@ namespace WebDocumentSystem.Document
                         ctx.Shares.AddObject(share_doc);
                         ctx.SaveChanges();
                     }
+
+
                 }
                 Response.Redirect("View.aspx?DocumentId=" + documentId);
             }

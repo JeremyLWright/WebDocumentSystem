@@ -1739,7 +1739,8 @@ namespace WebDocumentSystem.Models
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="securityAnswer">Initial value of the SecurityAnswer property.</param>
         /// <param name="role">Initial value of the Role property.</param>
-        public static User CreateUser(global::System.Int32 id, global::System.String password, global::System.String name, global::System.String securityAnswer, global::System.Int32 role)
+        /// <param name="group">Initial value of the Group property.</param>
+        public static User CreateUser(global::System.Int32 id, global::System.String password, global::System.String name, global::System.String securityAnswer, global::System.Int32 role, global::System.Int32 group)
         {
             User user = new User();
             user.Id = id;
@@ -1747,6 +1748,7 @@ namespace WebDocumentSystem.Models
             user.Name = name;
             user.SecurityAnswer = securityAnswer;
             user.Role = role;
+            user.Group = group;
             return user;
         }
 
@@ -1923,6 +1925,30 @@ namespace WebDocumentSystem.Models
         private global::System.Int32 _Role;
         partial void OnRoleChanging(global::System.Int32 value);
         partial void OnRoleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Group
+        {
+            get
+            {
+                return _Group;
+            }
+            set
+            {
+                OnGroupChanging(value);
+                ReportPropertyChanging("Group");
+                _Group = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Group");
+                OnGroupChanged();
+            }
+        }
+        private global::System.Int32 _Group;
+        partial void OnGroupChanging(global::System.Int32 value);
+        partial void OnGroupChanged();
 
         #endregion
     

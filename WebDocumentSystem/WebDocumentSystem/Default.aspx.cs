@@ -13,6 +13,10 @@ namespace WebDocumentSystem
         protected void Page_Load(object sender, EventArgs e)
         {
             FormsAuthentication.SignOut();
+            if (Request.Url.LocalPath == "/")
+            {
+                Response.Redirect("~/Default.aspx");
+            }
         }
     }
 }

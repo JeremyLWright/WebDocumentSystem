@@ -34,16 +34,19 @@ namespace SSproject
                     var saltedPassword = Encryptor.GenerateSaltedHash(txb_password.Text, salt);
                     if (saltedPassword == requestedUser.Password)
                     {
-                        Session["user"] = requestedUser.Name;
-                        Session.Timeout = 20;
-                        if (Request.QueryString["ReturnUrl"] == null)
+                        if (requestedUser.AccountRequest.State == (int)AccountRequest.States.Approved)
                         {
-                            FormsAuthentication.SetAuthCookie(requestedUser.Name, true);
-                            Response.Redirect("~/Document/Index.aspx");
-                        }
-                        else
-                        {
-                            FormsAuthentication.RedirectFromLoginPage(requestedUser.Name, true);
+                            Session["user"] = requestedUser.Name;
+                            Session.Timeout = 20;
+                            if (Request.QueryString["ReturnUrl"] == null)
+                            {
+                                FormsAuthentication.SetAuthCookie(requestedUser.Name, true);
+                                Response.Redirect("~/Document/Index.aspx");
+                            }
+                            else
+                            {
+                                FormsAuthentication.RedirectFromLoginPage(requestedUser.Name, true);
+                            }
                         }
                     }
                 }

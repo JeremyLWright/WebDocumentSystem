@@ -76,7 +76,9 @@ namespace WebDocumentSystem.Account
 
                     var request = new AccountRequest();
                     request.PasswordStrength = (int)PasswordAdvisor.CheckStrength(temp_user.Password);
+                    request.State = (int)AccountRequest.States.Pending;
                     temp_user.AccountRequest = request;
+                    
 
                     ctx.Users.AddObject(temp_user);
                     ctx.SaveChanges();

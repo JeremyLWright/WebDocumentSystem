@@ -133,6 +133,13 @@ namespace WebDocumentSystem.Models
             Admin,
             NewUser
         }
+
+        public enum Groups
+        {
+            HR,
+            Sales,
+            Marketing
+        }
     }
 
 

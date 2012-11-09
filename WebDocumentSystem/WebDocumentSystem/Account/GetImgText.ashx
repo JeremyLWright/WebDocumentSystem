@@ -57,7 +57,6 @@ public class GetImgText : IHttpHandler {
         Color[] Colors = { Color.Gray , Color.Red, Color.Blue, Color.Olive };
         for (int i = 0; i < 200; i++)
         {
-            var rnd = new Random(DateTime.Now.Millisecond);
             var grp = Graphics.FromImage(bmp);
             Image background = Image.FromFile(HttpContext.Current.Server.MapPath("~/Images/captcha3.jpg"));
             grp.DrawImage(background, new Rectangle(0, 0, bmp.Width, bmp.Height));

@@ -2,12 +2,12 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/07/2012 23:42:55
--- Generated from EDMX file: C:\Users\Jeremy\workspaces\545_proj\WebDocumentSystem\WebDocumentSystem\Models\WebDocModel.edmx
+-- Date Created: 11/08/2012 22:03:49
+-- Generated from EDMX file: C:\Users\Jeremy\workspaces\545_2\WebDocumentSystem\WebDocumentSystem\Models\WebDocModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
-GO 
+GO
 USE [WebDoc];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
@@ -139,6 +139,7 @@ CREATE TABLE [dbo].[Users] (
     [SecurityAnswer] nvarchar(max)  NOT NULL,
     [Salt] varbinary(max)  NULL,
     [Role] int  NOT NULL,
+    [Group] int  NOT NULL,
     [SecurityQuestion_Id] int  NOT NULL
 );
 GO

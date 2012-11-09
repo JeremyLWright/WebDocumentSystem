@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="WebDocumentSystem.Account.Register" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
-<script language="javascript" type="text/javascript">
+    <script language="javascript" type="text/javascript">
 
     function resetForm(id) {
         $('#' + id).each(function () {
@@ -11,11 +11,13 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="SideBarContent" runat="server">
+Please review the User's Guide.
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainNav" runat="server">
+<h3>New User Registration</h3>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="MainContent" runat="server">
-<form id="Form1" runat="server" >
+    <form id="Form1" runat="server" >
  
     <asp:Table ID="Table1"  runat="server">
      <asp:TableRow>
@@ -105,8 +107,9 @@
         
 
         <asp:TableRow ID="TableRow2" runat="server">
-        <asp:TableCell ID="TableCell3" runat="server"><asp:Label runat="server" ID=lbl_ans1 Text="Answer"></asp:Label></asp:TableCell>
-        <asp:TableCell ID="TableCell4" runat="server"><asp:TextBox runat="server" ID=txb_ans1 ></asp:TextBox></asp:TableCell>
+        <asp:TableCell ID="TableCell3" runat="server"><asp:Label runat="server" ID="lbl_ans1" Text="Answer"></asp:Label></asp:TableCell>
+        <asp:TableCell ID="TableCell4" runat="server"><asp:TextBox runat="server" ID="txb_ans1" ></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="txb_ans1" ErrorMessage="Required" runat="server"></asp:RequiredFieldValidator></asp:TableCell>
+        
         </asp:TableRow>
         <asp:TableRow>
         <asp:TableCell>
@@ -117,6 +120,7 @@
         <asp:TableCell>
             <asp:TextBox ID="TxtCpatcha" runat="server" Text=""></asp:TextBox>
             <asp:CustomValidator runat="server" ID="CaptuaValidator" ControlToValidate="TxtCpatcha" Display="Dynamic" OnServerValidate="CaptuaValidate" ErrorMessage="Please try again."></asp:CustomValidator>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="TxtCpatcha" ErrorMessage="Required" runat="server"></asp:RequiredFieldValidator>
         </asp:TableCell>
     </asp:TableRow>
     <asp:TableRow>
