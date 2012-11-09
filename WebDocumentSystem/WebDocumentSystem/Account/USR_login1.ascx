@@ -33,10 +33,8 @@
     </asp:TableRow>
     <asp:TableRow ID="tr_rw3">
         <asp:TableCell>
-            <asp:Button ID="btn_submit" runat="server" Text="Submit" OnClick="validate_login" />
+            <asp:Button ID="btn_submit" class="btn btn-primary" runat="server" Text="Submit" OnClick="validate_login" />
         </asp:TableCell>
-        <asp:TableCell>
-            <asp:Button ID="btn_rst" runat="server" Text="Reset" /></asp:TableCell>
     </asp:TableRow>
 </asp:Table>
 

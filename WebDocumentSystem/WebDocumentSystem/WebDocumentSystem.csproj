@@ -92,6 +92,7 @@
       <DependentUpon>WebDoc.mdf</DependentUpon>
     </Content>
     <Content Include="CreateMockData.aspx" />
+    <Content Include="Document\Delete.aspx" />
     <Content Include="Document\DocumentUpload.aspx" />
     <Content Include="Document\SuperSecretDeleteMeFile.aspx" />
     <Content Include="Document\View.aspx" />
@@ -628,6 +629,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Document\Delete.aspx.cs">
+      <DependentUpon>Delete.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Document\Delete.aspx.designer.cs">
+      <DependentUpon>Delete.aspx</DependentUpon>
     </Compile>
     <Compile Include="Document\DocumentUpload.aspx.cs">
       <DependentUpon>DocumentUpload.aspx</DependentUpon>

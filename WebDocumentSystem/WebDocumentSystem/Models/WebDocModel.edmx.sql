@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/08/2012 22:03:49
+-- Date Created: 11/09/2012 00:56:37
 -- Generated from EDMX file: C:\Users\Jeremy\workspaces\545_2\WebDocumentSystem\WebDocumentSystem\Models\WebDocModel.edmx
 -- --------------------------------------------------
 
@@ -126,7 +126,8 @@ CREATE TABLE [dbo].[Documents] (
     [LockHolder] int  NULL,
     [Revision] int  NULL,
     [LastModified] datetime  NOT NULL,
-    [UserId] int  NOT NULL
+    [UserId] int  NOT NULL,
+    [Deleted] bit  NOT NULL
 );
 GO
 

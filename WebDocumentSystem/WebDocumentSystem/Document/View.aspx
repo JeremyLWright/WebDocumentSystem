@@ -44,6 +44,7 @@
 <a class="btn" id="btn_revisions" href="Revision.aspx?DocumentId=<%:safeDocumentId %>">Revision</a>
 <a class="btn" id="btn_update" href="DocumentUpload.aspx?DocumentId=<%:safeDocumentId %>">Update</a>
 <a class="btn" id="btn-share"  href="Share.aspx?DocumentId=<%:safeDocumentId %>">Share</a>
+<a class="btn" id="btn-delete"  href="Delete.aspx?DocumentId=<%:safeDocumentId %>">Delete</a>
 </div>
 </asp:Content>
 

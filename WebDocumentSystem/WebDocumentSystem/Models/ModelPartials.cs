@@ -63,6 +63,7 @@ namespace WebDocumentSystem.Models
         public Document()
         {
             LastModified = DateTime.Now;
+            Deleted = false;
         }
 
     }

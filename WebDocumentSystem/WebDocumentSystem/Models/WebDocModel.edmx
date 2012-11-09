@@ -102,6 +102,7 @@
     <Property Name="Revision" Type="int" Nullable="true" />
     <Property Name="LastModified" Type="datetime" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Deleted" Type="bit" Nullable="false" DefaultValue="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -399,6 +400,7 @@
           <NavigationProperty Name="Owner" Relationship="WebDocModel.UserDocument" FromRole="Document" ToRole="User" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
           <NavigationProperty Name="Shares" Relationship="WebDocModel.ShareDocument" FromRole="Document" ToRole="Share" />
+          <Property Type="Boolean" Name="Deleted" Nullable="false" DefaultValue="False" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -595,6 +597,7 @@
           <ScalarProperty Name="Revision" ColumnName="Revision" />
           <ScalarProperty Name="LastModified" ColumnName="LastModified" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -719,7 +722,7 @@
         <EntityTypeShape EntityType="WebDocModel.DocumentData" Width="1.5" PointX="2.75" PointY="4.5" Height="2.3648893229166665" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDocModel.DocumentLog" Width="1.375" PointX="6.75" PointY="5.75" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDocModel.DocumentNote" Width="1.5" PointX="3.25" PointY="8.125" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="WebDocModel.Document" Width="1.5" PointX="0.5" PointY="4.5" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebDocModel.Document" Width="1.5" PointX="0.5" PointY="4.5" Height="3.5186979166666656" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDocModel.User" Width="1.5" PointX="4" PointY="0.5" Height="3.9033007812499996" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDocModel.AccountRequest" Width="2" PointX="8.5" PointY="3.375" Height="1.9802864583333335" IsExpanded="true" />
         <EntityTypeShape EntityType="WebDocModel.UserLog" Width="1.625" PointX="6" PointY="2.625" Height="1.9802864583333335" IsExpanded="true" />
@@ -730,21 +733,23 @@
           <ConnectorPoint PointX="2.75" PointY="5.6824446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.FK_Audit_Log_Document" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="7.3768929036458335" />
-          <ConnectorPoint PointX="2.2916666666666665" PointY="7.3768929036458326" />
-          <ConnectorPoint PointX="2.4583333333333335" PointY="7.3768929036458335" />
-          <ConnectorPoint PointX="4.3033866666666674" PointY="7.3768929036458326" />
-          <ConnectorPoint PointX="4.4700533333333334" PointY="7.3768929036458335" />
-          <ConnectorPoint PointX="6.75" PointY="7.3768929036458335" />
+          <ConnectorPoint PointX="2" PointY="7.6721260213216134" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="7.6721260213216125" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="7.6721260213216134" />
+          <ConnectorPoint PointX="4.276041666666667" PointY="7.6721260213216125" />
+          <ConnectorPoint PointX="4.442708333333333" PointY="7.6721260213216134" />
+          <ConnectorPoint PointX="4.447916666666667" PointY="7.6721260213216125" />
+          <ConnectorPoint PointX="4.614583333333333" PointY="7.6721260213216134" />
+          <ConnectorPoint PointX="6.75" PointY="7.6721260213216134" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.FK_DocumentNotes_Document" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="7.6328971940104173" />
-          <ConnectorPoint PointX="2.2916666666666665" PointY="7.6328971940104164" />
-          <ConnectorPoint PointX="2.4583333333333335" PointY="7.6328971940104173" />
-          <ConnectorPoint PointX="4.3033866666666674" PointY="7.6328971940104164" />
-          <ConnectorPoint PointX="4.4700533333333334" PointY="7.6328971940104173" />
-          <ConnectorPoint PointX="4.58594" PointY="7.6328971940104173" />
-          <ConnectorPoint PointX="4.58594" PointY="8.125" />
+          <ConnectorPoint PointX="2" PointY="7.26850517211914" />
+          <ConnectorPoint PointX="2.2916666666666665" PointY="7.2685051721191387" />
+          <ConnectorPoint PointX="2.4583333333333335" PointY="7.26850517211914" />
+          <ConnectorPoint PointX="4.276041666666667" PointY="7.2685051721191387" />
+          <ConnectorPoint PointX="4.442708333333333" PointY="7.26850517211914" />
+          <ConnectorPoint PointX="4.53125" PointY="7.26850517211914" />
+          <ConnectorPoint PointX="4.53125" PointY="8.125" />
         </AssociationConnector>
         <EntityTypeShape EntityType="WebDocModel.SecurityQuestions" Width="1.5" PointX="6.875" PointY="0.5" Height="1.59568359375" />
         <AssociationConnector Association="WebDocModel.user_accounts2SecurityQuestions">
@@ -766,24 +771,24 @@
           <ConnectorPoint PointX="5.04297" PointY="4.40330078125" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.DocumentNoteUser">
-          <ConnectorPoint PointX="4.38672" PointY="8.125" />
-          <ConnectorPoint PointX="4.38672" PointY="4.40330078125" />
+          <ConnectorPoint PointX="4.359375" PointY="8.125" />
+          <ConnectorPoint PointX="4.359375" PointY="4.40330078125" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.UserDocument">
-          <ConnectorPoint PointX="4" PointY="1.9072507558593748" />
-          <ConnectorPoint PointX="1.25" PointY="1.9072507558593748" />
+          <ConnectorPoint PointX="4" PointY="2.451650390625" />
+          <ConnectorPoint PointX="1.25" PointY="2.451650390625" />
           <ConnectorPoint PointX="1.25" PointY="4.5" />
         </AssociationConnector>
         <EntityTypeShape EntityType="WebDocModel.Share" Width="1.5" PointX="0.5" PointY="8.25" Height="1.4033821614583335" />
         <AssociationConnector Association="WebDocModel.ShareDocument">
           <ConnectorPoint PointX="1.25" PointY="8.25" />
-          <ConnectorPoint PointX="1.25" PointY="7.826396484375" />
+          <ConnectorPoint PointX="1.25" PointY="8.0186979166666656" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.ShareWithUser">
           <ConnectorPoint PointX="2" PointY="8.2511528461538468" />
           <ConnectorPoint PointX="2.375" PointY="7.8761528461538468" />
-          <ConnectorPoint PointX="2.375" PointY="3.1865277685546882" />
-          <ConnectorPoint PointX="4" PointY="3.1865277685546882" />
+          <ConnectorPoint PointX="2.375" PointY="3.4587275859375004" />
+          <ConnectorPoint PointX="4" PointY="3.4587275859375004" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
