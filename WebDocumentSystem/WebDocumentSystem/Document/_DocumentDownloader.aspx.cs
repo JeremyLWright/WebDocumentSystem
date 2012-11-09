@@ -39,7 +39,6 @@ namespace WebDocumentSystem.Document
                 Response.AddHeader("Content-Disposition", "attachment; filename=\"" + doc.Name + "\"");
                 Response.BinaryWrite(buffer);
                 Response.Flush();
-                Response.Close();
                 Response.End();
             }
             else

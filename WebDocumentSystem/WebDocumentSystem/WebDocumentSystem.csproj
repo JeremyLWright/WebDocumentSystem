@@ -650,6 +650,9 @@
     <Compile Include="Document\DocumentUpload.aspx.designer.cs">
       <DependentUpon>DocumentUpload.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Document\DownloadHandler.ashx.cs">
+      <DependentUpon>DownloadHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Document\GetValue.cs" />
     <Compile Include="Document\InvalidDocumentAccess.cs" />
     <Compile Include="Document\PagingExtensions.cs" />
@@ -776,6 +779,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\GetImgText.ashx" />
+    <Content Include="Document\DownloadHandler.ashx" />
     <None Include="WebDocumentSystem.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
