@@ -32,7 +32,7 @@ namespace WebDocumentSystem
             var searchedDocuments = (from d in documents
                                      where d.Name.Contains(search_term)
                                      select d);
-            return documents;
+            return searchedDocuments;
         }
 
         protected Models.Document GetRelatedDocument(DocumentNote note)
