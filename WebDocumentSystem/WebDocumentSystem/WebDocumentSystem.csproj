@@ -103,6 +103,9 @@
     <Content Include="Document\_DocumentList.aspx" />
     <Content Include="Document\_DocumentLock.aspx" />
     <Content Include="Document\_DocumentMetaData.aspx" />
+    <Content Include="ErrorPages\404.aspx" />
+    <Content Include="ErrorPages\404.htm" />
+    <Content Include="ErrorPages\GenericError.aspx" />
     <Content Include="Images\captcha1.gif" />
     <Content Include="Images\captcha1.png" />
     <Content Include="Images\captcha2.jpg" />
@@ -509,6 +512,7 @@
     <Content Include="Images\glyphicons_397_rss.png" />
     <Content Include="Images\glyphicons_398_skype.png" />
     <Content Include="Images\glyphicons_399_e-mail.png" />
+    <Content Include="Images\Marvin.jpg" />
     <Content Include="Images\spinner.gif" />
     <Content Include="Models\WebDocModel.edmx.sql" />
     <Content Include="Scripts\bootstrap.js" />
@@ -703,6 +707,20 @@
     </Compile>
     <Compile Include="Document\_DocumentMetaData.aspx.designer.cs">
       <DependentUpon>_DocumentMetaData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\GenericError.aspx.cs">
+      <DependentUpon>GenericError.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\GenericError.aspx.designer.cs">
+      <DependentUpon>GenericError.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
