@@ -53,6 +53,7 @@ Please review the User's Guide.
                 
                 </asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txb_email" ErrorMessage="Required" runat="server"></asp:RequiredFieldValidator>
+                <asp:RegularExpressionValidator ID="regexEmailValid" runat="server" ValidationExpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ControlToValidate="txb_email" ErrorMessage="Invalid Email Format"></asp:RegularExpressionValidator>
             </asp:TableCell>
             <asp:TableCell>
                 <asp:Label ID="lbl_errormail" runat="server"></asp:Label>

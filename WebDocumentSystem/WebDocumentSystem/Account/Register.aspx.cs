@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using WebDocumentSystem.Models;
 using BusinessObjects;
 using WebDocumentSystem.BusinessLogic;
+using Microsoft.Security.Application;
 
 namespace WebDocumentSystem.Account
 {
@@ -46,6 +47,8 @@ namespace WebDocumentSystem.Account
             if (Page.IsValid)
             {
                 string password = txb_pwdc.Text.ToString();
+
+                AntiXssEncoder
 
                 string user_id = txb_user_id.Text.ToString();
                 string user_name = txb_name.Text.ToString();
