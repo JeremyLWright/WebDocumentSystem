@@ -88,7 +88,7 @@ namespace WebDocumentSystem.Document
         protected void AddMessageSubmit(Object obj, EventArgs e)
         {
             if(Page.IsValid 
-                && (permissionLevel == Share.PermissionLevel.Download 
+                && (permissionLevel == Share.PermissionLevel.Write 
                 || permissionLevel == Share.PermissionLevel.Update
                 || permissionLevel == Share.PermissionLevel.FullControl))
             {

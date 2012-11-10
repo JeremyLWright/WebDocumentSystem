@@ -15,7 +15,8 @@ namespace WebDocumentSystem
         {
             var check = new AuthenticatedUser(); //Probably not idiomatic to C#, but I miss Python, why don't attributes work like decorators, I'm sad now.
             ctx = new WebDocEntities();
-            search_term = Request.Form["search_term"];
+            
+            search_term = Server.HtmlEncode(Request.Form["search_term"]);
             var username = HttpContext.Current.User.Identity.Name;
             var user = (from u in ctx.Users
                        where u.Name == username

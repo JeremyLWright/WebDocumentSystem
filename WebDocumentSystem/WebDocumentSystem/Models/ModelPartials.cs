@@ -63,7 +63,7 @@ namespace WebDocumentSystem.Models
         public enum PermissionLevel
         {
             Read,
-            Download,
+            Write,
             Update,
             FullControl
         }

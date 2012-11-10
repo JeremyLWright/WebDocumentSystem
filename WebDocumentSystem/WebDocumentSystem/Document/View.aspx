@@ -9,7 +9,7 @@
         $('#DocumentNotes').load('/Document/_DocumentMetaData.aspx?DocumentId=<%:Request.QueryString["DocumentId"]%>');
         if($("#document-menu").children().length == 0)
         {
-            $("#document-menu").append('<a class="btn" href="#">Read Only</a>');
+            $("#document-menu").append('<a class="btn disabled" href="#">Read Only</a>');
         }
 
         $("#btn_lock").bind("click", function (evt) {

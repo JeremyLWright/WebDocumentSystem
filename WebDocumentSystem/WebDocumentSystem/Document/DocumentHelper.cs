@@ -85,7 +85,7 @@ namespace WebDocumentSystem.Document
 
             switch(GetPermissionLevel(doc))
             {
-                case Share.PermissionLevel.Download:
+                case Share.PermissionLevel.Write:
                     switch (desiredAction)
                     {
                         case Models.Document.DocumentActions.Lock:
@@ -110,7 +110,7 @@ namespace WebDocumentSystem.Document
                             allowed = true;
                             break;
                         case Models.Document.DocumentActions.Replace_Revise:
-                            allowed = false;
+                            allowed = true;
                             break;
                     }
                     break;

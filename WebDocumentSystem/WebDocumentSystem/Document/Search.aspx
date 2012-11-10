@@ -18,7 +18,7 @@
     <% foreach ( var note in releventNotes) {%>
         <% var relatedDocument = GetRelatedDocument(note); %>
         <dt><a href="View.aspx?DocumentId=<%: relatedDocument.Id %>"><%: relatedDocument.Name%></a></dt>
-        <dd><%: note.Note.Replace(search_term, "<b class=\"text-info\">"+search_term+"</b>") %></dd>
+        <dd><%= note.Note.Replace(search_term, "<b class=\"text-info\">"+search_term+"</b>") %></dd>
     <% } %>
     <% var docs = GetSearchedDocuments(); %>
     <% foreach ( var doc in docs) {%>
