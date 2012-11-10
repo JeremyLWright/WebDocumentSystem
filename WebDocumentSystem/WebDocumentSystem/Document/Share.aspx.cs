@@ -81,6 +81,17 @@ namespace WebDocumentSystem.Document
                             ctx.Shares.AddObject(share_doc);
                             ctx.SaveChanges();
                         }
+
+                        if (selected_group != "")
+                        {
+                            var share_doc = new Models.GroupShare();
+                            share_doc.Created = DateTime.Now;
+                            share_doc.Document = document;
+                            share_doc.Group = (int)Enum.Parse(typeof(User.Groups), selected_group);
+                            share_doc.Permission = (int)Enum.Parse(typeof(Share.PermissionLevel), DropDownPermissionLevel.SelectedValue);
+                            ctx.GroupShares.AddObject(share_doc);
+                            ctx.SaveChanges();
+                        }
                     } else {
                         Response.Redirect("Index.aspx");
                     }

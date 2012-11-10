@@ -43,9 +43,13 @@
 </asp:Content>
 <asp:Content ID="ContentNav" ContentPlaceHolderID="MainNav" runat="server">
     <div class="btn-group" id="document-menu">
+        <% if(WebDocumentSystem.Document.DocumentHelper.CanAction(document, WebDocumentSystem.Models.Document.DocumentActions.Lock))
+           {%>
+                <a class="btn" id="btn_lock" href="#">Lock</a> 
+        <%} %>
         <% if (WebDocumentSystem.Document.DocumentHelper.CanAction(document, WebDocumentSystem.Models.Document.DocumentActions.Download))
            {%>
-                <a class="btn" id="btn_lock" href="#">Lock</a> <a class="btn" id="btn_download" href="#">Download</a>
+                <a class="btn" id="btn_download" href="#">Download</a>
         <% } %>
         <% if (WebDocumentSystem.Document.DocumentHelper.CanAction(document, WebDocumentSystem.Models.Document.DocumentActions.Replace_Revise))
            {%>

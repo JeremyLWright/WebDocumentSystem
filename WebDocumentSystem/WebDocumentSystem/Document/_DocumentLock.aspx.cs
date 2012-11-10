@@ -22,14 +22,41 @@ namespace WebDocumentSystem.Document
             var document = (from d in ctx.Documents
                             where d.Id == DocumentId
                             select d).First();
-            //document..CreatedDate = DateTime.Now;
 
-            if(document.IsLocked == true)
-                document.IsLocked = false;
-            else
-                document.IsLocked = true;
-            ctx.SaveChanges();
-            return true;
+            //Does this user even have permission to lock the document?
+            if (DocumentHelper.CanAction(document, Models.Document.DocumentActions.Lock))
+            {
+                var user = (from u in ctx.Users
+                            where u.Name == HttpContext.Current.User.Identity.Name
+                            select u).FirstOrDefault();
+                if (user != null)
+                {
+                    if (document.IsLocked == true)
+                    {
+
+                        if (document.LockHolder == user.Id) //Document is locked & we own the lock
+                        {
+                            document.IsLocked = false; //unlock it
+                            document.LockHolder = null;
+                            ctx.SaveChanges();
+                            return true;
+                        }
+                        else if (document.LockHolder != user.Id) //Document is locked & we do not own the lock
+                        {
+                            return false;
+                        }
+                    }
+                    else //Document is unlocked
+                    {
+                        document.IsLocked = true;
+                        document.LockHolder = user.Id;
+                        ctx.SaveChanges();
+                        return true;
+                    }
+                }
+            }
+            return false;
+            
 
         }
     }

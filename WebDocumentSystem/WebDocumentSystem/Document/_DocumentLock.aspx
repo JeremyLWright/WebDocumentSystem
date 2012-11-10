@@ -3,9 +3,4 @@
 <% var documentId =  Int32.Parse(Request.QueryString["DocumentId"]);%>
 <% var result = AttemptLock(documentId); %>
 <% if (result) %>
-<%{ %>
-    OK
-<% } else {%>
-    NOK
-<% } %>
-
+<%{ %>OK<% } else {%>NOK<% } %>

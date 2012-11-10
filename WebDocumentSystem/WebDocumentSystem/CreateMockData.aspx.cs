@@ -32,6 +32,7 @@ namespace WebDocumentSystem
                 user.Salt = salt;
                 user.Name = "Admin";
                 user.Role = (int)Models.User.Roles.Admin;
+                user.Group = (int)Models.User.Groups.HR;
 
                 user.SecurityQuestion = (from c in ctx.SecurityQuestions select c).First();
                 user.SecurityAnswer = "Don't think about it.";

@@ -13,16 +13,20 @@ function document_row_click(event) {
 
 function document_lock_click(event) {
 
-    $.get("/Document/_DocumentLock.aspx?DocumentId=" + event.parentElement.attributes["data-documentId"].value);
+    $.get("/Document/_DocumentLock.aspx?DocumentId=" + event.parentElement.attributes["data-documentId"].value, function (data) {
+        if (data == "OK") {
+            if (eval(event.attributes["data-lock"].value)) {
+                event.attributes["data-lock"].value = false;
+                event.childNodes[0].attributes["src"].value = "../Images/glyphicons_204_unlock.png";
+            }
+            else {
+                event.attributes["data-lock"].value = true;
+                event.childNodes[0].attributes["src"].value = "../Images/glyphicons_203_lock.png";
+            }
+        }
+    });
 
-    if (eval(event.attributes["data-lock"].value)) {
-        event.attributes["data-lock"].value = false;
-        event.childNodes[0].attributes["src"].value = "../Images/glyphicons_204_unlock.png";
-    }
-    else {
-        event.attributes["data-lock"].value = true;
-        event.childNodes[0].attributes["src"].value = "../Images/glyphicons_203_lock.png";
-    }
+    
 }
 
 function document_list_page(element, direction) {

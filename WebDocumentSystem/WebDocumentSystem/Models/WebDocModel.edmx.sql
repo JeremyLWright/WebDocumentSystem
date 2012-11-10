@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/09/2012 10:19:46
+-- Date Created: 11/09/2012 16:48:11
 -- Generated from EDMX file: C:\Users\Jeremy\workspaces\545_proj\WebDocumentSystem\WebDocumentSystem\Models\WebDocModel.edmx
 -- --------------------------------------------------
 
@@ -181,6 +181,16 @@ CREATE TABLE [dbo].[Shares] (
 );
 GO
 
+-- Creating table 'GroupShares'
+CREATE TABLE [dbo].[GroupShares] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Permission] int  NOT NULL,
+    [Created] datetime  NOT NULL,
+    [Group] int  NOT NULL,
+    [Document_Id] int  NOT NULL
+);
+GO
+
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
@@ -236,6 +246,12 @@ GO
 -- Creating primary key on [Id] in table 'Shares'
 ALTER TABLE [dbo].[Shares]
 ADD CONSTRAINT [PK_Shares]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'GroupShares'
+ALTER TABLE [dbo].[GroupShares]
+ADD CONSTRAINT [PK_GroupShares]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -395,6 +411,20 @@ ADD CONSTRAINT [FK_ShareWithUser]
 CREATE INDEX [IX_FK_ShareWithUser]
 ON [dbo].[Shares]
     ([User_Id]);
+GO
+
+-- Creating foreign key on [Document_Id] in table 'GroupShares'
+ALTER TABLE [dbo].[GroupShares]
+ADD CONSTRAINT [FK_GroupShareDocument]
+    FOREIGN KEY ([Document_Id])
+    REFERENCES [dbo].[Documents]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_GroupShareDocument'
+CREATE INDEX [IX_FK_GroupShareDocument]
+ON [dbo].[GroupShares]
+    ([Document_Id]);
 GO
 
 -- --------------------------------------------------

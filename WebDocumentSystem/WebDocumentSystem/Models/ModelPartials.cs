@@ -84,7 +84,8 @@ namespace WebDocumentSystem.Models
             Read,
             Delete,
             Share,
-            Replace_Revise
+            Replace_Revise,
+            Lock
         }
 
         public Document()

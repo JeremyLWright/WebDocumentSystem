@@ -15,6 +15,7 @@
     <EntitySet Name="UserLogs" EntityType="WebDocModel.Store.UserLogs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SecurityQuestions" EntityType="WebDocModel.Store.SecurityQuestions" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Shares" EntityType="WebDocModel.Store.Shares" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GroupShares" EntityType="WebDocModel.Store.GroupShares" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_DocumentData_Document" Association="WebDocModel.Store.FK_DocumentData_Document">
       <End Role="Documents" EntitySet="Documents" />
       <End Role="DocumentDatas" EntitySet="DocumentDatas" />
@@ -58,6 +59,10 @@
     <AssociationSet Name="ShareWithUser" Association="WebDocModel.Store.ShareWithUser">
       <End Role="Share" EntitySet="Shares" />
       <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="GroupShareDocument" Association="WebDocModel.Store.GroupShareDocument">
+      <End Role="GroupShare" EntitySet="GroupShares" />
+      <End Role="Document" EntitySet="Documents" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="DocumentDatas">
@@ -153,6 +158,16 @@
     <Property Name="Permission" Type="int" Nullable="false" />
     <Property Name="Document_Id" Type="int" Nullable="false" />
     <Property Name="User_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GroupShares">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Permission" Type="int" Nullable="false" />
+    <Property Name="Created" Type="datetime" Nullable="false" />
+    <Property Name="Group" Type="int" Nullable="false" />
+    <Property Name="Document_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_DocumentData_Document">
     <End Role="Documents" Type="WebDocModel.Store.Documents" Multiplicity="1">
@@ -292,6 +307,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="GroupShareDocument">
+    <End Role="GroupShare" Type="WebDocModel.Store.GroupShares" Multiplicity="*" />
+    <End Role="Document" Type="WebDocModel.Store.Documents" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GroupShare">
+        <PropertyRef Name="Document_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -350,6 +377,11 @@
             <End Role="Share" EntitySet="Shares" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="GroupShares" EntityType="WebDocModel.GroupShare" />
+          <AssociationSet Name="GroupShareDocument" Association="WebDocModel.GroupShareDocument">
+            <End Role="GroupShare" EntitySet="GroupShares" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="DocumentData">
           <Key>
@@ -402,6 +434,7 @@
           <Property Type="Int32" Name="UserId" Nullable="false" />
           <NavigationProperty Name="Shares" Relationship="WebDocModel.ShareDocument" FromRole="Document" ToRole="Share" />
           <Property Type="Boolean" Name="Deleted" Nullable="false" DefaultValue="False" />
+          <NavigationProperty Name="GroupShares" Relationship="WebDocModel.GroupShareDocument" FromRole="Document" ToRole="GroupShare" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -551,6 +584,20 @@
           <End Type="WebDocModel.Share" Role="Share" Multiplicity="*" />
           <End Type="WebDocModel.User" Role="User" Multiplicity="1" />
         </Association>
+        <EntityType Name="GroupShare">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Permission" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" />
+          <Property Type="Int32" Name="Group" Nullable="false" />
+          <NavigationProperty Name="Document" Relationship="WebDocModel.GroupShareDocument" FromRole="GroupShare" ToRole="Document" />
+        </EntityType>
+        <Association Name="GroupShareDocument">
+          <End Type="WebDocModel.GroupShare" Role="GroupShare" Multiplicity="*" />
+          <End Type="WebDocModel.Document" Role="Document" Multiplicity="1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -654,6 +701,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="GroupShares">
+      <EntityTypeMapping TypeName="IsTypeOf(WebDocModel.GroupShare)">
+        <MappingFragment StoreEntitySet="GroupShares">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Permission" ColumnName="Permission" />
+          <ScalarProperty Name="Created" ColumnName="Created" />
+          <ScalarProperty Name="Group" ColumnName="Group" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="user_accounts2SecurityQuestions" TypeName="WebDocModel.user_accounts2SecurityQuestions" StoreEntitySet="Users">
       <EndProperty Name="SecurityQuestions">
         <ScalarProperty Name="Id" ColumnName="SecurityQuestion_Id" />
@@ -702,6 +759,14 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
+    <AssociationSetMapping Name="GroupShareDocument" TypeName="WebDocModel.GroupShareDocument" StoreEntitySet="GroupShares">
+      <EndProperty Name="Document">
+        <ScalarProperty Name="Id" ColumnName="Document_Id" />
+      </EndProperty>
+      <EndProperty Name="GroupShare">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
@@ -737,18 +802,18 @@
           <ConnectorPoint PointX="2" PointY="7.6545266588846834" />
           <ConnectorPoint PointX="4.3033866666666674" PointY="7.6545266588846825" />
           <ConnectorPoint PointX="4.4700533333333334" PointY="7.6545266588846834" />
-          <ConnectorPoint PointX="4.5026066666666669" PointY="7.6545266588846825" />
-          <ConnectorPoint PointX="4.6692733333333329" PointY="7.6545266588846834" />
+          <ConnectorPoint PointX="4.5162791666666671" PointY="7.6545266588846825" />
+          <ConnectorPoint PointX="4.6829458333333331" PointY="7.6545266588846834" />
           <ConnectorPoint PointX="5.2194041666666671" PointY="7.6545266588846825" />
           <ConnectorPoint PointX="5.3860708333333331" PointY="7.6545266588846834" />
           <ConnectorPoint PointX="6.75" PointY="7.6545266588846834" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.FK_DocumentNotes_Document" ManuallyRouted="false">
-          <ConnectorPoint PointX="2" PointY="7.2614654271443673" />
-          <ConnectorPoint PointX="4.3033866666666674" PointY="7.2614654271443664" />
-          <ConnectorPoint PointX="4.4700533333333334" PointY="7.2614654271443673" />
-          <ConnectorPoint PointX="4.58594" PointY="7.2614654271443673" />
-          <ConnectorPoint PointX="4.58594" PointY="8.125" />
+          <ConnectorPoint PointX="2" PointY="7.3222054909006751" />
+          <ConnectorPoint PointX="4.3033866666666674" PointY="7.3222054909006742" />
+          <ConnectorPoint PointX="4.4700533333333334" PointY="7.3222054909006751" />
+          <ConnectorPoint PointX="4.5996125" PointY="7.3222054909006751" />
+          <ConnectorPoint PointX="4.5996125" PointY="8.125" />
         </AssociationConnector>
         <EntityTypeShape EntityType="WebDocModel.SecurityQuestions" Width="1.5" PointX="6.875" PointY="0.5" Height="1.59568359375" />
         <AssociationConnector Association="WebDocModel.user_accounts2SecurityQuestions">
@@ -780,15 +845,27 @@
           <ConnectorPoint PointX="1.25" PointY="2.451650390625" />
           <ConnectorPoint PointX="1.25" PointY="4.5" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="WebDocModel.Share" Width="1.5" PointX="0.5" PointY="8.5" Height="1.9802864583333335" />
+        <EntityTypeShape EntityType="WebDocModel.Share" Width="1.5" PointX="0.5" PointY="9" Height="1.9802864583333335" />
         <AssociationConnector Association="WebDocModel.ShareDocument">
-          <ConnectorPoint PointX="1.25" PointY="8.5" />
-          <ConnectorPoint PointX="1.25" PointY="8.0186979166666656" />
+          <ConnectorPoint PointX="1.25" PointY="9" />
+          <ConnectorPoint PointX="1.25" PointY="8.2109993489583335" />
         </AssociationConnector>
         <AssociationConnector Association="WebDocModel.ShareWithUser">
-          <ConnectorPoint PointX="2" PointY="10.420187174479166" />
-          <ConnectorPoint PointX="5.3027375" PointY="10.420187174479166" />
+          <ConnectorPoint PointX="2" PointY="10.670187174479166" />
+          <ConnectorPoint PointX="5.3027375" PointY="10.670187174479166" />
           <ConnectorPoint PointX="5.3027375" PointY="4.40330078125" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="WebDocModel.GroupShare" Width="1.5" PointX="5.75" PointY="9.25" Height="1.9802864583333317" />
+        <AssociationConnector Association="WebDocModel.GroupShareDocument">
+          <ConnectorPoint PointX="5.84375" PointY="9.25" />
+          <ConnectorPoint PointX="5.84375" PointY="8.0237939453125" />
+          <ConnectorPoint PointX="5.3860708333333331" PointY="8.0237939453125" />
+          <ConnectorPoint PointX="5.2194041666666671" PointY="8.0237939453125" />
+          <ConnectorPoint PointX="4.6829458333333331" PointY="8.0237939453125" />
+          <ConnectorPoint PointX="4.5162791666666671" PointY="8.0237939453125" />
+          <ConnectorPoint PointX="4.4700533333333334" PointY="8.0237939453125" />
+          <ConnectorPoint PointX="4.3033866666666674" PointY="8.0237939453125" />
+          <ConnectorPoint PointX="2" PointY="8.0237939453125" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

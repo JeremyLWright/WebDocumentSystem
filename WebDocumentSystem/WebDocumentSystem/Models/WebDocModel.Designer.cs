@@ -29,6 +29,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("WebDocModel", "UserDocument", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.Document), true)]
 [assembly: EdmRelationshipAttribute("WebDocModel", "ShareDocument", "Share", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.Share), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.Document))]
 [assembly: EdmRelationshipAttribute("WebDocModel", "ShareWithUser", "Share", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.Share), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.User))]
+[assembly: EdmRelationshipAttribute("WebDocModel", "GroupShareDocument", "GroupShare", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(WebDocumentSystem.Models.GroupShare), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(WebDocumentSystem.Models.Document))]
 
 #endregion
 
@@ -223,6 +224,22 @@ namespace WebDocumentSystem.Models
             }
         }
         private ObjectSet<Share> _Shares;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<GroupShare> GroupShares
+        {
+            get
+            {
+                if ((_GroupShares == null))
+                {
+                    _GroupShares = base.CreateObjectSet<GroupShare>("GroupShares");
+                }
+                return _GroupShares;
+            }
+        }
+        private ObjectSet<GroupShare> _GroupShares;
 
         #endregion
         #region AddTo Methods
@@ -297,6 +314,14 @@ namespace WebDocumentSystem.Models
         public void AddToShares(Share share)
         {
             base.AddObject("Shares", share);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the GroupShares EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToGroupShares(GroupShare groupShare)
+        {
+            base.AddObject("GroupShares", groupShare);
         }
 
         #endregion
@@ -830,6 +855,28 @@ namespace WebDocumentSystem.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Share>("WebDocModel.ShareDocument", "Share", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocModel", "GroupShareDocument", "GroupShare")]
+        public EntityCollection<GroupShare> GroupShares
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GroupShare>("WebDocModel.GroupShareDocument", "GroupShare");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GroupShare>("WebDocModel.GroupShareDocument", "GroupShare", value);
                 }
             }
         }
@@ -1472,6 +1519,180 @@ namespace WebDocumentSystem.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("WebDocModel.DocumentNoteUser", "User", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WebDocModel", Name="GroupShare")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class GroupShare : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new GroupShare object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="permission">Initial value of the Permission property.</param>
+        /// <param name="created">Initial value of the Created property.</param>
+        /// <param name="group">Initial value of the Group property.</param>
+        public static GroupShare CreateGroupShare(global::System.Int32 id, global::System.Int32 permission, global::System.DateTime created, global::System.Int32 group)
+        {
+            GroupShare groupShare = new GroupShare();
+            groupShare.Id = id;
+            groupShare.Permission = permission;
+            groupShare.Created = created;
+            groupShare.Group = group;
+            return groupShare;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Permission
+        {
+            get
+            {
+                return _Permission;
+            }
+            set
+            {
+                OnPermissionChanging(value);
+                ReportPropertyChanging("Permission");
+                _Permission = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Permission");
+                OnPermissionChanged();
+            }
+        }
+        private global::System.Int32 _Permission;
+        partial void OnPermissionChanging(global::System.Int32 value);
+        partial void OnPermissionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Created
+        {
+            get
+            {
+                return _Created;
+            }
+            set
+            {
+                OnCreatedChanging(value);
+                ReportPropertyChanging("Created");
+                _Created = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Created");
+                OnCreatedChanged();
+            }
+        }
+        private global::System.DateTime _Created;
+        partial void OnCreatedChanging(global::System.DateTime value);
+        partial void OnCreatedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Group
+        {
+            get
+            {
+                return _Group;
+            }
+            set
+            {
+                OnGroupChanging(value);
+                ReportPropertyChanging("Group");
+                _Group = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Group");
+                OnGroupChanged();
+            }
+        }
+        private global::System.Int32 _Group;
+        partial void OnGroupChanging(global::System.Int32 value);
+        partial void OnGroupChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WebDocModel", "GroupShareDocument", "Document")]
+        public Document Document
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocModel.GroupShareDocument", "Document").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocModel.GroupShareDocument", "Document").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Document> DocumentReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Document>("WebDocModel.GroupShareDocument", "Document");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Document>("WebDocModel.GroupShareDocument", "Document", value);
                 }
             }
         }

@@ -27,7 +27,13 @@ namespace WebDocumentSystem.Document
                                descending
                                select c.Document);
 
-            return documents.Union(shared_docs).OrderBy(x => x.LastModified);
+            var group_shared_docs = (from c in ctx.GroupShares
+                                     where c.Group == user.Group
+                                     orderby c.Created
+                                     descending
+                                     select c.Document);
+
+            return documents.Union(shared_docs).Union(group_shared_docs).OrderBy(x => x.LastModified);
         }
 
         public static bool IsSharedDoc(Models.Document doc)
@@ -49,13 +55,21 @@ namespace WebDocumentSystem.Document
                                        where c.Document.Id == doc.Id //Is there a document
                                        && c.User.Id == user.Id       //with this user
                                        select c).FirstOrDefault(); // Get First one
-                    if (sharerecord == null)
+                    var grouprecord = (from c in ctx.GroupShares
+                                       where c.Document.Id == doc.Id
+                                       && c.Group == user.Group
+                                       select c).FirstOrDefault();
+                    if (sharerecord != null)
                     {
-                        throw new InvalidDocumentAccess("User " + HttpContext.Current.User.Identity.Name + " does not have access to " + doc.Id);
+                        return (Share.PermissionLevel)sharerecord.Permission;
+                    }
+                    else if (grouprecord != null)
+                    {
+                        return (Share.PermissionLevel)grouprecord.Permission;
                     }
                     else
                     {
-                        return (Share.PermissionLevel)sharerecord.Permission;
+                        throw new InvalidDocumentAccess("User " + HttpContext.Current.User.Identity.Name + " does not have access to " + doc.Id);
                     }
                 }
                 else
@@ -68,11 +82,15 @@ namespace WebDocumentSystem.Document
         public static bool CanAction(Models.Document doc, Models.Document.DocumentActions desiredAction)
         {
             var allowed = false;
+
             switch(GetPermissionLevel(doc))
             {
                 case Share.PermissionLevel.Download:
                     switch (desiredAction)
                     {
+                        case Models.Document.DocumentActions.Lock:
+                            allowed = false;
+                            break;
                         case Models.Document.DocumentActions.AddNote:
                             allowed = false;
                             break;
@@ -102,6 +120,9 @@ namespace WebDocumentSystem.Document
                 case Share.PermissionLevel.Read:
                     switch (desiredAction)
                     {
+                        case Models.Document.DocumentActions.Lock:
+                            allowed = false;
+                            break;
                         case Models.Document.DocumentActions.AddNote:
                             allowed = false;
                             break;
@@ -109,7 +130,7 @@ namespace WebDocumentSystem.Document
                             allowed = false;
                             break;
                         case Models.Document.DocumentActions.Download:
-                            allowed = false;
+                            allowed = true;
                             break;
                         case Models.Document.DocumentActions.Read:
                             allowed = true;
@@ -128,6 +149,9 @@ namespace WebDocumentSystem.Document
                 case Share.PermissionLevel.Update:
                     switch (desiredAction)
                     {
+                        case Models.Document.DocumentActions.Lock:
+                            allowed = true;
+                            break;
                         case Models.Document.DocumentActions.AddNote:
                             allowed = true;
                             break;
@@ -152,6 +176,29 @@ namespace WebDocumentSystem.Document
                     }
                     break;
             }
+
+            //If the user has permission, he must ALSO have the lock to perform some actions
+            //If we already denied the user, then fine.
+            if (allowed == true && doc.IsLocked)
+            {
+                using(var ctx = new WebDocEntities())
+                {
+                    var currentUser = (from c in ctx.Users
+                                       where c.Name == HttpContext.Current.User.Identity.Name
+                                       select c).FirstOrDefault();
+                    if (currentUser == null)
+                    {
+                        allowed = false; //Who is the lock holder?... error but I'm tired now
+                    }
+                    else if (currentUser.Id != doc.LockHolder) //Am I the lock holder?
+                    {
+                        allowed = false; //Nope!
+                    }
+                }
+            }
+
+
+
             return allowed;
         }
     }

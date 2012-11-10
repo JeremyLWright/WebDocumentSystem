@@ -51,7 +51,7 @@ namespace WebDocumentSystem.Document
                 document = (from c in ctx.Documents
                                 where c.Id == documentId
                                 select c).First();
-                document_message.Message = "Document Viewed by " + Enum.GetName(typeof(Share.PermissionLevel), DocumentHelper.GetPermissionLevel(document)) + " User.";
+                document_message.Message = "Document Viewed by " + HttpContext.Current.User.Identity.Name;
                 
                 try
                 {
